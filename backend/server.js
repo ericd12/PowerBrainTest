@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/cruddemo', {
+mongoose.connect('mongodb://127.0.0.1:27017/powerbrain', {
   useNewUrlParser: true,
   useCreateIndex: true
 });
@@ -20,11 +20,11 @@ connection.once('open',() => {
     console.log("db connection created successfully");
 });
 
-const exercisesRouter = require('./routes/exercises');
-const usersRouter = require('./routes/users');
+const elementsRouter = require('./routes/elements');
+{/*const usersRouter = require('./routes/users'); */}
 
-app.use('/exercises', exercisesRouter);
-app.use('/users', usersRouter);
+app.use('/elements', elementsRouter);
+{/*app.use('/users', usersRouter);*/}
 
 app.listen(port, () => {
     console.log('Server is running on port: ' + port);
