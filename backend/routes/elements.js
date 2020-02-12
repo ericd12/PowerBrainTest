@@ -9,15 +9,20 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
     const elementnumber = req.body.elementnumber;
-
+    const elementlabel = req.body.elementlabel;
+    const elementDescription = req.body.elementDescription;
 
     const newElement = new Element({
-      elementnumber
+      elementnumber,
+      elementlabel,
+      elementDescription
     }); 
 
     newElement.save()
-    .then(() => res.json('Element added!'))
+    .then(() => res.json('Element added!' ))
     .catch(err => res.status(400).json('Error: ' + err));
+
+    
 });
 
 router.route('/:id').get((req, res) => {
@@ -36,7 +41,8 @@ router.route('/update/:id').post((req, res) => {
     Element.findById(req.params.id)
       .then(element => {
         element.elementnumber = req.body.elementnumber;
-
+        element.elementlabel = req.body.elementlabel;
+        element.elementDescription = req.body.elementDescription;
   
         element.save()
           .then(() => res.json('Element updated!'))

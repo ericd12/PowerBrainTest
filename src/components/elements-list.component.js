@@ -5,10 +5,12 @@ import axios from 'axios';
 const Elements = props => (
     <tr>
         <td>{props.element.elementnumber}</td>
-        {/* <td>{props.element.description}</td>
-        <td>{props.element.duration}</td> */}
+        <td>{props.element.elementlabel}</td>
+        <td>{props.element.elementDescription}</td>
+        {/* <td>{props.element.duration}</td> */}
         <td>
-            <Link to={"/edit/"+props.element._id}>edit</Link> | <a href="#" onClick={() => { props.deleteElement(props.element._id) }}>delete</a>
+            <Link to={"/elements/edit/"+props.element._id}>edit</Link> | {/*eslint-disable-next-line */}            
+            <a href="#" onClick={() => { props.deleteElement(props.element._id) }}>delete</a>
         </td>
     </tr>
 )
@@ -34,7 +36,8 @@ export default class ElementsList extends Component {
     deleteElement(id) {
         axios.delete('http://localhost:5000/elements/' + id)
           .then(response => { console.log(response.data)});
-    
+        alert('deleted');
+
         this.setState({
           elements: this.state.elements.filter(el => el._id !== id)
         })
@@ -54,8 +57,8 @@ export default class ElementsList extends Component {
                 <thead className="thead-light">
                 <tr>
                     <th>Username</th>
+                    <th>Label</th>
                     <th>Description</th>
-                    <th>Duration</th>
                     <th>Actions</th>
                 </tr>
                 </thead>

@@ -3,8 +3,9 @@ const Schema = mongoose.Schema;
 
 
 const elementSchema = new Schema({
-    elementnumber: {type: String}
-
+    elementnumber: {type: String, required: true},
+    elementlabel: {type: String, required: true},
+    elementDescription: {type: String, required: true}
 }, {
     timestamps: true,
 });

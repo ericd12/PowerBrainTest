@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 
 export default class CreateElement extends Component {
@@ -8,30 +8,34 @@ export default class CreateElement extends Component {
         super(props);
         
         this.onChangeElementNumber = this.onChangeElementNumber.bind(this);
+        this.onChangeElementLabel = this.onChangeElementLabel.bind(this);
+        this.onChangeElementDescription = this.onChangeElementDescription.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            elementnumber: ''
-
+            elementnumber: '',
+            elementlabel: '',
+            elementDescription:''
         }
     }
 
-    // componentDidMount(){
-    //     axios.get('http://localhost:5000/users/')
-    //         .then(response => {
-    //             if(response.data.length > 0){
-    //                 this.setState({
-    //                     users: response.data.map(user => user.username),
-    //                     username: response.data[0].username
-    //                   })
-    //             }
-    //         })
-    // }
    
     onChangeElementNumber(e) {
       this.setState({
         elementnumber: e.target.value
-      })
+      });
+    }
+
+    onChangeElementLabel(e) {
+      this.setState({
+        elementlabel: e.target.value
+      });
+    }
+
+    onChangeElementDescription(e) {
+      this.setState({
+        elementDescription: e.target.value
+      });
     }
   
     onSubmit(e){
@@ -39,6 +43,8 @@ export default class CreateElement extends Component {
 
       const element = {
         elementnumber: this.state.elementnumber,
+        elementlabel: this.state.elementlabel,
+        elementDescription: this.state.elementDescription
       }
       console.log(element);
 
@@ -47,10 +53,11 @@ export default class CreateElement extends Component {
 
       // window.location = '/';
            
-
-  
+ 
       this.setState({
-        elementnumber: ''
+        elementnumber: '',
+        elementlabel:'',
+        elementDescription: ''
       });
     }
 
@@ -61,27 +68,43 @@ export default class CreateElement extends Component {
           
 
           <div>               
-            <h1 className= 'text-center'>Create a New Entry </h1>
+            <h1 className= 'text-center'>Create a New Element</h1>
             <div className="jumbotron">
-              <form onSubmit={this.onSubmit} id="createForm"> 
-                <div className="form-row">
+              <form onSubmit={this.onSubmit} /*id="createForm" */ > 
+              <div className="form-row" >
                   <div className="form-group col">
                     <label htmlFor="number">Number</label>		
-                    <input className="form-control" type="text" placeholder="add #" 
+                    <input type="text"
+                      required
+                      className="form-control" 
+                      placeholder="add number"
                       value = {this.state.elementnumber}
                       onChange={this.onChangeElementNumber}
                     />
                   </div>
-                  {/* <div className="form-group col">
-                    <label htmlFor="label">Label</label>		
-                    <input className="form-control" type="text" name="label" id="label" placeholder="add label" />
-                  </div>
-                </div>
-                <div className="form-row">
                   <div className="form-group col">
-                    <label htmlFor="description">Description</label>		
-                    <input className="form-control" type="text" name="description" id="description" placeholder="add description" />
+                    <label htmlFor="label">Label</label>		
+                    <input type="text"
+                      className="form-control" 
+                      placeholder="add label" /* name="label" id="label" */
+                      value = {this.state.elementlabel}
+                      onChange={this.onChangeElementLabel}
+                    />
                   </div>
+               </div> 
+              <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="description">Description</label>		
+                    <input type="text"
+                      required
+                      className="form-control"
+                      placeholder="add description"
+                      value = {this.state.elementDescription}
+                      onChange={this.onChangeElementDescription}
+                    />
+                  </div>
+              </div>
+                    {/*
                   <div className="form-group col">		
                     <label htmlFor="format">Format</label>	
                     <select className="form-control" name="format" id="format">	
@@ -159,13 +182,17 @@ export default class CreateElement extends Component {
                   <input className="form-control" type="text" name="vimeoLink" id="vimeoLink" placeholder="insert address" />
                 </div>                 
               */}                       
-              </div>
+              
 
-              <div className="text-center">
+              {/* <div className="text-center">
                       <button type="submit" value="createElement" className="btn btn-lg btn-primary btn-center ">Submit!</button>
               </div> 
               <Link to={'./'}>Go Back</Link>
-            </form>	
+            </form>	 */}
+              <div className="form-group">
+                <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
+              </div>
+            </form>
           </div>            
           </div>   
           
