@@ -7,7 +7,14 @@ const Elements = props => (
         <td>{props.element.elementnumber}</td>
         <td>{props.element.elementlabel}</td>
         <td>{props.element.elementDescription}</td>
-        {/* <td>{props.element.duration}</td> */}
+        <td>{props.element.elementFormat}</td>
+        <td>{props.element.elementDuration}</td>
+        <td>{props.element.elementCategory}</td>
+        <td>{props.element.elementCategory}</td>
+        <td>{props.element.elementCategory}</td>
+        <td>{props.element.elementCategory}</td>
+        <td>{props.element.elementCategory}</td>
+        <td>{props.element.elementCategory}</td>
         <td>
             <Link to={"/elements/edit/"+props.element._id}>edit</Link> | {/*eslint-disable-next-line */}            
             <a href="#" onClick={() => { props.deleteElement(props.element._id) }}>delete</a>
@@ -55,15 +62,23 @@ export default class ElementsList extends Component {
             <h3>Elements</h3>
             <table className="table">
                 <thead className="thead-light">
-                <tr>
-                    <th>Username</th>
-                    <th>Label</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
+                    <tr>
+                        <th>Number</th>
+                        <th>Label</th>
+                        <th>Description</th>
+                        <th>Format</th>
+                        <th>Duration</th>
+                        <th>Category</th>
+                        <th>Subcategory</th>
+                        <th>Market</th>
+                        <th>Cognitive Rating</th>
+                        <th>Physical Rating</th>
+                        <th>Vimeo Link</th>
+                        <th>Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
-                { this.elementList() }
+                    { this.elementList() }
                 </tbody>
             </table>
             </div>

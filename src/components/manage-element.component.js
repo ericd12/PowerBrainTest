@@ -5,15 +5,21 @@ export default class ManageElement extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeElementNumber = this.onChangeElementNumber.bind(this);
-    this.onChangeElementLabel = this.onChangeElementLabel.bind(this);
+    this.onChangeElementNumber      = this.onChangeElementNumber.bind(this);
+    this.onChangeElementLabel       = this.onChangeElementLabel.bind(this);
     this.onChangeElementDescription = this.onChangeElementDescription.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.onChangeElementFormat      = this.onChangeElementFormat.bind(this);
+    this.onChangeElementDuration    = this.onChangeElementDuration.bind(this);
+    this.onChangeElementCategory    = this.onChangeElementCategory.bind(this);
+    this.onSubmit                   = this.onSubmit.bind(this);
 
     this.state = {
       elementnumber: '',
       elementlabel: '',
-      elementDescription:''
+      elementDescription:'',
+      elementFormat: ''     ,      
+      elementDuration: '',
+      elementCategory: ''
     }
   }
 
@@ -23,7 +29,10 @@ export default class ManageElement extends Component {
         this.setState({
           elementnumber: response.data.elementnumber,
           elementlabel: response.data.elementlabel,
-          elementDescription: response.data.elementDescription
+          elementDescription: response.data.elementDescription,
+          elementFormat: response.data.elementFormat,
+          elementDuration: response.data.elementDuration,
+          elementCategory: response.data.elementCategory
         })   
       })
       .catch(function (error) {
@@ -49,13 +58,34 @@ export default class ManageElement extends Component {
     });
   }
 
+  onChangeElementFormat(e) {
+    this.setState({
+      elementFormat: e.target.value
+    });
+  }
+  
+  onChangeElementDuration(e) {
+    this.setState({
+      elementDuration: e.target.value
+    });
+  }
+  
+  onChangeElementCategory(e) {
+    this.setState({
+      elementCategory: e.target.value
+    });
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
     const element = {
       elementnumber: this.state.elementnumber,
       elementlabel: this.state.elementlabel,
-      elementDescription: this.state.elementDescription      
+      elementDescription: this.state.elementDescription,
+      elementFormat: this.state.elementFormat ,
+      elementDuration:this.state.elementDuration, 
+      elementCategory: this.state.elementCategory
     }
 
     console.log(element);
@@ -71,8 +101,8 @@ export default class ManageElement extends Component {
     <div>
       <h3>Manage Elements</h3>
       <form onSubmit={this.onSubmit}>
-        {/*<div className="form-group row"> */}
-          <div className="form-group"> 
+        <div className="form-group row">
+          <div className="form-group col"> 
             <label>Number</label>		          
             <input type="text"
               required
@@ -82,7 +112,7 @@ export default class ManageElement extends Component {
               onChange={this.onChangeElementNumber}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group col">
             <label>Label</label>	
             <input type="text"
               required
@@ -92,7 +122,9 @@ export default class ManageElement extends Component {
               onChange={this.onChangeElementLabel}
             />
           </div>
-           <div className="form-group">
+        </div>
+        <div className="form-group row">
+          <div className="form-group col">
             <label>Label</label>	
             <input type="text"
               required
@@ -101,21 +133,50 @@ export default class ManageElement extends Component {
               value = {this.state.elementDescription}
               onChange={this.onChangeElementDescription}
             />
-            </div>
-            {/* <div className="form-group col">
-              <label htmlFor="description">Description</label>	
-              <input  type="text"
-                required
-                className="form-control"
-                name="description" 
-                id="description" 
-                placeholder="add description"
-                value={this.state.description}
-                onChange={this.onChangeDescription}
-              />
-            </div> */}
-
-      {/*</div> */}
+          </div>
+          <div className="form-group col">		
+            <label htmlFor="format">Format</label>	
+            <select className="form-control" 
+              required
+              name="format" 
+              id="format"
+              value = {this.state.elementFormat}
+              onChange={this.onChangeElementFormat}>
+              <option defaultValue>Choose...</option>
+              <option value="1">Video</option>
+              <option value="2">#2</option>
+              <option value="3">#3</option>
+            </select>
+          </div>	
+        </div>
+        <div className="form-group row">
+          <div className="form-group col">
+            <label htmlFor="duration">Duration</label>		
+            <input type="text"
+              required
+              className="form-control"
+              name="duration" 
+              id="duration" 
+              placeholder="min:secs"
+              value = {this.state.elementDuration}
+              onChange={this.onChangeElementDuration}
+            />
+          </div>                    
+          <div className="form-group col">		
+            <label htmlFor="category">Category</label>	
+            <select className="form-control" 
+              required
+              name="category" 
+              id="category"
+              value = {this.state.elementCategory}
+              onChange={this.onChangeElementCategory}>
+              <option defaultValue>Choose...</option>
+              <option value="1">Timing</option>
+              <option value="2">#</option>
+              <option value="3">#</option>
+            </select>
+          </div>	
+        </div>
 
         <div className="form-group">
           <input type="submit" value="Update Element" className="btn btn-primary" />

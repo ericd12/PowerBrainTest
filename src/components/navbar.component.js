@@ -35,7 +35,7 @@ export default class NavbarMain extends Component {
       // </nav>
 
 
-      <Container>
+      // <Container>
           <Navbar bg="light" expand="lg">
             <Navbar.Brand href="/">
               <img
@@ -67,7 +67,7 @@ export default class NavbarMain extends Component {
               </Nav>
             </Navbar.Collapse>
           </Navbar>
-        </Container>
+    //  </Container> 
     );
   }
 }

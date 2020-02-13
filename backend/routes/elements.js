@@ -11,18 +11,23 @@ router.route('/add').post((req, res) => {
     const elementnumber = req.body.elementnumber;
     const elementlabel = req.body.elementlabel;
     const elementDescription = req.body.elementDescription;
+    const elementFormat = req.body.elementFormat;
+    const elementDuration = req.body.elementDuration;
+    const elementCategory = req.body.elementCategory;
 
     const newElement = new Element({
       elementnumber,
       elementlabel,
-      elementDescription
+      elementDescription,
+      elementFormat,
+      elementDuration,
+      elementCategory
     }); 
 
     newElement.save()
     .then(() => res.json('Element added!' ))
     .catch(err => res.status(400).json('Error: ' + err));
-
-    
+   
 });
 
 router.route('/:id').get((req, res) => {
@@ -43,6 +48,9 @@ router.route('/update/:id').post((req, res) => {
         element.elementnumber = req.body.elementnumber;
         element.elementlabel = req.body.elementlabel;
         element.elementDescription = req.body.elementDescription;
+        element.elementFormat = req.body.elementFormat;
+        element.elementDuration = req.body.elementDuration;
+        element.elementCategory = req.body.elementCategory;
   
         element.save()
           .then(() => res.json('Element updated!'))
