@@ -34,7 +34,7 @@ export default class CreateElement extends Component {
           elementLink: ''
       }
     }
-       
+
     onChangeElementNumber(e) {
       this.setState({
         elementnumber: e.target.value
@@ -146,7 +146,7 @@ export default class CreateElement extends Component {
           
 
           <div className="container">               
-            <h1 className= 'text-center'>Create a New Element</h1>
+            <h2 className= 'text-center'>Create a New Element</h2>
             <div className="jumbotron">
               <form onSubmit={this.onSubmit} /*id="createForm" */ > 
               <div className="form-row" >

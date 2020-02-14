@@ -17,7 +17,7 @@ const Elements = props => (
         <td>{props.element.elementLink}</td>
         <td>
             <Link to={"/elements/edit/"+props.element._id}><button className="btn btn-sm btn-outline-warning">edit</button></Link> | {/*eslint-disable-next-line */}            
-            <button className="btn text-center btn-sm btn-outline-danger" href="#" onClick={() => { props.deleteElement(props.element._id) }}>delete</button>
+            <button className="btn btn-sm btn-outline-danger" href="#" onClick={() => { props.deleteElement(props.element._id) }}>delete</button>
         </td>
     </tr>
 )
