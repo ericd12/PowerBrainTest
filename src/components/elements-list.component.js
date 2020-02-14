@@ -10,14 +10,14 @@ const Elements = props => (
         <td>{props.element.elementFormat}</td>
         <td>{props.element.elementDuration}</td>
         <td>{props.element.elementCategory}</td>
-        <td>{props.element.elementCategory}</td>
-        <td>{props.element.elementCategory}</td>
-        <td>{props.element.elementCategory}</td>
-        <td>{props.element.elementCategory}</td>
-        <td>{props.element.elementCategory}</td>
+        <td>{props.element.elementSubCategory}</td>
+        <td>{props.element.elementMarket}</td>
+        <td>{props.element.elementCogRating}</td>
+        <td>{props.element.elementPhysRating}</td>
+        <td>{props.element.elementLink}</td>
         <td>
-            <Link to={"/elements/edit/"+props.element._id}>edit</Link> | {/*eslint-disable-next-line */}            
-            <a href="#" onClick={() => { props.deleteElement(props.element._id) }}>delete</a>
+            <Link to={"/elements/edit/"+props.element._id}><button className="btn btn-sm btn-outline-warning">edit</button></Link> | {/*eslint-disable-next-line */}            
+            <button className="btn text-center btn-sm btn-outline-danger" href="#" onClick={() => { props.deleteElement(props.element._id) }}>delete</button>
         </td>
     </tr>
 )
@@ -74,7 +74,7 @@ export default class ElementsList extends Component {
                         <th>Cognitive Rating</th>
                         <th>Physical Rating</th>
                         <th>Vimeo Link</th>
-                        <th>Actions</th>
+                        <th id="actions">Actions</th>
                     </tr>
                 </thead>
                 <tbody>

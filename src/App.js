@@ -11,7 +11,7 @@ import ManageElement from "./components/manage-element.component";
 function App() {
   return (
     <Router>
-      <div className='container'>
+      <div id="App">
       <NavbarMain />
       <br />
       {/* <Route path='/elements' exact component = {ElementsList} /> */}

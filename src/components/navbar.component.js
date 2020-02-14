@@ -35,7 +35,7 @@ export default class NavbarMain extends Component {
       // </nav>
 
 
-      // <Container>
+      <Container>
           <Navbar bg="light" expand="lg">
             <Navbar.Brand href="/">
               <img
@@ -54,7 +54,7 @@ export default class NavbarMain extends Component {
                   <NavDropdown.Item href="/elements/create">Create Element</NavDropdown.Item>
                   <NavDropdown.Item href="/elements">Manage Elements</NavDropdown.Item>
                 </NavDropdown>
-                <NavDropdown title="Tracks" id="element-dropdown">
+                <NavDropdown title="Tracks" id="track-dropdown">
                   <NavDropdown.Item href="/elements/create">Create Track</NavDropdown.Item>
                   <NavDropdown.Item href="/elements/edit/:id">Edit Track</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.3" disabled>Delete Track</NavDropdown.Item>
@@ -67,7 +67,7 @@ export default class NavbarMain extends Component {
               </Nav>
             </Navbar.Collapse>
           </Navbar>
-    //  </Container> 
+      </Container> 
     );
   }
 }

@@ -11,6 +11,11 @@ export default class ManageElement extends Component {
     this.onChangeElementFormat      = this.onChangeElementFormat.bind(this);
     this.onChangeElementDuration    = this.onChangeElementDuration.bind(this);
     this.onChangeElementCategory    = this.onChangeElementCategory.bind(this);
+    this.onChangeElementSubCategory = this.onChangeElementSubCategory.bind(this);
+    this.onChangeElementMarket      = this.onChangeElementMarket.bind(this);
+    this.onChangeElementCogRating   = this.onChangeElementCogRating.bind(this);
+    this.onChangeElementPhysRating  = this.onChangeElementPhysRating.bind(this);
+    this.onChangeElementLink        = this.onChangeElementLink.bind(this);
     this.onSubmit                   = this.onSubmit.bind(this);
 
     this.state = {
@@ -19,7 +24,12 @@ export default class ManageElement extends Component {
       elementDescription:'',
       elementFormat: ''     ,      
       elementDuration: '',
-      elementCategory: ''
+      elementCategory: '',
+      elementSubCategory: '',
+      elementMarket: '',
+      elementCogRating: '',
+      elementPhysRating: '',
+      elementLink: ''
     }
   }
 
@@ -32,7 +42,12 @@ export default class ManageElement extends Component {
           elementDescription: response.data.elementDescription,
           elementFormat: response.data.elementFormat,
           elementDuration: response.data.elementDuration,
-          elementCategory: response.data.elementCategory
+          elementCategory: response.data.elementCategory,
+          elementSubCategory: response.data.elementSubCategory,
+          elementMarket: response.data.elementMarket,
+          elementCogRating: response.data.elementCogRating,
+          elementPhysRating: response.data.elementPhysRating,
+          elementLink: response.data.elementLink
         })   
       })
       .catch(function (error) {
@@ -76,6 +91,36 @@ export default class ManageElement extends Component {
     });
   }
 
+  onChangeElementSubCategory(e) {
+    this.setState({
+      elementSubCategory: e.target.value
+    });
+  }
+
+  onChangeElementMarket(e) {
+    this.setState({
+      elementMarket: e.target.value
+    });
+  }
+
+  onChangeElementCogRating(e) {
+    this.setState({
+      elementCogRating: e.target.value
+    });
+  }
+
+  onChangeElementPhysRating(e) {
+    this.setState({
+      elementPhysRating: e.target.value
+    });
+  }
+
+  onChangeElementLink(e) {
+    this.setState({
+      elementLink: e.target.value
+    });
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
@@ -85,7 +130,12 @@ export default class ManageElement extends Component {
       elementDescription: this.state.elementDescription,
       elementFormat: this.state.elementFormat ,
       elementDuration:this.state.elementDuration, 
-      elementCategory: this.state.elementCategory
+      elementCategory: this.state.elementCategory,
+      elementSubCategory: this.state.elementSubCategory,
+      elementMarket: this.state.elementMarket,
+      elementCogRating: this.state.elementCogRating,
+      elementPhysRating: this.state.elementPhysRating,
+      elementLink: this.state.elementLink
     }
 
     console.log(element);
@@ -98,7 +148,7 @@ export default class ManageElement extends Component {
 
   render() {
     return (
-    <div>
+    <div className="container">
       <h3>Manage Elements</h3>
       <form onSubmit={this.onSubmit}>
         <div className="form-group row">
@@ -125,7 +175,7 @@ export default class ManageElement extends Component {
         </div>
         <div className="form-group row">
           <div className="form-group col">
-            <label>Label</label>	
+            <label htmlFor="description">Description</label>	
             <input type="text"
               required
               className="form-control"    
@@ -176,6 +226,87 @@ export default class ManageElement extends Component {
               <option value="3">#</option>
             </select>
           </div>	
+        </div>
+        <div className="form-group row">
+          {/* May change 'Subcategory' to dropdown in future */}
+          <div className="form-group col">	
+          <label htmlFor="subcategory">Subcategory</label>
+            <input type="text"
+              required
+              className="form-control"  
+              name="subcategory" 
+              id="subcategory" 
+              placeholder="insert subcategory" 
+              value= {this.state.elementSubCategory}
+              onChange= {this.onChangeElementSubCategory}
+            />
+          </div>
+          <div className="form-group col">	
+            <label htmlFor="market">Market</label>	
+            <select className="form-control" 
+              required
+              name="market" 
+              id="market"
+              value = {this.state.elementMarket}
+              onChange={this.onChangeElementMarket}>
+              <option defaultValue>Choose...</option>
+              <option value="1">Memory Care</option>
+              <option value="2">#</option>
+              <option value="3">#</option>
+            </select>
+          </div>
+        </div>	
+        <div className="form-group row">
+          <div className="form-group col">	
+            <label htmlFor="cogRating">Cognitive Rating</label>	
+            <select className="form-control" 
+              required
+              name="cogRating" 
+              id="cogRating"
+              value = {this.state.elementCogRating}
+              onChange={this.onChangeElementCogRating}>
+              <option defaultValue>Choose...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+          </div>
+          <div className="form-group col">	
+            <label htmlFor="physRating">Physical Rating</label>	
+            <select className="form-control" 
+              required
+              name="physRating" 
+              id="physRating"
+              value = {this.state.elementPhysRating}
+              onChange={this.onChangeElementPhysRating}>
+              <option defaultValue>Choose...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+          </div>
+        </div>
+        <div className="form-group row">
+          <div className="form-group col">	
+            <label className="vimeoLink">Vimeo Link</label>
+            <input type="text"
+              required
+              className="form-control"  
+              name="vimeoLink" 
+              id="vimeoLink" 
+              placeholder="insert address" 
+              value= {this.state.elementLink}
+              onChange= {this.onChangeElementLink}
+            />
+          </div>
         </div>
 
         <div className="form-group">

@@ -13,6 +13,11 @@ export default class CreateElement extends Component {
       this.onChangeElementFormat      = this.onChangeElementFormat.bind(this);
       this.onChangeElementDuration    = this.onChangeElementDuration.bind(this);
       this.onChangeElementCategory    = this.onChangeElementCategory.bind(this);
+      this.onChangeElementSubCategory = this.onChangeElementSubCategory.bind(this);
+      this.onChangeElementMarket      = this.onChangeElementMarket.bind(this);
+      this.onChangeElementCogRating   = this.onChangeElementCogRating.bind(this);
+      this.onChangeElementPhysRating  = this.onChangeElementPhysRating.bind(this);
+      this.onChangeElementLink        = this.onChangeElementLink.bind(this);
       this.onSubmit                   = this.onSubmit.bind(this);
 
       this.state = {
@@ -21,11 +26,15 @@ export default class CreateElement extends Component {
           elementDescription:'',
           elementFormat: ''     ,      
           elementDuration: '',
-          elementCategory: ''
+          elementCategory: '',
+          elementSubCategory: '',
+          elementMarket: '',
+          elementCogRating: '',
+          elementPhysRating: '',
+          elementLink: ''
       }
     }
-
-   
+       
     onChangeElementNumber(e) {
       this.setState({
         elementnumber: e.target.value
@@ -61,6 +70,36 @@ export default class CreateElement extends Component {
         elementCategory: e.target.value
       });
     }
+
+    onChangeElementSubCategory(e) {
+      this.setState({
+        elementSubCategory: e.target.value
+      });
+    }
+
+    onChangeElementMarket(e) {
+      this.setState({
+        elementMarket: e.target.value
+      });
+    }
+
+    onChangeElementCogRating(e) {
+      this.setState({
+        elementCogRating: e.target.value
+      });
+    }
+
+    onChangeElementPhysRating(e) {
+      this.setState({
+        elementPhysRating: e.target.value
+      });
+    }
+
+    onChangeElementLink(e) {
+      this.setState({
+        elementLink: e.target.value
+      });
+    }
   
     onSubmit(e){
       e.preventDefault();
@@ -71,7 +110,12 @@ export default class CreateElement extends Component {
         elementDescription: this.state.elementDescription,
         elementFormat: this.state.elementFormat ,
         elementDuration:this.state.elementDuration, 
-        elementCategory: this.state.elementCategory
+        elementCategory: this.state.elementCategory,
+        elementSubCategory: this.state.elementSubCategory,
+        elementMarket: this.state.elementMarket,
+        elementCogRating: this.state.elementCogRating,
+        elementPhysRating: this.state.elementPhysRating,
+        elementLink: this.state.elementLink
       }
       console.log(element);
 
@@ -87,17 +131,21 @@ export default class CreateElement extends Component {
         elementDescription:'',
         elementFormat: ''     ,      
         elementDuration: '',
-        elementCategory: ''
+        elementCategory: '',
+        elementSubCategory: '',
+        elementMarket: '',
+        elementCogRating: '',
+        elementPhysRating: '',
+        elementLink: ''
       });
     }
-
 
 
     render() {
         return (
           
 
-          <div>               
+          <div className="container">               
             <h1 className= 'text-center'>Create a New Element</h1>
             <div className="jumbotron">
               <form onSubmit={this.onSubmit} /*id="createForm" */ > 
@@ -176,27 +224,44 @@ export default class CreateElement extends Component {
                   </select>
                 </div>	
               </div>	 
-                {/*<div className="form-row"> */}
+                <div className="form-row">
                   {/* May change 'Subcategory' to dropdown in future */}
-                  {/* <div className="form-group col">	
+                  <div className="form-group col">	
                     <label className="subcategory">Subcategory</label>
-                    <input className="form-control" type="text" name="subcategory" id="subcategory" placeholder="insert subcategory" />
+                    <input type="text"
+                      required
+                      className="form-control"  
+                      name="subcategory" 
+                      id="subcategory" 
+                      placeholder="insert subcategory" 
+                      value= {this.state.onChangeElementSubCategory}
+                      onChange= {this.onChangeElementSubCategory}
+                    />
                   </div>
-  
-                  <div className="form-group col">		
+                  <div className="form-group col">	
                     <label htmlFor="market">Market</label>	
-                    <select className="form-control" name="market" id="market">	
+                    <select className="form-control" 
+                      required
+                      name="market" 
+                      id="market"
+                      value = {this.state.elementMarket}
+                      onChange={this.onChangeElementMarket}>
                       <option defaultValue>Choose...</option>
-                      <option value="1">Timing</option>
+                      <option value="1">Memory Care</option>
                       <option value="2">#</option>
                       <option value="3">#</option>
                     </select>
                   </div>
                 </div>	
                 <div className="form-row">
-                  <div className="form-group col">		
+                  <div className="form-group col">	
                     <label htmlFor="cogRating">Cognitive Rating</label>	
-                    <select className="form-control" name="cogRating" id="cogRating">	
+                    <select className="form-control" 
+                      required
+                      name="cogRating" 
+                      id="cogRating"
+                      value = {this.state.elementCogRating}
+                      onChange={this.onChangeElementCogRating}>
                       <option defaultValue>Choose...</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
@@ -206,11 +271,15 @@ export default class CreateElement extends Component {
                       <option value="6">6</option>
                       <option value="7">7</option>
                     </select>
-                  </div>	
-  
-                  <div className="form-group col">		
+                  </div>
+                  <div className="form-group col">	
                     <label htmlFor="physRating">Physical Rating</label>	
-                    <select className="form-control" name="physRating" id="physRating">	
+                    <select className="form-control" 
+                      required
+                      name="physRating" 
+                      id="physRating"
+                      value = {this.state.elementPhysRating}
+                      onChange={this.onChangeElementPhysRating}>
                       <option defaultValue>Choose...</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
@@ -220,27 +289,30 @@ export default class CreateElement extends Component {
                       <option value="6">6</option>
                       <option value="7">7</option>
                     </select>
-                  </div>	
-                </div> */}
-        
-                {/* <div className="form-group">	
-                  <label className="vimeoLink">Vimeo Link</label>
-                  <input className="form-control" type="text" name="vimeoLink" id="vimeoLink" placeholder="insert address" />
-                </div>                 
-              */}                       
+                  </div>
+                </div>
+                <div className="form-row">
+                  <div className="form-group col">	
+                    <label className="vimeoLink">Vimeo Link</label>
+                    <input type="text"
+                      required
+                      className="form-control"  
+                      name="vimeoLink" 
+                      id="vimeoLink" 
+                      placeholder="insert address" 
+                      value= {this.state.onChangeElementLink}
+                      onChange= {this.onChangeElementLink}
+                    />
+                  </div>
+                </div>                   
+                <div className="form-group text-center">
+                  <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
+                </div>
               
+                <Link to={'./'}>Go Back</Link>
 
-              {/* <div className="text-center">
-                      <button type="submit" value="createElement" className="btn btn-lg btn-primary btn-center ">Submit!</button>
-              </div> 
-              
-            </form>	 */}
-              <div className="form-group text-center">
-                <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
-              </div>
-              <Link to={'./'}>Go Back</Link>
-            </form>
-          </div>            
+              </form>
+            </div>            
           </div>   
           
         )
