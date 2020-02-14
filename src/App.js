@@ -4,24 +4,26 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import NavbarMain from "./components/navbar.component"
-import ElementsList from "./components/elements-list.component";
-import CreateElement from "./components/create-element.component";
-import ManageElement from "./components/manage-element.component";
-import CreateTrack from "./components/create-track.component";
+import ElementsList from "./components/elements/elements-list.component";
+import CreateElement from "./components/elements/create-element.component";
+import ManageElement from "./components/elements/manage-element.component";
+import CreateTrack from "./components/tracks/create-track.component";
+import ManageTrack from "./components/tracks/manage-track.component";
 
 function App() {
   return (
     <Router>
       <div id="App">
-      <NavbarMain />
-      <br />
-      {/* <Route path='/elements' exact component = {ElementsList} /> */}
-      <Route path='/elements/create' exact component = {CreateElement} />
-      <Route path='/elements' exact component = {ElementsList} />     
-      <Route path='/elements/edit/:id' exact component = {ManageElement} />     
-      <Route path='/tracks/create' exact component = {CreateTrack} />
-      {/* <Route path='/tracks' exact component = {ElementsTrack} />     
-      <Route path='/tracks/edit/:id' exact component = {ManageTrack} />      */}
+        <NavbarMain />
+        <br />
+        {/* <Route path='/elements' exact component = {ElementsList} /> */}        
+        <Route path='/elements' exact component = {ElementsList} />
+        <Route path='/elements/create' exact component = {CreateElement} />     
+        <Route path='/elements/edit/:id' exact component = {ManageElement} />     
+        
+        {/* <Route path='/tracks' exact component = {TracksList} />   */}  
+        <Route path='/tracks/create' exact component = {CreateTrack} />
+        <Route path='/tracks/edit/:id' exact component = {ManageTrack} />      
       </div>
     </Router>
   );
