@@ -9,32 +9,6 @@ export default class NavbarMain extends Component {
   render() {
     return (
 
-
-      // <nav className="navbar navbar-light bg-light navbar-expand-lg">
-      //   <Link to="/" className="navbar-brand">
-      //     <img src={logo} alt='' width="200" height="40" className="d-inline-block align-top" />
-      //   </Link>
-      //   <div className="collpase navbar-collapse">
-      //   <ul className="navbar-nav mr-auto">
-      //     <li className="navbar-item dropdown" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      //         <Link to="/" className="nav-link dropdown-toggle">Elements</Link>
-      //       <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      //         <a className="dropdown-item" href="/">Action</a>
-      //         <a className="dropdown-item" href="/">Another action</a>
-      //         <a className="dropdown-item" href="/">Something else here</a>
-      //       </div>
-      //     </li>
-      //     <li className="navbar-item">
-      //     <Link to="/create" className="nav-link">Tracks</Link>
-      //     </li>
-      //     <li className="navbar-item">
-      //     <Link to="/" className="nav-link">Programs</Link>
-      //     </li>
-      //   </ul>
-      //   </div>
-      // </nav>
-
-
       <Container>
           <Navbar bg="light" expand="lg">
             <Navbar.Brand href="/">
@@ -56,8 +30,7 @@ export default class NavbarMain extends Component {
                 </NavDropdown>
                 <NavDropdown title="Tracks" id="track-dropdown">
                   <NavDropdown.Item href="/tracks/create">Create Track</NavDropdown.Item>
-                  <NavDropdown.Item href="/elements/edit/:id">Edit Track</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3" disabled>Delete Track</NavDropdown.Item>
+                  <NavDropdown.Item href="/tracks">Manage Tracks</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Programs" id="basic-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1"disabled>Create Program</NavDropdown.Item>
