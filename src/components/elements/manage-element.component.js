@@ -193,7 +193,7 @@ export default class ManageElement extends Component {
               value = {this.state.elementFormat}
               onChange={this.onChangeElementFormat}>
               <option defaultValue>Choose...</option>
-              <option value="1">Video</option>
+              <option value="Video">Video</option>
               <option value="2">#2</option>
               <option value="3">#3</option>
             </select>
@@ -221,7 +221,7 @@ export default class ManageElement extends Component {
               value = {this.state.elementCategory}
               onChange={this.onChangeElementCategory}>
               <option defaultValue>Choose...</option>
-              <option value="1">Timing</option>
+              <option value="Timing">Timing</option>
               <option value="2">#</option>
               <option value="3">#</option>
             </select>
@@ -250,7 +250,7 @@ export default class ManageElement extends Component {
               value = {this.state.elementMarket}
               onChange={this.onChangeElementMarket}>
               <option defaultValue>Choose...</option>
-              <option value="1">Memory Care</option>
+              <option value="Memory Care">Memory Care</option>
               <option value="2">#</option>
               <option value="3">#</option>
             </select>

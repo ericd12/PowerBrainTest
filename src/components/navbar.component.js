@@ -9,7 +9,7 @@ export default class NavbarMain extends Component {
   render() {
     return (
 
-      <Container>
+      // <Container>
           <Navbar bg="light" expand="lg">
             <Navbar.Brand href="/">
               <img
@@ -30,7 +30,7 @@ export default class NavbarMain extends Component {
                 </NavDropdown>
                 <NavDropdown title="Tracks" id="track-dropdown">
                   <NavDropdown.Item href="/tracks/create">Create Track</NavDropdown.Item>
-                  <NavDropdown.Item href="/tracks">Manage Tracks</NavDropdown.Item>
+                  <NavDropdown.Item href="/tracks" disabled>Manage Tracks</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Programs" id="basic-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1"disabled>Create Program</NavDropdown.Item>
@@ -40,7 +40,7 @@ export default class NavbarMain extends Component {
               </Nav>
             </Navbar.Collapse>
           </Navbar>
-      </Container> 
+      // </Container> 
     );
   }
 }

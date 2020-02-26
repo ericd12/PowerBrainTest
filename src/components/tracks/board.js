@@ -1,4 +1,8 @@
 import React from 'react'
+import '../../App.css';
+
+
+
 
 function Board(props) {
     const drop = (e) => {
@@ -21,8 +25,27 @@ function Board(props) {
             className={props.className}
             onDrop={drop}
             onDragOver={dragOver}            
-        >
-            {props.children}    
+        > 
+            <table className="table" >
+                <thead className="thead-light" >
+                    <tr id='board'>
+                        <th>Number</th>
+                        <th>Label</th>
+                        <th>Description</th>
+                        <th>Format</th>
+                        <th>Duration</th>
+                        <th>Category</th>
+                        <th>Subcategory</th>
+                        <th>Market</th>
+                        <th>Cognitive Rating</th>
+                        <th>Physical Rating</th>
+                        <th>Vimeo Link</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+                {props.children}    
+      
         </div>
     )
 }
