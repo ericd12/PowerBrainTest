@@ -13,7 +13,8 @@ app.use(express.json());
 
 mongoose.connect('mongodb://127.0.0.1:27017/powerbrain', {
   useNewUrlParser: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useUnifiedTopology: true 
 });
 
 const connection = mongoose.connection;
