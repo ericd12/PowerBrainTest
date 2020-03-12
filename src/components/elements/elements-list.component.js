@@ -61,6 +61,7 @@ export default class ElementsList extends Component {
             <div>
             <h3>Elements</h3>
             <table className="table">
+                
                 <thead className="thead-light">
                     <tr>
                         <th>Number</th>
