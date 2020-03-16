@@ -149,7 +149,7 @@ export default class ManageElement extends Component {
   render() {
     return (
     <div className="container">
-      <h3>Manage Elements</h3>
+      <h1>Update Element</h1>
       <form onSubmit={this.onSubmit}>
         <div className="form-group row">
           <div className="form-group col"> 

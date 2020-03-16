@@ -142,11 +142,10 @@ export default class CreateElement extends Component {
 
 
     render() {
-        return (
-          
+        return (        
 
           <div className="container">               
-            <h2 className= 'text-center'>Create a New Element</h2>
+            <h1 className= 'text-left'>Create a New Element</h1>
             <div className="jumbotron">
               <form onSubmit={this.onSubmit} /*id="createForm" */ > 
               <div className="form-row" >

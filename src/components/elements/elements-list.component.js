@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const Td = styled.td`
+text-align: center;
+`
+
+
 
 const Elements = props => (
     <tr>
-        <td>{props.element.elementnumber}</td>
-        <td>{props.element.elementlabel}</td>
-        <td>{props.element.elementDescription}</td>
-        <td>{props.element.elementFormat}</td>
-        <td>{props.element.elementDuration}</td>
-        <td>{props.element.elementCategory}</td>
-        <td>{props.element.elementSubCategory}</td>
-        <td>{props.element.elementMarket}</td>
-        <td>{props.element.elementCogRating}</td>
-        <td>{props.element.elementPhysRating}</td>
-        <td>{props.element.elementLink}</td>
-        <td>
+        <Td>{props.element.elementnumber}</Td>
+        <Td>{props.element.elementlabel}</Td>
+        <Td>{props.element.elementdescription}</Td>
+        <Td>{props.element.elementFormat}</Td>
+        <Td>{props.element.elementDuration}</Td>
+        <Td>{props.element.elementCategory}</Td>
+        <Td>{props.element.elementSubCategory}</Td>
+        <Td>{props.element.elementMarket}</Td>
+        <Td>{props.element.elementCogRating}</Td>
+        <Td>{props.element.elementPhysRating}</Td>
+        <Td>{props.element.elementLink}</Td>
+        <Td>
             <Link to={"/elements/edit/"+props.element._id}><button className="btn btn-sm btn-outline-warning">edit</button></Link> | {/*eslint-disable-next-line */}            
             <button className="btn btn-sm btn-outline-danger" href="#" onClick={() => { props.deleteElement(props.element._id) }}>delete</button>
-        </td>
+        </Td>
     </tr>
 )
 
@@ -59,9 +66,8 @@ export default class ElementsList extends Component {
     render() {
         return (
             <div>
-            <h3>Elements</h3>
-            <table className="table">
-                
+            <h1>Manage Elements</h1>
+            <table className="table">                
                 <thead className="thead-light">
                     <tr>
                         <th>Number</th>
