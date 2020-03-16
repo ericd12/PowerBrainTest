@@ -43,8 +43,8 @@ export default class CreateTrack extends Component {
 
         const [firstColumnId] = Object.keys(columns);
 
-        columns[firstColumnId].items = [
-          ...copy[firstColumnId].items,
+        columns["column-2"].items = [
+          ...copy["column-2"].items,
           ...response.data,
         ];
 
@@ -57,7 +57,7 @@ export default class CreateTrack extends Component {
     e.preventDefault();
 
     const track = {
-      trackname: this.state["column-2"].items,
+      trackname: this.state.columns["column-2"].items,
     };
 
     axios.post("http://localhost:5000/tracks/add", track).then(res => {
@@ -101,22 +101,25 @@ export default class CreateTrack extends Component {
 
                 if (source.droppableId !== destination.droppableId) {
                   this.setState(prev => {
-                    const sourceColumn = prev[source.droppableId];
-                    const destColumn = prev[destination.droppableId];
+                    const sourceColumn = prev.columns[source.droppableId];
+                    const destColumn = prev.columns[destination.droppableId];
                     const sourceItems = [...sourceColumn.items];
                     const destItems = [...destColumn.items];
                     const [removed] = sourceItems.splice(source.index, 1);
                     destItems.splice(destination.index, 0, removed);
                     return {
                       ...prev,
-                      [source.droppableId]: {
-                        ...sourceColumn,
-                        items: sourceItems,
-                      },
-                      [destination.droppableId]: {
-                        ...destColumn,
-                        items: destItems,
-                      },
+                      columns: {
+                        ...prev.columns,
+                        [source.droppableId]: {
+                          ...sourceColumn,
+                          items: sourceItems,
+                        },
+                        [destination.droppableId]: {
+                          ...destColumn,
+                          items: destItems,
+                        },
+                      }
                     };
                   });
                 } else {
@@ -136,7 +139,7 @@ export default class CreateTrack extends Component {
                 }
               }}
             >
-              {Object.entries(this.state).map(([id, column]) => {
+              {Object.entries(this.state.columns).map(([id, column]) => {
                 return <Column {...{ ...column, id, key: id }} />;
               })}
             </DragDropContext>
