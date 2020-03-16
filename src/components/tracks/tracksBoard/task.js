@@ -15,22 +15,39 @@ const P = styled.p`
  margin: 2px  10px 2px 5px;
 `
 
-const Task = ({ task, index }) => {
+const Task = ({
+  _id,
+  elementCategory,
+  elementCogRating,
+  elementDescription,
+  elementDuration,
+  elementFormat,
+  elementlabel,
+  elementLink,
+  elementMarket,
+  elementnumber,
+  elementPhysRating,
+  elementSubCategory,
+  index,
+}) => {
   return (
-    <Draggable draggableId={task._id} index={index}>
-      {({ draggableProps, dragHandleProps, innerRef }, snapshot) => (
+    <Draggable draggableId={_id} index={index}>
+      {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
         <Container
-          {...{ ...draggableProps, ...dragHandleProps }}
+          {...{ ...draggableProps, ...dragHandleProps, isDragging }}
           ref={innerRef}
-          isDragging={snapshot.isDragging}
         >
-          <P>{task.elementnumber}</P><P>{task.elementlabel}</P>
-          <P>Desc: {task.elementDescription}</P><P>{task.elementFormat}</P>
-          <P>Time: {task.elementDuration}</P><P>{task.elementCategory}</P>
-          <P>{task.elementSubCategory}</P><P>{task.elementMarket}</P>
-          <P>CogRating: {task.elementCogRating}</P><P>PhysRating: {task.elementPhysRating}</P>
-          <P>{task.elementLink}</P>
-
+          <P>{elementnumber}</P>
+          <P>{elementlabel}</P>
+          <P>Desc: {elementDescription}</P>
+          <P>{elementFormat}</P>
+          <P>Time: {elementDuration}</P>
+          <P>{elementCategory}</P>
+          <P>{elementSubCategory}</P>
+          <P>{elementMarket}</P>
+          <P>CogRating: {elementCogRating}</P>
+          <P>PhysRating: {elementPhysRating}</P>
+          <P>{elementLink}</P>
         </Container>
       )}
     </Draggable>

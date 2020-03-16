@@ -4,11 +4,9 @@ const Schema = mongoose.Schema;
 
 const trackSchema = new Schema({
         trackname: {
-          type: String,
+          type: [],
           required: true,
-          unique: true,
-          trim: true,
-          minlength: 3
+
         },
       }, {
         timestamps: true,
