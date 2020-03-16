@@ -124,16 +124,19 @@ export default class CreateTrack extends Component {
                   });
                 } else {
                   this.setState(prev => {
-                    const column = prev[source.droppableId];
+                    const column = prev.columns[source.droppableId];
                     const copiedItems = [...column.items];
                     const [removed] = copiedItems.splice(source.index, 1);
                     copiedItems.splice(destination.index, 0, removed);
                     return {
                       ...prev,
-                      [source.droppableId]: {
-                        ...column,
-                        items: copiedItems,
-                      },
+                      columns: {
+                        ...prev.columns,
+                        [source.droppableId]: {
+                          ...column,
+                          items: copiedItems,
+                        },
+                      }
                     };
                   });
                 }
