@@ -41,10 +41,10 @@ export default class CreateTrack extends Component {
         const { columns } = copy;
         copy.elements = response.data;
 
-        const [firstColumnId] = Object.keys(columns);
+        // const [firstColumnId] = Object.keys(columns);
 
-        columns["column-2"].items = [
-          ...copy["column-2"].items,
+        columns["column-1"].items = [
+          ...copy.columns["column-1"].items,
           ...response.data,
         ];
 
@@ -59,19 +59,22 @@ export default class CreateTrack extends Component {
     const track = {
       trackname: this.state.columns["column-2"].items,
     };
+    
 
     axios.post("http://localhost:5000/tracks/add", track).then(res => {
       console.log(res.data);
       this.setState(prev => {
         return {
           ...prev,
-          "column-1": {
-            name: "Elements",
-            items: prev.elements,
-          },
-          "column-2": {
-            name: "Track List",
-            items: [],
+          columns: {
+            "column-1": {
+              name: "Elements",
+              items: prev.elements,
+            },
+            "column-2": {
+              name: "Track List",
+              items: [],
+            }
           },
         };
       });
