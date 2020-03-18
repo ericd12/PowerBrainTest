@@ -10,12 +10,21 @@ import { DragDropContext } from "react-beautiful-dnd";
 // import AddItemForm from "./AddItemForm";
 
 const Container = styled.div`
-  display: flex;
-  justify-content: left;
-  width: 95%;
-  overflow: auto;
+  width: 100%;
+  overflow: inherit;
+  margin-left: 3%;
 `;
 
+const Form = styled.form`
+  width: 90%;  
+`
+
+const Button = styled.input`
+  margin-top: 10px;
+  margin-right: 1%;
+  font-weight: 500;
+  color: white;
+`
 export default class CreateTrack extends Component {
   constructor(props) {
     super(props);
@@ -85,18 +94,12 @@ export default class CreateTrack extends Component {
   render() {
     return (
       <div>
-        <h1>Create Track</h1>
-
         <Container>
-          <form onSubmit={this.onSubmit} /* id="createForm" */>
-            <div className="form">
-              <input
-                className="btn btn-primary"
-                type="submit"
-                value="Create Track"
-              />
-            </div>
-
+          <h1>Create Track</h1>     
+          <Button className="btn btn-primary" type="submit" form='submit-track' value="Create Track"/> 
+          <Button className="btn btn-warning" type="submit" value="Edit Track" disabled/>
+          <Button className="btn btn-danger" type="submit" value="Delete Track" disabled/>   
+          <Form id='submit-track' onSubmit={this.onSubmit} /* id="createForm" */>
             <DragDropContext
               onDragEnd={({ source, destination }) => {
                 if (!destination) {
@@ -149,10 +152,12 @@ export default class CreateTrack extends Component {
               {Object.entries(this.state.columns).map(([id, column]) => {
                 return <Column {...{ ...column, id, key: id }} />;
               })}
+              
             </DragDropContext>
-          </form>
+          </Form>
         </Container>
       </div>
+
     );
   }
 }
