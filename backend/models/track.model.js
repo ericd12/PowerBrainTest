@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 
 const trackSchema = new Schema({
-        trackname: {
+        trackinfo: {
           type: [],
           required: true,
 

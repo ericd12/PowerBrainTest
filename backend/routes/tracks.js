@@ -12,13 +12,14 @@ router.route('/').get((req, res) => {
 
 
 router.route('/add').post((req, res) => {
-    const trackname = req.body.trackname;
+    const trackinfo = req.body.trackinfo;
 
-    const newTrack = new Track({trackname});
+    const newTrack = new Track({trackinfo});
 
     newTrack.save()
     .then(() => res.json('Track added!' ))
     .catch(err => res.status(400).json('Error: ' + err));
+    console.log(newTrack)
    
 });
 
@@ -37,7 +38,7 @@ router.route('/:id').get((req, res) => {
 router.route('/update/:id').post((req, res) => {
     Track.findById(req.params.id)
       .then(track => {
-        track.trackname = req.body.trackname;
+        track.trackinfo = req.body.trackinfo;
       
         track.save()
           .then(() => res.json('Element updated!'))

@@ -57,12 +57,13 @@ export default class CreateTrack extends Component {
     e.preventDefault();
 
     const track = {
-      trackname: this.state.columns["column-2"].items,
+      trackinfo: this.state.columns["column-2"].items,
     };
     
 
     axios.post("http://localhost:5000/tracks/add", track).then(res => {
       console.log(res.data);
+      console.log(track);
       this.setState(prev => {
         return {
           ...prev,
