@@ -25,7 +25,7 @@ router.route('/add').post((req, res) => {
 
 router.route('/:id').get((req, res) => {
     Track.findById(req.params.id)
-      .then(tracks => res.json(tracks))
+      .then(track => res.json(track))
       .catch(err => res.status(400).json('Error: ' + err));
 });
 
