@@ -5,14 +5,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import NavbarMain from "./components/navbar.component"
 
-import ElementsList from "./components/elements/elements-list.component";
 import CreateElement from "./components/elements/create-element.component";
 import ManageElement from "./components/elements/manage-element.component";
+import ElementsList from "./components/elements/elements-list.component";
+
 
 import CreateTrack from "./components/tracks/create-track.component";
 import ManageTrack from "./components/tracks/manage-track.component";
 import TracksList from "./components/tracks/tracks-list.component";
-// import Task from './components/tracks/tracksBoard/task';
+
+import CreateProgram from "./components/programs/create-program.component";
+import ManageProgram from "./components/programs/programs-list.component";
+import ProgramsList from "./components/programs/manage-program.component";
+
 
 function App() {
   return (
@@ -26,7 +31,11 @@ function App() {
         
         <Route path='/tracks' exact component = {TracksList} />    
         <Route path='/tracks/create' exact component = {CreateTrack} />
-        <Route path='/tracks/edit/:id' exact component = {ManageTrack} />      
+        <Route path='/tracks/edit/:id' exact component = {ManageTrack} />
+
+        <Route path='/programs' exact component = {ProgramsList} />    
+        <Route path='/programs/create' exact component = {CreateProgram} />
+        <Route path='/programs/edit/:id' exact component = {ManageProgram} />         
       </div>
     </Router>
   );

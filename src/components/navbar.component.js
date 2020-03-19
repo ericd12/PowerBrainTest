@@ -30,12 +30,11 @@ export default class NavbarMain extends Component {
                 </NavDropdown>
                 <NavDropdown title="Tracks" id="track-dropdown">
                   <NavDropdown.Item href="/tracks/create">Create Track</NavDropdown.Item>
-                  <NavDropdown.Item href="/tracks" disabled>Manage Tracks</NavDropdown.Item>
+                  <NavDropdown.Item href="/tracks">Manage Tracks</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Programs" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1"disabled>Create Program</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2"disabled>Edit Program</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3"disabled>View Program</NavDropdown.Item>
+                  <NavDropdown.Item href="/programs/create">Create Program</NavDropdown.Item>
+                  <NavDropdown.Item href="/programs">Edit Program</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>

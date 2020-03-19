@@ -11,7 +11,7 @@ export default class ManageTrack extends Component {
     this.onSubmit           = this.onSubmit.bind(this);
 
     this.state = {
-        trackname: '',
+        trackinfo: '',
     }
   }
 
@@ -19,7 +19,7 @@ export default class ManageTrack extends Component {
     axios.get('http://localhost:5000/tracks/'+this.props.match.params.id)
       .then(response => {
         this.setState({
-            trackname: response.data.trackname,
+            trackinfo: response.data.trackinfo,
         })   
       })
       .catch(function (error) {
@@ -29,7 +29,7 @@ export default class ManageTrack extends Component {
 
   onChangeTrackName(e) {
     this.setState({
-      trackname: e.target.value
+      trackinfo: e.target.value
     })
   }
   
@@ -38,7 +38,7 @@ export default class ManageTrack extends Component {
     e.preventDefault();
 
     const track = {
-      trackname: this.state.trackname,
+      trackinfo: this.state.trackinfo,
     }
 
     console.log(track);
@@ -60,7 +60,7 @@ export default class ManageTrack extends Component {
         </Board>
         <Board id='board-2' className='board'>
           <Card id='card-2' className='card' draggable='true'>
-            <div>{this.state.trackname}</div>
+            <div>{this.state.trackinfo}</div>
           </Card>
         </Board>
       </main> */}
@@ -75,7 +75,7 @@ export default class ManageTrack extends Component {
                 required
                 className="form-control"    
                 placeholder="add name"           
-                value = {this.state.trackname}
+                value = {this.state.trackinfo}
                 onChange={this.onChangeTrackName}
             />
           </div>        

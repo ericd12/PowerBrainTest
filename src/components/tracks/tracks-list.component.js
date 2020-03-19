@@ -5,9 +5,12 @@ import { Link } from 'react-router-dom';
 
 const Tracks = props => (
     <tr>
-        <td>{props.trackname.trackname}</td>
+        <td>{props.track._id}</td>
+        {/* <td>{props.track._id.trackinfo}</td> */}
+        {/* <td>{props.track._id.trackinfo}</td> */}
+        {/* {console.log(props.track._id)} */}
         <td>
-            <Link to={"/tracks/edit/" + props.trackname._id}><button className="btn btn-sm btn-outline-warning">edit</button></Link> 
+            <Link to={"/tracks/edit/" + props.track.trackinfo._id}><button className="btn btn-sm btn-outline-warning">edit</button></Link> 
         </td>
 
     </tr>
@@ -17,14 +20,14 @@ export default class TracksList extends Component {
     constructor(props) {
         super(props);
         
-        this.state = {tracknames: []};
+        this.state = {trackinfo: []};
     }
     
     componentDidMount() {
     axios.get('http://localhost:5000/tracks/')
             .then(response => {
-                this.setState({tracknames: response.data})
-                
+                this.setState({trackinfo: response.data})
+                // console.log(this.state)
             })
             .catch((error) => {
                 console.log(error);
@@ -32,8 +35,9 @@ export default class TracksList extends Component {
     }
     
     trackList() {
-        return this.state.tracknames.map(currentTrack => {
-            return <Tracks trackname={currentTrack} key={currentTrack._id}/>;
+        return this.state.trackinfo.map(currentTrack => {
+            console.log(currentTrack)
+            return <Tracks track={currentTrack} key={currentTrack._id}/>;
         })
     }
     
