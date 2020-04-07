@@ -16,19 +16,33 @@ const Container = styled.div`
 `;
 
 const Form = styled.form`
-  width: 90%;  
+  width: 90%;
+  margin-top: 1vh;  
+`
+
+const InputGroup= styled.div`
+  width: 45%;
 `
 
 const Button = styled.input`
-  margin-top: 10px;
-  margin-right: 1%;
+  margin: 0 4px;
+  margin-top: calc(1.5rem + 4px);
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .5rem;
   font-weight: 500;
   color: white;
 `
 export default class CreateTrack extends Component {
   constructor(props) {
     super(props);
+    
+    
+    this.onChangeTrackName = this.onChangeTrackName.bind(this);
+    this.onChangeTrackNumber = this.onChangeTrackNumber.bind(this);
+    
     this.state = {
+      trackName: '',
+      trackNumber: '',
       elements: [],
       columns: {
         "column-1": {
@@ -62,20 +76,37 @@ export default class CreateTrack extends Component {
     });
   }
 
+
+  onChangeTrackNumber(e) {
+    this.setState({
+      trackNumber: e.target.value
+    });
+  }
+
+  onChangeTrackName(e) {
+    this.setState({
+      trackName: e.target.value
+    });
+  }
   onSubmit = e => {
     e.preventDefault();
 
     const track = {
-      trackinfo: this.state.columns["column-2"].items,
+      trackNumber: this.state.trackNumber,
+      trackName:this.state.trackName,
+      trackinfo: this.state.columns["column-2"].items
     };
     
 
     axios.post("http://localhost:5000/tracks/add", track).then(res => {
       console.log(res.data);
       console.log(track);
+
       this.setState(prev => {
         return {
           ...prev,
+          trackName: '',
+          trackNumber: '',
           columns: {
             "column-1": {
               name: "Elements",
@@ -91,15 +122,41 @@ export default class CreateTrack extends Component {
     });
   };
 
+
   render() {
     return (
       <div>
         <Container>
-          <h1>Create Track</h1>     
-          <Button className="btn btn-primary" type="submit" form='submit-track' value="Create Track"/> 
-          <Button className="btn btn-warning" type="submit" value="Edit Track" disabled/>
-          <Button className="btn btn-danger" type="submit" value="Delete Track" disabled/>   
+          <h1>Create Track</h1>   
+            
           <Form id='submit-track' onSubmit={this.onSubmit} /* id="createForm" */>
+          <InputGroup>
+          <div className="form-row" >
+            <div className="form-group col">
+              <label htmlFor="number">Number</label>		
+              <input type="text"
+                required
+                className="form-control" 
+                placeholder="add number"
+                value = {this.state.trackNumber}
+                onChange={this.onChangeTrackNumber}
+              />
+            </div>
+            <div className="form-group col">
+              <label htmlFor="name">Name</label>		
+              <input type="text"
+                className="form-control" 
+                placeholder="add name"
+                value = {this.state.trackName}
+                onChange={this.onChangeTrackName}
+              />
+            </div>
+            <Button className="btn btn-primary" type="submit" form='submit-track' value="Create Track"/> 
+
+          </div>          
+          </InputGroup>
+ 
+
             <DragDropContext
               onDragEnd={({ source, destination }) => {
                 if (!destination) {

@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
+const Container = styled.div`
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+`
 
 const Tracks = props => (
     <tr>
-        <td>{props.track._id}</td>
-        {/* <td>{props.track._id.trackinfo}</td> */}
-        {/* <td>{props.track._id.trackinfo}</td> */}
-        {/* {console.log(props.track._id)} */}
+        <td>{props.track.trackNumber}</td>
+        <td>{props.track.trackName}</td>
         <td>
-            <Link to={"/tracks/edit/" + props.track.trackinfo._id}><button className="btn btn-sm btn-outline-warning">edit</button></Link> 
+            <Link to={"/tracks/edit/" + props.track.trackinfo._id}><button className="btn btn-sm btn-outline-warning">edit</button></Link> | {/*eslint-disable-next-line */}            
+            <button className="btn btn-sm btn-outline-danger" href="#" onClick={() => { props.deleteTrack(props.track._id) }}>delete</button> 
         </td>
-
     </tr>
 )
 
 export default class TracksList extends Component {
     constructor(props) {
         super(props);
-        
+    
+        this.deleteTrack = this.deleteTrack.bind(this);
         this.state = {trackinfo: []};
     }
+    
     
     componentDidMount() {
     axios.get('http://localhost:5000/tracks/')
@@ -34,29 +41,39 @@ export default class TracksList extends Component {
             })
     }
     
+    deleteTrack(id) {
+        axios.delete('http://localhost:5000/tracks/' + id)
+          .then(response => { console.log(response.data)});
+        alert('deleted');
+        this.setState({
+          trackinfo: this.state.trackinfo.filter(el => el._id !== id)
+        })
+    }
+
     trackList() {
         return this.state.trackinfo.map(currentTrack => {
-            console.log(currentTrack)
-            return <Tracks track={currentTrack} key={currentTrack._id}/>;
+            return <Tracks track={currentTrack} key={currentTrack._id} deleteTrack={this.deleteTrack}/>;
         })
     }
     
+    
       render() {
         return (
-        <div>
+        <Container>
             <h3>Tracks</h3>
             <table className="table">
                 <thead className="thead-light">
                     <tr>
-                        <th>Track</th>
-                        <th id="actions">Actions</th>
+                        <th>Track #</th>
+                        <th>Track Name</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     { this.trackList() }
                 </tbody>
             </table>
-        </div>
+        </Container>
         )
       }
     }

@@ -3,17 +3,23 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
-const Td = styled.td`
-text-align: center;
+
+const Container = styled.div`
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
 `
 
-
+const Td = styled.td`
+    text-align: center;
+`
 
 const Elements = props => (
     <tr>
         <Td>{props.element.elementnumber}</Td>
         <Td>{props.element.elementlabel}</Td>
-        <Td>{props.element.elementdescription}</Td>
+        <Td>{props.element.elementDescription}</Td>
         <Td>{props.element.elementFormat}</Td>
         <Td>{props.element.elementDuration}</Td>
         <Td>{props.element.elementCategory}</Td>
@@ -65,7 +71,7 @@ export default class ElementsList extends Component {
 
     render() {
         return (
-            <div>
+            <Container>
             <h1>Manage Elements</h1>
             <table className="table">                
                 <thead className="thead-light">
@@ -88,7 +94,7 @@ export default class ElementsList extends Component {
                     { this.elementList() }
                 </tbody>
             </table>
-            </div>
+            </Container>
         )
     }
 }
