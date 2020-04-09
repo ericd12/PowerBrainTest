@@ -15,8 +15,8 @@ import ManageTrack from "./components/tracks/manage-track.component";
 import TracksList from "./components/tracks/tracks-list.component";
 
 import CreateProgram from "./components/programs/create-program.component";
-import ManageProgram from "./components/programs/programs-list.component";
-import ProgramsList from "./components/programs/manage-program.component";
+import ManageProgram from "./components/programs/manage-program.component";
+import ProgramsList from "./components/programs/programs-list.component";
 
 
 function App() {
