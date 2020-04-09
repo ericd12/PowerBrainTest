@@ -31,9 +31,24 @@ export default class CreateElement extends Component {
           elementMarket: '',
           elementCogRating: '',
           elementPhysRating: '',
-          elementLink: ''
+          elementLink: '',
+          formats:[]
       }
     }
+
+
+    componentDidMount(){
+      axios.get('http://localhost:5000/formats/')
+        .then(response => {
+          if(response.data.length > 0){
+            this.setState({
+              formats: response.data.map(format => format.elementFormat),
+              elementFormat: response.data[0].elementFormat
+            })
+          }
+        })
+    }
+
 
     onChangeElementNumber(e) {
       this.setState({
@@ -182,16 +197,19 @@ export default class CreateElement extends Component {
                 </div>
                 <div className="form-group col">		
                   <label htmlFor="format">Format</label>	
-                  <select className="form-control" 
+                  <select ref="userInput"
                     required
-                    name="format" 
-                    id="format"
+                    className="form-control"
                     value = {this.state.elementFormat}
                     onChange={this.onChangeElementFormat}>
-                    <option defaultValue>Choose...</option>
-                    <option value="Video">Video</option>
-                    <option value="2">#2</option>
-                    <option value="3">#3</option>
+                      {
+                        this.state.formats.map(function(format) {
+                          return <option 
+                            key={format}
+                            value={format}>{format}
+                            </option>;
+                        })
+                      }
                   </select>
                 </div>	
               </div> 

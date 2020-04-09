@@ -9,6 +9,8 @@ import CreateElement from "./components/elements/create-element.component";
 import ManageElement from "./components/elements/manage-element.component";
 import ElementsList from "./components/elements/elements-list.component";
 
+import CreateFormat from "./components/elements/dropdown-items/create-format.component";
+
 
 import CreateTrack from "./components/tracks/create-track.component";
 import ManageTrack from "./components/tracks/manage-track.component";
@@ -27,7 +29,9 @@ function App() {
         <br />
         <Route path='/elements' exact component = {ElementsList} />
         <Route path='/elements/create' exact component = {CreateElement} />     
-        <Route path='/elements/edit/:id' exact component = {ManageElement} />     
+        <Route path='/elements/edit/:id' exact component = {ManageElement} />
+
+        <Route path='/formats/create' exact component = {CreateFormat} />     
         
         <Route path='/tracks' exact component = {TracksList} />    
         <Route path='/tracks/create' exact component = {CreateTrack} />

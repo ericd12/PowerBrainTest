@@ -25,10 +25,12 @@ connection.once('open',() => {
 const elementsRouter = require('./routes/elements');
 const tracksRouter = require('./routes/tracks');
 const programsRouter = require('./routes/programs');
+const formatsRouter = require('./routes/formats');
 
 app.use('/elements', elementsRouter);
 app.use('/tracks', tracksRouter);
 app.use('/programs', programsRouter);
+app.use('/formats', formatsRouter);
 
 app.listen(port, () => {
     console.log('Server is running on port: ' + port);

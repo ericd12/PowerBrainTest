@@ -27,6 +27,7 @@ export default class NavbarMain extends Component {
                 <NavDropdown title="Elements" id="element-dropdown">
                   <NavDropdown.Item href="/elements/create">Create Element</NavDropdown.Item>
                   <NavDropdown.Item href="/elements">Manage Elements</NavDropdown.Item>
+                  <NavDropdown.Item href="/formats/create">Create New Dropdown Item</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Tracks" id="track-dropdown">
                   <NavDropdown.Item href="/tracks/create">Create Track</NavDropdown.Item>
