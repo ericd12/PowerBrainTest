@@ -40,11 +40,13 @@ router.route('/:id').delete((req, res) => {
 router.route("/update/:id").post((req, res) => {
   Track.findById(req.params.id)
     .then((track) => {
+      trackNumber = req.body.trackNumber;
+      trackName = req.body.trackName;
       track.trackinfo = req.body.trackinfo;
-
+      console.log(trackNumber)
       track
         .save()
-        .then(() => res.json("Element updated!"))
+        .then(() => res.json("Track updated!"))
         .catch((err) => res.status(400).json("Error: " + err));
     })
     .catch((err) => res.status(400).json("Error: " + err));
