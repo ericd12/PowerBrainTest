@@ -100,8 +100,6 @@ export default class CreateProgram extends Component {
             <Container>
                 <h1>Create Program</h1>     
                 <Button className="btn btn-primary" type="submit" form='submit-program' value="Create Program"/> 
-                <Button className="btn btn-warning" type="submit" value="Edit Program" disabled/>
-                <Button className="btn btn-danger" type="submit" value="Delete Program" disabled/>   
                 <Form id='submit-program' onSubmit={this.onSubmit} /* id="createForm" */>
                 <DragDropContext
                     onDragEnd={({ source, destination }) => {
