@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
-import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
+import {Nav, Navbar, NavDropdown, Dropdown} from 'react-bootstrap';
 
 import logo from "../logo.png";
 
@@ -27,7 +27,11 @@ export default class NavbarMain extends Component {
                 <NavDropdown title="Elements" id="element-dropdown">
                   <NavDropdown.Item href="/elements/create">Create Element</NavDropdown.Item>
                   <NavDropdown.Item href="/elements">Manage Elements</NavDropdown.Item>
-                  <NavDropdown.Item href="/formats/create">Create New Dropdown Item</NavDropdown.Item>
+                  <Dropdown.Divider />
+                  <NavDropdown title="Create Dropdown Items" id="items-dropdown">
+                        <NavDropdown.Item href="/formats/create">Create New Format</NavDropdown.Item>           
+                        <NavDropdown.Item href="/categories/create">Create New Category</NavDropdown.Item>           
+                    </NavDropdown>
                 </NavDropdown>
                 <NavDropdown title="Tracks" id="track-dropdown">
                   <NavDropdown.Item href="/tracks/create">Create Track</NavDropdown.Item>
