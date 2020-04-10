@@ -1,54 +1,54 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class CreateFormat extends Component {
+export default class CreateCategory extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeElementFormat = this.onChangeElementFormat.bind(this);
+    this.onChangeElementCategory = this.onChangeElementCategory.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-        elementFormat: ''
+        elementCategory: ''
     }
   }
   
-  onChangeElementFormat(e) {
+  onChangeElementCategory(e) {
     this.setState({
-        elementFormat: e.target.value
+        elementCategory: e.target.value
     })
   }
 
   onSubmit(e) {
     e.preventDefault();
 
-    const elementFormat = {
-        elementFormat: this.state.elementFormat
+    const elementCategory = {
+        elementCategory: this.state.elementCategory
     }
 
-    console.log(elementFormat);
+    console.log(elementCategory);
 
-    axios.post('http://localhost:5000/formats/add', elementFormat)
+    axios.post('http://localhost:5000/categories/add', elementCategory)
         .then(res => console.log(res.data))
         .catch((error) => console.log( error.response ) )
 
     this.setState({
-        elementFormat: ''
+        elementCategory: ''
     });
   }
 
   render() {
     return (
       <div className='container'>
-        <h3>Create New Format</h3>
+        <h3>Create New Category</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group"> 
             <label>Format: </label>
             <input  type="text"
                 required
                 className="form-control"
-                value={this.state.elementFormat}
-                onChange={this.onChangeElementFormat}
+                value={this.state.elementCategory}
+                onChange={this.onChangeElementCategory}
                 />
           </div>
           <div className="form-group">

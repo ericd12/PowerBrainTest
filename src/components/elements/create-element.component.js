@@ -32,7 +32,9 @@ export default class CreateElement extends Component {
           elementCogRating: '',
           elementPhysRating: '',
           elementLink: '',
-          formats:[]
+          formats:[],
+          categories:[]
+
       }
     }
 
@@ -44,6 +46,15 @@ export default class CreateElement extends Component {
             this.setState({
               formats: response.data.map(format => format.elementFormat),
               elementFormat: response.data[0].elementFormat
+            })
+          }
+        })
+        axios.get('http://localhost:5000/categories/')
+        .then(response => {
+          if(response.data.length > 0){
+            this.setState({
+              categories: response.data.map(cat => cat.elementCategory),
+              elementCategory: response.data[0].elementCategory
             })
           }
         })
@@ -227,17 +238,20 @@ export default class CreateElement extends Component {
                   />
                 </div>                    
                 <div className="form-group col">		
-                  <label htmlFor="category">Category</label>	
-                  <select className="form-control" 
+                  <label htmlFor="category">Category</label>
+                  <select ref="catInput"
                     required
-                    name="category" 
-                    id="category"
+                    className="form-control"
                     value = {this.state.elementCategory}
                     onChange={this.onChangeElementCategory}>
-                    <option defaultValue>Choose...</option>
-                    <option value="Timing">Timing</option>
-                    <option value="2">#</option>
-                    <option value="3">#</option>
+                      {
+                        this.state.categories.map(function(cat) {
+                          return <option 
+                            key={cat}
+                            value={cat}>{cat}
+                            </option>;
+                        })
+                      }
                   </select>
                 </div>	
               </div>	 

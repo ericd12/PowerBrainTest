@@ -29,11 +29,22 @@ export default class ManageElement extends Component {
       elementMarket: '',
       elementCogRating: '',
       elementPhysRating: '',
-      elementLink: ''
+      elementLink: '',
+      formats:[]
     }
   }
 
   componentDidMount() {
+
+    axios.get('http://localhost:5000/formats/')
+    .then(response => {
+      if(response.data.length > 0){
+        this.setState({
+          formats: response.data.map(format => format.elementFormat),
+          elementFormat: response.data.elementFormat
+        })
+      }
+    })
     axios.get('http://localhost:5000/elements/'+this.props.match.params.id)
       .then(response => {
         this.setState({
@@ -53,7 +64,11 @@ export default class ManageElement extends Component {
       .catch(function (error) {
         console.log(error);
       })
+
+
   }
+
+
 
   onChangeElementNumber(e) {
     this.setState({
@@ -143,7 +158,7 @@ export default class ManageElement extends Component {
     axios.post('http://localhost:5000/elements/update/' + this.props.match.params.id, element)
       .then(res => console.log(res.data));
     alert('updated');
-    window.location = '../';
+    // window.location = '../';
   }
 
   render() {
@@ -192,10 +207,14 @@ export default class ManageElement extends Component {
               id="format"
               value = {this.state.elementFormat}
               onChange={this.onChangeElementFormat}>
-              <option defaultValue>Choose...</option>
-              <option value="Video">Video</option>
-              <option value="2">#2</option>
-              <option value="3">#3</option>
+                  {
+                    this.state.formats.map(function(format) {
+                      return <option 
+                        key={format}
+                        value={format}>{format}
+                        </option>;
+                    })
+                  }
             </select>
           </div>	
         </div>

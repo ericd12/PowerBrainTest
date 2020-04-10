@@ -26,11 +26,13 @@ const elementsRouter = require('./routes/elements');
 const tracksRouter = require('./routes/tracks');
 const programsRouter = require('./routes/programs');
 const formatsRouter = require('./routes/formats');
+const catsRouter = require('./routes/category');
 
 app.use('/elements', elementsRouter);
 app.use('/tracks', tracksRouter);
 app.use('/programs', programsRouter);
 app.use('/formats', formatsRouter);
+app.use('/categories', catsRouter);
 
 app.listen(port, () => {
     console.log('Server is running on port: ' + port);
