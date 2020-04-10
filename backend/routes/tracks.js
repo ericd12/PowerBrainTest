@@ -42,8 +42,7 @@ router.route("/update/:id").post((req, res) => {
     .then((track) => {
       trackNumber = req.body.trackNumber;
       trackName = req.body.trackName;
-      track.trackinfo = req.body.trackinfo;
-      console.log(trackNumber)
+      // track.trackinfo = req.body.trackinfo;
       track
         .save()
         .then(() => res.json("Track updated!"))

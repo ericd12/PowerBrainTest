@@ -15,7 +15,7 @@ const Tracks = props => (
         <td>{props.track.trackNumber}</td>
         <td>{props.track.trackName}</td>
         <td>
-            <Link to={"/tracks/edit/" + props.track.trackinfo._id}><button className="btn btn-sm btn-outline-warning">edit</button></Link> | {/*eslint-disable-next-line */}            
+            <Link to={"/tracks/edit/" + props.track._id}><button className="btn btn-sm btn-outline-warning">edit</button></Link> | {/*eslint-disable-next-line */}            
             <button className="btn btn-sm btn-outline-danger" href="#" onClick={() => { props.deleteTrack(props.track._id) }}>delete</button> 
         </td>
     </tr>
@@ -33,8 +33,8 @@ export default class TracksList extends Component {
     componentDidMount() {
     axios.get('http://localhost:5000/tracks/')
             .then(response => {
+                
                 this.setState({trackinfo: response.data})
-                // console.log(this.state)
             })
             .catch((error) => {
                 console.log(error);

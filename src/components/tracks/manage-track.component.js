@@ -25,7 +25,7 @@ const Button = styled.input`
   height: calc(1.5em + .75rem + 2px);
   padding: .375rem .5rem;
   font-weight: 500;
-  color
+  color: white;
 `
 export default class ManageTrack extends Component {
   constructor(props) {
@@ -53,24 +53,13 @@ export default class ManageTrack extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:5000/elements/")
+    axios.get("http://localhost:5000/tracks/"+this.props.match.params.id)
     .then(response => {
       this.setState({
-        // prev => {
         trackName: response.data.trackName,
-        trackNumber: response.data.trackNumber
-        // const copy = { ...prev };
-        // const { columns } = copy;
-        // copy.elements = response.data;
-
-
-        // columns["column-1"].items = [
-        //   ...copy.columns["column-1"].items,
-        //   ...response.data,
-        // ];
-
-        // return copy;
-      });
+        trackNumber: response.data.trackNumber,
+ 
+      })
     });
   }
 
@@ -91,66 +80,68 @@ export default class ManageTrack extends Component {
 
     const track = {
       trackNumber: this.state.trackNumber,
-      trackName:this.state.trackName,
-      trackinfo: this.state.columns["column-2"].items
+      trackName:this.state.trackName
+      // trackinfo: this.state.columns["column-2"].items
     };
     
 
-    axios.post("http://localhost:5000/tracks/add", track).then(res => {
+    axios.post("http://localhost:5000/tracks/update/"+ this.props.match.params.id, track).then(res => {
       console.log(res.data);
       console.log(track);
 
-      this.setState(prev => {
-        return {
-          ...prev,
-          trackName: '',
-          trackNumber: '',
-          columns: {
-            "column-1": {
-              name: "Elements",
-              items: prev.elements,
-            },
-            "column-2": {
-              name: "Track List",
-              items: [],
-            }
-          },
-        };
+      this.setState({
+        trackName: '',
+        trackNumber: '',
+      //   prev => {
+      //   return {
+      //     ...prev,
+      //     columns: {
+      //       "column-1": {
+      //         name: "Elements",
+      //         items: prev.elements,
+      //       },
+      //       "column-2": {
+      //         name: "Track List",
+      //         items: [],
+      //       }
+      //     },
+      //   };
       });
     });
+    // window.location = '../';
   };
 
   render() {
     return (
       <div>
         <Container>
-          <h1>Create Track</h1>   
+          <h1>Update Track</h1>   
             
-          <Form id='submit-track' onSubmit={this.onSubmit} /* id="createForm" */>
+          <Form id='submit-track' onSubmit={this.onSubmit}>
           <InputGroup>
-          <div className="form-row" >
-            <div className="form-group col">
-              <label htmlFor="number">Number</label>		
-              <input type="text"
-                required
-                className="form-control" 
-                placeholder="add number"
-                value = {this.state.trackNumber}
-                onChange={this.onChangeTrackNumber}
-              />
-            </div>
-            <div className="form-group col">
-              <label htmlFor="name">Name</label>		
-              <input type="text"
-                className="form-control" 
-                placeholder="add name"
-                value = {this.state.trackName}
-                onChange={this.onChangeTrackName}
-              />
-            </div>
-            <Button className="btn btn-primary" type="submit" form='submit-track' value="Create Track"/> 
+            <div className="form-row" >
+              <div className="form-group col">
+                <label htmlFor="number">Number</label>		
+                <input type="text"
+                  required
+                  className="form-control" 
+                  placeholder="add number"
+                  value = {this.state.trackNumber}
+                  onChange={this.onChangeTrackNumber}
+                />
+              </div>
+              <div className="form-group col">
+                <label htmlFor="name">Name</label>		
+                <input type="text"
+                  className="form-control" 
+                  placeholder="add name"
+                  value = {this.state.trackName}
+                  onChange={this.onChangeTrackName}
+                />
+              </div>
+              <Button className="btn btn-primary" type="submit" form='submit-track' value="Update Track"/> 
 
-          </div>          
+            </div>          
           </InputGroup>
  
 

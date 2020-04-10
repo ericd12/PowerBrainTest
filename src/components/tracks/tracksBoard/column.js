@@ -12,7 +12,7 @@ const Container = styled.div`
   font-size: 90%;
   margin-top: 1vh;
   margin-right: 5vh;
-  width: 45%;
+  width: 30%;
   align-items: stretch;
   float: left;
   `;

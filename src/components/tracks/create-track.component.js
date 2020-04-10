@@ -1,13 +1,10 @@
 import axios from 'axios';
-import '../../App.css';
-import '@atlaskit/css-reset';
 import styled from 'styled-components';
 import Column from './tracksBoard/column';
 import React, { Component} from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-// import ReactDOM from "react-dom";
 
-// import AddItemForm from "./AddItemForm";
+
 
 const Container = styled.div`
   width: 100%;
