@@ -1,43 +1,40 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import '../../App.css';
-import '@atlaskit/css-reset';
-import styled from 'styled-components';
-import Column from './tracksBoard/column';
+import React, { Component } from "react";
+import axios from "axios";
+import "@atlaskit/css-reset";
+import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
-
+import Column from "./tracksBoard/column";
 
 const Container = styled.div`
   width: 100%;
   overflow: inherit;
   margin-left: 3%;
-`
+`;
 const Form = styled.form`
   width: 90%;
-  margin-top: 1vh;  
-`
-const InputGroup= styled.div`
+  margin-top: 1vh;
+`;
+const InputGroup = styled.div`
   width: 45%;
-`
+`;
 const Button = styled.input`
   margin: 0 4px;
   margin-top: calc(1.5rem + 4px);
-  height: calc(1.5em + .75rem + 2px);
-  padding: .375rem .5rem;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.5rem;
   font-weight: 500;
   color: white;
-`
+`;
 export default class ManageTrack extends Component {
   constructor(props) {
     super(props);
-    
-    
+
     this.onChangeTrackName = this.onChangeTrackName.bind(this);
     this.onChangeTrackNumber = this.onChangeTrackNumber.bind(this);
-    
+
     this.state = {
-      trackName: '',
-      trackNumber: '',
+      trackName: "",
+      trackNumber: "",
       elements: [],
       columns: {
         "column-1": {
@@ -53,61 +50,65 @@ export default class ManageTrack extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:5000/tracks/"+this.props.match.params.id)
-    .then(response => {
-      this.setState({
-        trackName: response.data.trackName,
-        trackNumber: response.data.trackNumber,
- 
-      })
-    });
+    axios
+      .get(`http://localhost:5000/tracks/${this.props.match.params.id}`)
+      .then(response => {
+        this.setState({
+          trackName: response.data.trackName,
+          trackNumber: response.data.trackNumber,
+        });
+      });
   }
-
 
   onChangeTrackNumber(e) {
     this.setState({
-      trackNumber: e.target.value
+      trackNumber: e.target.value,
     });
   }
 
   onChangeTrackName(e) {
     this.setState({
-      trackName: e.target.value
+      trackName: e.target.value,
     });
   }
+
   onSubmit = e => {
     e.preventDefault();
 
     const track = {
       trackNumber: this.state.trackNumber,
-      trackName:this.state.trackName
+      trackName: this.state.trackName,
       // trackinfo: this.state.columns["column-2"].items
     };
-    
 
-    axios.post("http://localhost:5000/tracks/update/"+ this.props.match.params.id, track).then(res => {
-      console.log(res.data);
-      console.log(track);
+    axios
+      .post(
+        `http://localhost:5000/tracks/update/${this.props.match.params.id}`,
+        track
+      )
+      .then(res => {
+        console.log(res.data);
+        console.log(track);
 
-      this.setState({
-        trackName: '',
-        trackNumber: '',
-      //   prev => {
-      //   return {
-      //     ...prev,
-      //     columns: {
-      //       "column-1": {
-      //         name: "Elements",
-      //         items: prev.elements,
-      //       },
-      //       "column-2": {
-      //         name: "Track List",
-      //         items: [],
-      //       }
-      //     },
-      //   };
+        this.setState({
+          trackName: "",
+          trackNumber: "",
+          //   prev => {
+          //   return {
+          //     ...prev,
+          //     columns: {
+          //       "column-1": {
+          //         name: "Elements",
+          //         items: prev.elements,
+          //       },
+          //       "column-2": {
+          //         name: "Track List",
+          //         items: [],
+          //       }
+          //     },
+          //   };
+        });
       });
-    });
     // window.location = '../';
   };
 
@@ -115,35 +116,40 @@ export default class ManageTrack extends Component {
     return (
       <div>
         <Container>
-          <h1>Update Track</h1>   
-            
-          <Form id='submit-track' onSubmit={this.onSubmit}>
-          <InputGroup>
-            <div className="form-row" >
-              <div className="form-group col">
-                <label htmlFor="number">Number</label>		
-                <input type="text"
-                  required
-                  className="form-control" 
-                  placeholder="add number"
-                  value = {this.state.trackNumber}
-                  onChange={this.onChangeTrackNumber}
-                />
-              </div>
-              <div className="form-group col">
-                <label htmlFor="name">Name</label>		
-                <input type="text"
-                  className="form-control" 
-                  placeholder="add name"
-                  value = {this.state.trackName}
-                  onChange={this.onChangeTrackName}
-                />
-              </div>
-              <Button className="btn btn-primary" type="submit" form='submit-track' value="Update Track"/> 
+          <h1>Update Track</h1>
 
-            </div>          
-          </InputGroup>
- 
+          <Form id="submit-track" onSubmit={this.onSubmit}>
+            <InputGroup>
+              <div className="form-row">
+                <div className="form-group col">
+                  <label htmlFor="number">Number</label>
+                  <input
+                    className="form-control"
+                    onChange={this.onChangeTrackNumber}
+                    placeholder="add number"
+                    required
+                    type="text"
+                    value={this.state.trackNumber}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label htmlFor="name">Name</label>
+                  <input
+                    className="form-control"
+                    onChange={this.onChangeTrackName}
+                    placeholder="add name"
+                    type="text"
+                    value={this.state.trackName}
+                  />
+                </div>
+                <Button
+                  className="btn btn-primary"
+                  form="submit-track"
+                  type="submit"
+                  value="Update Track"
+                />
+              </div>
+            </InputGroup>
 
             <DragDropContext
               onDragEnd={({ source, destination }) => {
@@ -171,7 +177,7 @@ export default class ManageTrack extends Component {
                           ...destColumn,
                           items: destItems,
                         },
-                      }
+                      },
                     };
                   });
                 } else {
@@ -188,7 +194,7 @@ export default class ManageTrack extends Component {
                           ...column,
                           items: copiedItems,
                         },
-                      }
+                      },
                     };
                   });
                 }
@@ -197,12 +203,10 @@ export default class ManageTrack extends Component {
               {Object.entries(this.state.columns).map(([id, column]) => {
                 return <Column {...{ ...column, id, key: id }} />;
               })}
-              
             </DragDropContext>
           </Form>
         </Container>
       </div>
-
     );
   }
 }

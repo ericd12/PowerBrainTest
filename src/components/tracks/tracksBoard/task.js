@@ -11,9 +11,9 @@ const Container = styled.div`
 `;
 
 const P = styled.p`
- display: inline-block;
- margin: 2px  10px 2px 5px;
-`
+  display: inline-block;
+  margin: 2px 10px 2px 5px;
+`;
 
 const Task = ({
   _id,

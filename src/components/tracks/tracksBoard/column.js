@@ -15,7 +15,7 @@ const Container = styled.div`
   width: 30%;
   align-items: stretch;
   float: left;
-  `;
+`;
 
 const Title = styled.h3`
   padding: 8px;
@@ -26,14 +26,14 @@ const TaskList = styled.div`
   flex-grow: 1;
   padding: 8px;
   overflow-y: scroll;
-  align-items: stretch
+  align-items: stretch;
 `;
 
 const Column = ({ id, name, items }) => {
   return (
     <Container>
       <Title>{name}</Title>
-      <Droppable key={id} droppableId={id} >
+      <Droppable key={id} droppableId={id}>
         {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => {
           return (
             <TaskList {...{ ...droppableProps, isDraggingOver }} ref={innerRef}>

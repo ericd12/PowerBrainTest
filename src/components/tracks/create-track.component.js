@@ -1,10 +1,8 @@
-import axios from 'axios';
-import styled from 'styled-components';
-import Column from './tracksBoard/column';
-import React, { Component} from "react";
+import axios from "axios";
+import styled from "styled-components";
+import React, { Component } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-
-
+import Column from "./tracksBoard/column";
 
 const Container = styled.div`
   width: 100%;
@@ -14,32 +12,31 @@ const Container = styled.div`
 
 const Form = styled.form`
   width: 90%;
-  margin-top: 1vh;  
-`
+  margin-top: 1vh;
+`;
 
-const InputGroup= styled.div`
+const InputGroup = styled.div`
   width: 45%;
-`
+`;
 
 const Button = styled.input`
   margin: 0 4px;
   margin-top: calc(1.5rem + 4px);
-  height: calc(1.5em + .75rem + 2px);
-  padding: .375rem .5rem;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.5rem;
   font-weight: 500;
   color: white;
-`
+`;
 export default class CreateTrack extends Component {
   constructor(props) {
     super(props);
-    
-    
+
     this.onChangeTrackName = this.onChangeTrackName.bind(this);
     this.onChangeTrackNumber = this.onChangeTrackNumber.bind(this);
-    
+
     this.state = {
-      trackName: '',
-      trackNumber: '',
+      trackName: "",
+      trackNumber: "",
       elements: [],
       columns: {
         "column-1": {
@@ -73,27 +70,26 @@ export default class CreateTrack extends Component {
     });
   }
 
-
   onChangeTrackNumber(e) {
     this.setState({
-      trackNumber: e.target.value
+      trackNumber: e.target.value,
     });
   }
 
   onChangeTrackName(e) {
     this.setState({
-      trackName: e.target.value
+      trackName: e.target.value,
     });
   }
+
   onSubmit = e => {
     e.preventDefault();
 
     const track = {
       trackNumber: this.state.trackNumber,
-      trackName:this.state.trackName,
-      trackinfo: this.state.columns["column-2"].items
+      trackName: this.state.trackName,
+      trackinfo: this.state.columns["column-2"].items,
     };
-    
 
     axios.post("http://localhost:5000/tracks/add", track).then(res => {
       console.log(res.data);
@@ -102,8 +98,8 @@ export default class CreateTrack extends Component {
       this.setState(prev => {
         return {
           ...prev,
-          trackName: '',
-          trackNumber: '',
+          trackName: "",
+          trackNumber: "",
           columns: {
             "column-1": {
               name: "Elements",
@@ -112,47 +108,54 @@ export default class CreateTrack extends Component {
             "column-2": {
               name: "Track List",
               items: [],
-            }
+            },
           },
         };
       });
     });
   };
 
-
   render() {
     return (
       <div>
         <Container>
-          <h1>Create Track</h1>   
-            
-          <Form id='submit-track' onSubmit={this.onSubmit} /* id="createForm" */>
-          <InputGroup>
-          <div className="form-row" >
-            <div className="form-group col">
-              <label htmlFor="number">Number</label>		
-              <input type="text"
-                required
-                className="form-control" 
-                placeholder="add number"
-                value = {this.state.trackNumber}
-                onChange={this.onChangeTrackNumber}
-              />
-            </div>
-            <div className="form-group col">
-              <label htmlFor="name">Name</label>		
-              <input type="text"
-                className="form-control" 
-                placeholder="add name"
-                value = {this.state.trackName}
-                onChange={this.onChangeTrackName}
-              />
-            </div>
-            <Button className="btn btn-primary" type="submit" form='submit-track' value="Create Track"/> 
+          <h1>Create Track</h1>
 
-          </div>          
-          </InputGroup>
- 
+          <Form
+            id="submit-track"
+            onSubmit={this.onSubmit} /* id="createForm" */
+          >
+            <InputGroup>
+              <div className="form-row">
+                <div className="form-group col">
+                  <label htmlFor="number">Number</label>
+                  <input
+                    className="form-control"
+                    onChange={this.onChangeTrackNumber}
+                    placeholder="add number"
+                    required
+                    type="text"
+                    value={this.state.trackNumber}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label htmlFor="name">Name</label>
+                  <input
+                    className="form-control"
+                    onChange={this.onChangeTrackName}
+                    placeholder="add name"
+                    type="text"
+                    value={this.state.trackName}
+                  />
+                </div>
+                <Button
+                  className="btn btn-primary"
+                  form="submit-track"
+                  type="submit"
+                  value="Create Track"
+                />
+              </div>
+            </InputGroup>
 
             <DragDropContext
               onDragEnd={({ source, destination }) => {
@@ -180,7 +183,7 @@ export default class CreateTrack extends Component {
                           ...destColumn,
                           items: destItems,
                         },
-                      }
+                      },
                     };
                   });
                 } else {
@@ -197,7 +200,7 @@ export default class CreateTrack extends Component {
                           ...column,
                           items: copiedItems,
                         },
-                      }
+                      },
                     };
                   });
                 }
@@ -206,12 +209,10 @@ export default class CreateTrack extends Component {
               {Object.entries(this.state.columns).map(([id, column]) => {
                 return <Column {...{ ...column, id, key: id }} />;
               })}
-              
             </DragDropContext>
           </Form>
         </Container>
       </div>
-
     );
   }
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 // import axios from 'axios';
 
 export default class ManageProgram extends Component {
@@ -7,9 +7,7 @@ export default class ManageProgram extends Component {
 
   // }
 
-    render(){
-        return(
-            <p>ProgramsList</p>
-        )
-    }
+  render() {
+    return <p>ProgramsList</p>;
+  }
 }
