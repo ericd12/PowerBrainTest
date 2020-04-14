@@ -61,34 +61,35 @@ export default class CreateProgram extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    console.log(this.state.tracks);
+    const { columns } = this.state;
 
-    const program = {
-      programinfo: this.state.columns["column-2"].items,
-    };
+    axios
+      .post("http://localhost:5000/programs/add", {
+        programinfo: columns["column-2"].items,
+      })
+      .then(res => {
+        console.log(res.data);
 
-    axios.post("http://localhost:5000/programs/add", program).then(res => {
-      console.log(res.data);
-      console.log(program);
-      this.setState(prev => {
-        return {
-          ...prev,
-          columns: {
-            "column-1": {
-              name: "Track List",
-              items: prev.tracks,
+        this.setState(prev => {
+          return {
+            ...prev,
+            columns: {
+              "column-1": {
+                name: "Track List",
+                items: prev.tracks,
+              },
+              "column-2": {
+                name: "Program List",
+                items: [],
+              },
             },
-            "column-2": {
-              name: "Program List",
-              items: [],
-            },
-          },
-        };
+          };
+        });
       });
-    });
   };
 
   render() {
+    const { columns } = this.state;
     return (
       <div>
         <Container>
@@ -152,7 +153,7 @@ export default class CreateProgram extends Component {
                 }
               }}
             >
-              {Object.entries(this.state.columns).map(([id, column]) => {
+              {Object.entries(columns).map(([id, column]) => {
                 return <Column {...{ ...column, id, key: id }} />;
               })}
             </DragDropContext>

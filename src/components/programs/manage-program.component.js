@@ -1,13 +1,7 @@
-import React, { Component } from "react";
-// import axios from 'axios';
+import React from "react";
 
-export default class ManageProgram extends Component {
-  // constructor(props) {
-  //   super(props);
+const ManageProgram = () => {
+  return <p>ManageProgram</p>;
+};
 
-  // }
-
-  render() {
-    return <p>ManageProgram</p>;
-  }
-}
+export default ManageProgram;

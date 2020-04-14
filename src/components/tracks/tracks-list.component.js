@@ -27,8 +27,6 @@ const Tracks = props => (
 export default class TracksList extends Component {
   constructor(props) {
     super(props);
-
-    this.deleteTrack = this.deleteTrack.bind(this);
     this.state = { trackinfo: [] };
   }
 
@@ -43,29 +41,19 @@ export default class TracksList extends Component {
       });
   }
 
-  deleteTrack(id) {
+  deleteTrack = id => {
+    const { trackinfo } = this.state;
     axios.delete(`http://localhost:5000/tracks/${id}`).then(response => {
       console.log(response.data);
     });
     alert("deleted");
     this.setState({
-      trackinfo: this.state.trackinfo.filter(el => el._id !== id),
+      trackinfo: trackinfo.filter(el => el._id !== id),
     });
-  }
-
-  trackList() {
-    return this.state.trackinfo.map(currentTrack => {
-      return (
-        <Tracks
-          key={currentTrack._id}
-          deleteTrack={this.deleteTrack}
-          track={currentTrack}
-        />
-      );
-    });
-  }
+  };
 
   render() {
+    const { trackinfo } = this.state;
     return (
       <Container>
         <h3>Tracks</h3>
@@ -77,7 +65,17 @@ export default class TracksList extends Component {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>{this.trackList()}</tbody>
+          <tbody>
+            {trackinfo.map(currentTrack => {
+              return (
+                <Tracks
+                  key={currentTrack._id}
+                  deleteTrack={this.deleteTrack}
+                  track={currentTrack}
+                />
+              );
+            })}
+          </tbody>
         </table>
       </Container>
     );

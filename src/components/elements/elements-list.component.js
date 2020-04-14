@@ -40,8 +40,6 @@ const Elements = props => (
 export default class ElementsList extends Component {
   constructor(props) {
     super(props);
-
-    this.deleteElement = this.deleteElement.bind(this);
     this.state = { elements: [] };
   }
 
@@ -56,7 +54,7 @@ export default class ElementsList extends Component {
       });
   }
 
-  deleteElement(id) {
+  deleteElement = id => {
     axios.delete(`http://localhost:5000/elements/${id}`).then(response => {
       console.log(response.data);
     });
@@ -64,9 +62,10 @@ export default class ElementsList extends Component {
     this.setState({
       elements: this.state.elements.filter(el => el._id !== id),
     });
-  }
+  };
 
   render() {
+    const { elements } = this.state;
     return (
       <Container>
         <h1>Manage Elements</h1>
@@ -88,7 +87,7 @@ export default class ElementsList extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.elements.map(currentelement => {
+            {elements.map(currentelement => {
               return (
                 <Elements
                   key={currentelement._id}

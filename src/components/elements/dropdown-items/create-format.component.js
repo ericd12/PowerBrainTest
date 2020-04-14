@@ -4,41 +4,34 @@ import axios from "axios";
 export default class CreateFormat extends Component {
   constructor(props) {
     super(props);
-
-    this.onChangeElementFormat = this.onChangeElementFormat.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-
     this.state = {
       elementFormat: "",
     };
   }
 
-  onChangeElementFormat(e) {
+  onChangeElementFormat = e => {
     this.setState({
       elementFormat: e.target.value,
     });
-  }
+  };
 
-  onSubmit(e) {
+  onSubmit = e => {
     e.preventDefault();
-
-    const elementFormat = {
-      elementFormat: this.state.elementFormat,
-    };
-
-    console.log(elementFormat);
+    const { elementFormat } = this.state;
 
     axios
-      .post("http://localhost:5000/formats/add", elementFormat)
+      .post("http://localhost:5000/formats/add", { elementFormat })
       .then(res => console.log(res.data))
       .catch(error => console.log(error.response));
 
     this.setState({
       elementFormat: "",
     });
-  }
+  };
 
   render() {
+    const { elementFormat } = this.state;
+
     return (
       <div className="container">
         <h3>Create New Format</h3>
@@ -50,7 +43,7 @@ export default class CreateFormat extends Component {
               onChange={this.onChangeElementFormat}
               required
               type="text"
-              value={this.state.elementFormat}
+              value={elementFormat}
             />
           </div>
           <div className="form-group">

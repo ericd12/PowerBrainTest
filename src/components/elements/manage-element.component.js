@@ -33,21 +33,35 @@ export default class ManageElement extends Component {
     axios
       .get(`http://localhost:5000/elements/${this.props.match.params.id}`)
       .then(response => {
+        const {
+          elementnumber,
+          elementlabel,
+          elementDescription,
+          elementFormat,
+          elementDuration,
+          elementCategory,
+          elementSubCategory,
+          elementMarket,
+          elementCogRating,
+          elementPhysRating,
+          elementLink,
+        } = response.data;
+
         this.setState({
-          elementnumber: response.data.elementnumber,
-          elementlabel: response.data.elementlabel,
-          elementDescription: response.data.elementDescription,
-          elementFormat: response.data.elementFormat,
-          elementDuration: response.data.elementDuration,
-          elementCategory: response.data.elementCategory,
-          elementSubCategory: response.data.elementSubCategory,
-          elementMarket: response.data.elementMarket,
-          elementCogRating: response.data.elementCogRating,
-          elementPhysRating: response.data.elementPhysRating,
-          elementLink: response.data.elementLink,
+          elementnumber,
+          elementlabel,
+          elementDescription,
+          elementFormat,
+          elementDuration,
+          elementCategory,
+          elementSubCategory,
+          elementMarket,
+          elementCogRating,
+          elementPhysRating,
+          elementLink,
         });
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -170,7 +184,6 @@ export default class ManageElement extends Component {
       elementCogRating,
       elementPhysRating,
       elementLink,
-      formats,
     } = this.state;
 
     return (

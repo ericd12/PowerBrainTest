@@ -20,7 +20,7 @@ import CreateProgram from "./components/programs/create-program.component";
 import ManageProgram from "./components/programs/manage-program.component";
 import ProgramsList from "./components/programs/programs-list.component";
 
-function App() {
+const App = () => {
   return (
     <Router>
       <div id="App">
@@ -43,6 +43,6 @@ function App() {
       </div>
     </Router>
   );
-}
+};
 
 export default App;

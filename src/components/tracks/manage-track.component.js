@@ -10,13 +10,16 @@ const Container = styled.div`
   overflow: inherit;
   margin-left: 3%;
 `;
+
 const Form = styled.form`
   width: 90%;
   margin-top: 1vh;
 `;
+
 const InputGroup = styled.div`
   width: 45%;
 `;
+
 const Button = styled.input`
   margin: 0 4px;
   margin-top: calc(1.5rem + 4px);
@@ -28,9 +31,6 @@ const Button = styled.input`
 export default class ManageTrack extends Component {
   constructor(props) {
     super(props);
-
-    this.onChangeTrackName = this.onChangeTrackName.bind(this);
-    this.onChangeTrackNumber = this.onChangeTrackNumber.bind(this);
 
     this.state = {
       trackName: "",
@@ -60,24 +60,26 @@ export default class ManageTrack extends Component {
       });
   }
 
-  onChangeTrackNumber(e) {
+  onChangeTrackNumber = e => {
     this.setState({
       trackNumber: e.target.value,
     });
-  }
+  };
 
-  onChangeTrackName(e) {
+  onChangeTrackName = e => {
     this.setState({
       trackName: e.target.value,
     });
-  }
+  };
 
   onSubmit = e => {
     e.preventDefault();
 
+    const { trackNumber, trackName } = this.state;
+
     const track = {
-      trackNumber: this.state.trackNumber,
-      trackName: this.state.trackName,
+      trackNumber,
+      trackName,
       // trackinfo: this.state.columns["column-2"].items
     };
 
@@ -113,6 +115,7 @@ export default class ManageTrack extends Component {
   };
 
   render() {
+    const { trackNumber, trackName, columns } = this.state;
     return (
       <div>
         <Container>
@@ -129,7 +132,7 @@ export default class ManageTrack extends Component {
                     placeholder="add number"
                     required
                     type="text"
-                    value={this.state.trackNumber}
+                    value={trackNumber}
                   />
                 </div>
                 <div className="form-group col">
@@ -139,7 +142,7 @@ export default class ManageTrack extends Component {
                     onChange={this.onChangeTrackName}
                     placeholder="add name"
                     type="text"
-                    value={this.state.trackName}
+                    value={trackName}
                   />
                 </div>
                 <Button
@@ -200,7 +203,7 @@ export default class ManageTrack extends Component {
                 }
               }}
             >
-              {Object.entries(this.state.columns).map(([id, column]) => {
+              {Object.entries(columns).map(([id, column]) => {
                 return <Column {...{ ...column, id, key: id }} />;
               })}
             </DragDropContext>

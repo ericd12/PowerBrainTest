@@ -31,9 +31,6 @@ export default class CreateTrack extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeTrackName = this.onChangeTrackName.bind(this);
-    this.onChangeTrackNumber = this.onChangeTrackNumber.bind(this);
-
     this.state = {
       trackName: "",
       trackNumber: "",
@@ -70,25 +67,25 @@ export default class CreateTrack extends Component {
     });
   }
 
-  onChangeTrackNumber(e) {
+  onChangeTrackNumber = e => {
     this.setState({
       trackNumber: e.target.value,
     });
-  }
+  };
 
-  onChangeTrackName(e) {
+  onChangeTrackName = e => {
     this.setState({
       trackName: e.target.value,
     });
-  }
+  };
 
   onSubmit = e => {
     e.preventDefault();
-
+    const { trackNumber, trackName, columns } = this.state;
     const track = {
-      trackNumber: this.state.trackNumber,
-      trackName: this.state.trackName,
-      trackinfo: this.state.columns["column-2"].items,
+      trackNumber,
+      trackName,
+      trackinfo: columns["column-2"].items,
     };
 
     axios.post("http://localhost:5000/tracks/add", track).then(res => {
@@ -116,6 +113,7 @@ export default class CreateTrack extends Component {
   };
 
   render() {
+    const { trackNumber, trackName, columns } = this.state;
     return (
       <div>
         <Container>
@@ -135,7 +133,7 @@ export default class CreateTrack extends Component {
                     placeholder="add number"
                     required
                     type="text"
-                    value={this.state.trackNumber}
+                    value={trackNumber}
                   />
                 </div>
                 <div className="form-group col">
@@ -145,7 +143,7 @@ export default class CreateTrack extends Component {
                     onChange={this.onChangeTrackName}
                     placeholder="add name"
                     type="text"
-                    value={this.state.trackName}
+                    value={trackName}
                   />
                 </div>
                 <Button
@@ -206,7 +204,7 @@ export default class CreateTrack extends Component {
                 }
               }}
             >
-              {Object.entries(this.state.columns).map(([id, column]) => {
+              {Object.entries(columns).map(([id, column]) => {
                 return <Column {...{ ...column, id, key: id }} />;
               })}
             </DragDropContext>
