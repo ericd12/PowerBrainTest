@@ -48,7 +48,7 @@ export default class CreateCategory extends Component {
             <input
               className="btn btn-primary"
               type="submit"
-              value="Create New Format"
+              value="Create New Category"
             />
           </div>
         </form>

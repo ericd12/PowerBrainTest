@@ -18,6 +18,7 @@ export default class ManageElement extends Component {
       elementPhysRating: "",
       elementLink: "",
       formats: [],
+      categories: []
     };
   }
 
@@ -27,6 +28,14 @@ export default class ManageElement extends Component {
         this.setState({
           formats: response.data.map(format => format.elementFormat),
           elementFormat: response.data.elementFormat,
+        });
+      }
+    });
+    axios.get("http://localhost:5000/categories/").then(response => {
+      if (response.data.length > 0) {
+        this.setState({
+          categories: response.data.map(format => format.elementCategory),
+          elementCategory: response.data.elementCategory,
         });
       }
     });
@@ -168,7 +177,7 @@ export default class ManageElement extends Component {
       )
       .then(res => console.log(res.data));
     alert("updated");
-    // window.location = '../';
+    window.location = '../';
   };
 
   render() {
@@ -271,10 +280,14 @@ export default class ManageElement extends Component {
                 required
                 value={elementCategory}
               >
-                <option defaultValue>Choose...</option>
-                <option value="Timing">Timing</option>
-                <option value="2">#</option>
-                <option value="3">#</option>
+                >
+                {this.state.categories.map(function(cat) {
+                  return (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
