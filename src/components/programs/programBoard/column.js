@@ -10,8 +10,8 @@ const Container = styled.div`
   margin-top: 1vh;
   margin-right: 5vh;
 
-  // user-select: none;
-  // padding: 8px;
+  user-select: none;
+  padding: 8px;
   transition: background-color 0.1s ease 0s;
   margin: 8px 0px;
   height: 35vh;
@@ -37,7 +37,7 @@ const Column = ({ id, name, items }) => {
   return (
     <Container>
       <Title>{name}</Title>
-      <Droppable key={id} droppableId={id} direction='horizontal' >
+      <Droppable key={id} direction="horizontal" droppableId={id}>
         {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => {
           return (
             <TaskList {...{ ...droppableProps, isDraggingOver }} ref={innerRef}>
