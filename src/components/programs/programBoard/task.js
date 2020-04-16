@@ -14,13 +14,9 @@ const Container = styled.div`
 
 const P = styled.p`
   margin: 2px 5px;
-`
+`;
 
-const Task = ({
-  _id,
-  elementCategory,
-  index,
-}) => {
+const Task = ({ _id, elementCategory, index }) => {
   return (
     <Draggable draggableId={_id} index={index}>
       {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const elementSchema = new Schema(
   {
@@ -7,7 +8,7 @@ const elementSchema = new Schema(
     elementlabel: { type: String, required: true },
     elementDescription: { type: String, required: true },
     elementFormat: { type: String, required: true },
-    elementDuration: { type: String, required: true }, //Probably change type to Num
+    elementDuration: { type: String, required: true }, // Probably change type to Num
     elementCategory: { type: String, required: true },
     elementSubCategory: { type: String, required: true },
     elementMarket: { type: String, required: true },
