@@ -21,5 +21,4 @@ const elementSchema = new Schema(
   }
 );
 
-
 module.exports = elementSchema;

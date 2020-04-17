@@ -1,26 +1,26 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import "@atlaskit/css-reset";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "bootstrap/dist/js/bootstrap.min.js";
 
-import NavbarMain from "./components/navbar.component";
+import NavbarMain from "./components/NavbarMain";
 
-import CreateElement from "./components/elements/create-element.component";
-import ManageElement from "./components/elements/manage-element.component";
-import ElementsList from "./components/elements/elements-list.component";
+import CreateElement from "./components/Elements/CreateElement";
+import ManageElement from "./components/Elements/ManageElement";
+import ElementsList from "./components/Elements/ElementsList";
 
-import CreateFormat from "./components/elements/dropdown-items/create-format.component";
-import CreateCategory from "./components/elements/dropdown-items/create-category.component";
-import ManageCategory from "./components/elements/dropdown-items/manage-category.component";
-import CreateMarket from "./components/elements/dropdown-items/create-market.component";
+import CreateFormat from "./components/Elements/DropdownItems/CreateFormat";
+import CreateCategory from "./components/Elements/DropdownItems/CreateCategory";
+import ManageCategory from "./components/Elements/DropdownItems/ManageCategory";
+import CreateMarket from "./components/Elements/DropdownItems/CreateMarket";
 
-import CreateTrack from "./components/tracks/create-track.component";
-import ManageTrack from "./components/tracks/manage-track.component";
-import TracksList from "./components/tracks/tracks-list.component";
+import CreateTrack from "./components/Tracks/CreateTrack";
+import ManageTrack from "./components/Tracks/ManageTrack";
+import TracksList from "./components/Tracks/TracksList";
 
-import CreateProgram from "./components/programs/create-program.component";
-import ManageProgram from "./components/programs/manage-program.component";
-import ProgramsList from "./components/programs/programs-list.component";
+import CreateProgram from "./components/Programs/CreateProgram";
+import ManageProgram from "./components/Programs/ManageProgram";
+import ProgramsList from "./components/Programs/ProgramsList";
 
 const App = () => {
   return (

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-export default class ManageCategory extends Component {
+class ManageCategory extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       elementCategory: "",
     };
@@ -12,20 +11,17 @@ export default class ManageCategory extends Component {
 
   componentDidMount() {
     axios
-    .get(`http://localhost:5000/categories/${this.props.match.params.id}`)
-    .then(response => {
-        const {
-            elementCategory,
-        } = response.data;
-        
+      .get(`http://localhost:5000/categories/${this.props.match.params.id}`)
+      .then(response => {
+        const { elementCategory } = response.data;
         this.setState({
-            elementCategory,
+          elementCategory,
         });
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.log(error);
-    });
-  } 
+      });
+  }
 
   onChangeElementCategory = e => {
     this.setState({
@@ -35,34 +31,27 @@ export default class ManageCategory extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-
-    const {
-      elementCategory,
-    } = this.state;
-
+    const { elementCategory } = this.state;
+    const { id } = this.props.match.params;
     axios
-      .post(
-        `http://localhost:5000/categories/update/${this.props.match.params.id}`,
-        {
-          elementCategory,
-        }
-      )
-      .then(res => console.log(res.data));
-    alert("updated");
-    // window.location = '../';
+      .post(`http://localhost:5000/categories/update/${id}`, {
+        elementCategory,
+      })
+      .then(res => {
+        console.log(res.data);
+        alert("updated");
+      });
   };
 
   render() {
-    const {
-      elementCategory,
-    } = this.state;
+    const { elementCategory } = this.state;
 
     return (
       <div className="container">
         <h1>Update Category</h1>
         <form onSubmit={this.onSubmit}>
           <div className="form-group row">
-          <div className="form-group col">
+            <div className="form-group col">
               <label>Category</label>
               <input
                 className="form-control"
@@ -86,3 +75,5 @@ export default class ManageCategory extends Component {
     );
   }
 }
+
+export default ManageCategory;

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Form } from "react-bootstrap";
 
-export default class CreateElement extends Component {
+class CreateElement extends Component {
   constructor(props) {
     super(props);
 
@@ -20,7 +21,7 @@ export default class CreateElement extends Component {
       elementLink: "",
       formats: [],
       categories: [],
-      markets:[],
+      markets: [],
     };
   }
 
@@ -149,8 +150,7 @@ export default class CreateElement extends Component {
         elementLink,
       })
       .then(res => console.log(res.data));
-      alert("Element Created!");
-
+    alert("Element Created!");
 
     // window.location = '/';
 
@@ -184,16 +184,26 @@ export default class CreateElement extends Component {
       elementLink,
       formats,
       categories,
-      markets
+      markets,
     } = this.state;
 
     return (
       <div className="container">
         <h1 className="text-left">Create a New Element</h1>
         <div className="jumbotron">
-          <form onSubmit={this.onSubmit} /* id="createForm" */>
+          <Form onSubmit={this.onSubmit}>
+            <Form.Group controlId="number">
+              <Form.Label>Number</Form.Label>
+              <Form.Control
+                onChange={this.onChangeElementNumber}
+                placeholder="add number"
+                required
+                type="text"
+                value={elementnumber}
+              />
+            </Form.Group>
             <div className="form-row">
-              <div className="form-group col">
+              {/* <div className="form-group col">
                 <label htmlFor="number">Number</label>
                 <input
                   className="form-control"
@@ -203,7 +213,7 @@ export default class CreateElement extends Component {
                   type="text"
                   value={elementnumber}
                 />
-              </div>
+              </div> */}
               <div className="form-group col">
                 <label htmlFor="label">Label</label>
                 <input
@@ -379,9 +389,11 @@ export default class CreateElement extends Component {
             </div>
 
             <Link to="./">Go Back</Link>
-          </form>
+          </Form>
         </div>
       </div>
     );
   }
 }
+
+export default CreateElement;

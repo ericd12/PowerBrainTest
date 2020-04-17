@@ -1,37 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "@atlaskit/css-reset";
-import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
-import Column from "./tracksBoard/column";
+import Column from "./TracksBoard/Column";
+import { Container, Form, InputGroup, Button } from "./styles";
 
-const Container = styled.div`
-  width: 100%;
-  overflow: inherit;
-  margin-left: 3%;
-`;
-
-const Form = styled.form`
-  width: 90%;
-  margin-top: 1vh;
-`;
-
-const InputGroup = styled.div`
-  width: 45%;
-`;
-
-const Button = styled.input`
-  margin: 0 4px;
-  margin-top: calc(1.5rem + 4px);
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.5rem;
-  font-weight: 500;
-  color: white;
-`;
-export default class ManageTrack extends Component {
+class ManageTrack extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       trackName: "",
       trackNumber: "",
@@ -51,72 +26,51 @@ export default class ManageTrack extends Component {
 
   componentDidMount() {
     axios
-    .get(`http://localhost:5000/tracks/${this.props.match.params.id}`)
-    .then((response) => {
-      console.log({ response });
-      this.setState((oldState) => {
-        console.log({ oldState });
-        oldState.columns["column-2"].items = response.data.trackinfo;
+      .get(`http://localhost:5000/tracks/${this.props.match.params.id}`)
+      .then(response => {
+        console.log({ response });
+        this.setState(oldState => {
+          console.log({ oldState });
+          oldState.columns["column-2"].items = response.data.trackinfo;
+          return {
+            ...oldState,
+            ...response.data,
+          };
+        });
+      });
+
+    const tracksPromise = axios
+      .get(`http://localhost:5000/tracks/${this.props.match.params.id}`)
+      .then(response => {
+        return response.data;
+      });
+
+    const elementsPromise = axios
+      .get("http://localhost:5000/elements/")
+      .then(response => {
+        return response.data;
+      });
+
+    Promise.all([tracksPromise, elementsPromise]).then(data => {
+      const tracks = data[0];
+      const elements = data[1];
+
+      this.setState(oldState => {
+        oldState.columns["column-1"].items = elements.reduce((all, one) => {
+          const test = tracks.trackinfo.find(item => item._id === one._id);
+          if (!test) {
+            all.push(one);
+          }
+          return all;
+        }, []);
+        oldState.columns["column-2"].items = tracks.trackinfo;
         return {
           ...oldState,
-          ...response.data,
+          ...tracks,
           // trackinfo: response.data.trackinfo
         };
       });
     });
-  
-  const tracksPromise = axios
-    .get(`http://localhost:5000/tracks/${this.props.match.params.id}`)
-    .then((response) => {
-      return response.data;
-    });
-  
-  const elementsPromise = axios
-    .get("http://localhost:5000/elements/")
-    .then((response) => {
-      return response.data;
-    });
-  
-  Promise.all([tracksPromise, elementsPromise]).then((data) => {
-    const tracks = data[0];
-    const elements = data[1];
-  
-    this.setState((oldState) => {
-      oldState.columns["column-1"].items = elements.reduce((all, one) => {
-        const test = tracks.trackinfo.find((item) => item._id === one._id);
-        if (!test) {
-          all.push(one);
-        }
-        return all;
-      }, []);
-      oldState.columns["column-2"].items = tracks.trackinfo;
-      return {
-        ...oldState,
-        ...tracks,
-  
-        // trackinfo: response.data.trackinfo
-      };
-    });
-  });
-  
-
-
-      // axios.get("http://localhost:5000/elements/").then(response => {
-      //   this.setState(prev => {
-      //     const copy = { ...prev };
-      //     const { columns } = copy;
-      //     copy.elements = response.data;
-  
-      //     // const [firstColumnId] = Object.keys(columns);
-  
-      //     columns["column-1"].items = [
-      //       ...copy.columns["column-1"].items,
-      //       ...response.data,
-      //     ];
-  
-      //     return copy;
-      //   });
-      // });
   }
 
   onChangeTrackNumber = e => {
@@ -139,7 +93,7 @@ export default class ManageTrack extends Component {
     const track = {
       trackNumber,
       trackName,
-      trackinfo: this.state.columns["column-2"].items
+      trackinfo: this.state.columns["column-2"].items,
     };
 
     axios
@@ -151,18 +105,17 @@ export default class ManageTrack extends Component {
         console.log(res.data);
         console.log(track);
         alert("updated");
-        window.location = '../';
+        window.location = "../";
       });
   };
 
   render() {
-    const { trackNumber, trackName, columns, trackinfo } = this.state;
-    console.log(this.state, 'tes')
+    const { trackNumber, trackName, columns } = this.state;
+
     return (
       <div>
         <Container>
           <h1>Update Track</h1>
-
           <Form id="submit-track" onSubmit={this.onSubmit}>
             <InputGroup>
               <div className="form-row">
@@ -255,3 +208,5 @@ export default class ManageTrack extends Component {
     );
   }
 }
+
+export default ManageTrack;

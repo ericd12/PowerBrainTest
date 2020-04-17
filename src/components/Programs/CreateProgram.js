@@ -1,8 +1,9 @@
 import axios from "axios";
+import "@atlaskit/css-reset";
 import styled from "styled-components";
 import React, { Component } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import Column from "./tracksBoard/column";
+import Column from "./ProgramBoard/Column";
 
 const Container = styled.div`
   width: 100%;
@@ -12,36 +13,27 @@ const Container = styled.div`
 
 const Form = styled.form`
   width: 90%;
-  margin-top: 1vh;
-`;
-
-const InputGroup = styled.div`
-  width: 45%;
 `;
 
 const Button = styled.input`
-  margin: 0 4px;
-  margin-top: calc(1.5rem + 4px);
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.5rem;
+  margin-top: 10px;
+  margin-right: 1%;
   font-weight: 500;
   color: white;
 `;
-export default class CreateTrack extends Component {
+
+export default class CreateProgram extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      trackName: "",
-      trackNumber: "",
-      elements: [],
+      tracks: [],
       columns: {
         "column-1": {
-          name: "Elements",
+          name: "Track List",
           items: [],
         },
         "column-2": {
-          name: "Track List",
+          name: "Program List",
           items: [],
         },
       },
@@ -49,11 +41,11 @@ export default class CreateTrack extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:5000/elements/").then(response => {
+    axios.get("http://localhost:5000/tracks/").then(response => {
       this.setState(prev => {
         const copy = { ...prev };
         const { columns } = copy;
-        copy.elements = response.data;
+        copy.tracks = response.data;
 
         // const [firstColumnId] = Object.keys(columns);
 
@@ -67,94 +59,51 @@ export default class CreateTrack extends Component {
     });
   }
 
-  onChangeTrackNumber = e => {
-    this.setState({
-      trackNumber: e.target.value,
-    });
-  };
-
-  onChangeTrackName = e => {
-    this.setState({
-      trackName: e.target.value,
-    });
-  };
-
   onSubmit = e => {
     e.preventDefault();
-    const { trackNumber, trackName, columns } = this.state;
-    const track = {
-      trackNumber,
-      trackName,
-      trackinfo: columns["column-2"].items,
-    };
+    const { columns } = this.state;
 
-    axios.post("http://localhost:5000/tracks/add", track).then(res => {
-      console.log(res.data);
-      console.log(track);
+    axios
+      .post("http://localhost:5000/programs/add", {
+        programinfo: columns["column-2"].items,
+      })
+      .then(res => {
+        console.log(res.data);
 
-      this.setState(prev => {
-        return {
-          ...prev,
-          trackName: "",
-          trackNumber: "",
-          columns: {
-            "column-1": {
-              name: "Elements",
-              items: prev.elements,
+        this.setState(prev => {
+          return {
+            ...prev,
+            columns: {
+              "column-1": {
+                name: "Track List",
+                items: prev.tracks,
+              },
+              "column-2": {
+                name: "Program List",
+                items: [],
+              },
             },
-            "column-2": {
-              name: "Track List",
-              items: [],
-            },
-          },
-        };
+          };
+        });
       });
-    });
   };
 
   render() {
-    const { trackNumber, trackName, columns } = this.state;
+    const { columns } = this.state;
     return (
       <div>
         <Container>
-          <h1>Create Track</h1>
-
+          <h1>Create Program</h1>
+          <Button
+            className="btn btn-primary"
+            form="submit-program"
+            type="submit"
+            value="Create Program"
+          />
           <Form
-            id="submit-track"
+            id="submit-program"
             onSubmit={this.onSubmit} /* id="createForm" */
           >
-            <InputGroup>
-              <div className="form-row">
-                <div className="form-group col">
-                  <label htmlFor="number">Number</label>
-                  <input
-                    className="form-control"
-                    onChange={this.onChangeTrackNumber}
-                    placeholder="add number"
-                    required
-                    type="text"
-                    value={trackNumber}
-                  />
-                </div>
-                <div className="form-group col">
-                  <label htmlFor="name">Name</label>
-                  <input
-                    className="form-control"
-                    onChange={this.onChangeTrackName}
-                    placeholder="add name"
-                    type="text"
-                    value={trackName}
-                  />
-                </div>
-                <Button
-                  className="btn btn-primary"
-                  form="submit-track"
-                  type="submit"
-                  value="Create Track"
-                />
-              </div>
-            </InputGroup>
-
             <DragDropContext
               onDragEnd={({ source, destination }) => {
                 if (!destination) {

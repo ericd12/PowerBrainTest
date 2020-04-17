@@ -1,58 +1,58 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-export default class CreateMarket extends Component {
+class CreateFormat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      elementMarket: "",
+      elementFormat: "",
     };
   }
 
-  onChangeElementMarket = e => {
+  onChangeElementFormat = e => {
     this.setState({
-        elementMarket: e.target.value,
+      elementFormat: e.target.value,
     });
   };
 
   onSubmit = e => {
     e.preventDefault();
-    const { elementMarket } = this.state;
+    const { elementFormat } = this.state;
 
     axios
-      .post("http://localhost:5000/markets/add", { elementMarket })
-      .then(res => console.log(res.data))
+      .post("http://localhost:5000/formats/add", { elementFormat })
+      .then(res => {
+        console.log(res.data);
+        alert("New Format Added!");
+        this.setState({
+          elementFormat: "",
+        });
+      })
       .catch(error => console.log(error.response));
-
-      alert("New Market Added!");
-
-    this.setState({
-        elementMarket: "",
-    });
   };
 
   render() {
-    const { elementMarket } = this.state;
+    const { elementFormat } = this.state;
 
     return (
       <div className="container">
-        <h3>Create New Market</h3>
+        <h3>Create New Format</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
-            <label>Market: </label>
+            <label>Format: </label>
             <input
               className="form-control"
-              onChange={this.onChangeElementMarket}
+              onChange={this.onChangeElementFormat}
               required
               type="text"
-              value={elementMarket}
+              value={elementFormat}
             />
           </div>
           <div className="form-group">
             <input
               className="btn btn-primary"
               type="submit"
-              value="Create New Market"
+              value="Create New Format"
             />
           </div>
         </form>
@@ -60,3 +60,5 @@ export default class CreateMarket extends Component {
     );
   }
 }
+
+export default CreateFormat;

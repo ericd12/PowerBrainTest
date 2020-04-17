@@ -1,30 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Container } from "react-bootstrap";
+import TracksTableRow from "./TracksTableRow";
 
-const Container = styled.div`
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-`;
-
-const Tracks = props => (
-  <tr>
-    <td>{props.track.trackNumber}</td>
-    <td>{props.track.trackName}</td>
-    <td>
-      <Link to={`/tracks/edit/${props.track._id}`}>
-        <button className="btn btn-sm btn-outline-warning">edit</button>
-      </Link>{" "}
-      | {/* eslint-disable-next-line */}
-            <button className="btn btn-sm btn-outline-danger" href="#" onClick={() => { props.deleteTrack(props.track._id) }}>delete</button>
-    </td>
-  </tr>
-);
-
-export default class TracksList extends Component {
+class TracksList extends Component {
   constructor(props) {
     super(props);
     this.state = { trackinfo: [] };
@@ -45,10 +24,10 @@ export default class TracksList extends Component {
     const { trackinfo } = this.state;
     axios.delete(`http://localhost:5000/tracks/${id}`).then(response => {
       console.log(response.data);
-    });
-    alert("deleted");
-    this.setState({
-      trackinfo: trackinfo.filter(el => el._id !== id),
+      alert("deleted");
+      this.setState({
+        trackinfo: trackinfo.filter(el => el._id !== id),
+      });
     });
   };
 
@@ -68,10 +47,10 @@ export default class TracksList extends Component {
           <tbody>
             {trackinfo.map(currentTrack => {
               return (
-                <Tracks
+                <TracksTableRow
                   key={currentTrack._id}
                   deleteTrack={this.deleteTrack}
-                  track={currentTrack}
+                  {...currentTrack}
                 />
               );
             })}
@@ -81,3 +60,5 @@ export default class TracksList extends Component {
     );
   }
 }
+
+export default TracksList;

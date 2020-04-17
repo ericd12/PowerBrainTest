@@ -6,7 +6,7 @@ const marketSchema = new Schema({
   elementMarket: {
     type: String,
     required: true,
-    trim: true, 
+    trim: true,
   },
 });
 
