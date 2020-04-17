@@ -11,6 +11,7 @@ import ElementsList from "./components/elements/elements-list.component";
 
 import CreateFormat from "./components/elements/dropdown-items/create-format.component";
 import CreateCategory from "./components/elements/dropdown-items/create-category.component";
+import ManageCategory from "./components/elements/dropdown-items/manage-category.component";
 import CreateMarket from "./components/elements/dropdown-items/create-market.component";
 
 import CreateTrack from "./components/tracks/create-track.component";
@@ -33,6 +34,7 @@ const App = () => {
 
         <Route component={CreateFormat} exact path="/formats/create" />
         <Route component={CreateCategory} exact path="/categories/create" />
+        <Route component={ManageCategory} exact path="/categories/edit/:id" />
         <Route component={CreateMarket} exact path="/markets/create" />
 
         <Route component={TracksList} exact path="/tracks" />

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import CategoryList from './category-list.component';
 
 export default class CreateCategory extends Component {
   constructor(props) {
@@ -53,7 +54,10 @@ export default class CreateCategory extends Component {
             />
           </div>
         </form>
+
+        <CategoryList />
       </div>
+  
     );
   }
 }
