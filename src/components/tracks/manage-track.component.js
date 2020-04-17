@@ -51,13 +51,72 @@ export default class ManageTrack extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:5000/tracks/${this.props.match.params.id}`)
-      .then(response => {
-        this.setState({
-          trackName: response.data.trackName,
-          trackNumber: response.data.trackNumber,
-        });
+    .get(`http://localhost:5000/tracks/${this.props.match.params.id}`)
+    .then((response) => {
+      console.log({ response });
+      this.setState((oldState) => {
+        console.log({ oldState });
+        oldState.columns["column-2"].items = response.data.trackinfo;
+        return {
+          ...oldState,
+          ...response.data,
+          // trackinfo: response.data.trackinfo
+        };
       });
+    });
+  
+  const tracksPromise = axios
+    .get(`http://localhost:5000/tracks/${this.props.match.params.id}`)
+    .then((response) => {
+      return response.data;
+    });
+  
+  const elementsPromise = axios
+    .get("http://localhost:5000/elements/")
+    .then((response) => {
+      return response.data;
+    });
+  
+  Promise.all([tracksPromise, elementsPromise]).then((data) => {
+    const tracks = data[0];
+    const elements = data[1];
+  
+    this.setState((oldState) => {
+      oldState.columns["column-1"].items = elements.reduce((all, one) => {
+        const test = tracks.trackinfo.find((item) => item._id === one._id);
+        if (!test) {
+          all.push(one);
+        }
+        return all;
+      }, []);
+      oldState.columns["column-2"].items = tracks.trackinfo;
+      return {
+        ...oldState,
+        ...tracks,
+  
+        // trackinfo: response.data.trackinfo
+      };
+    });
+  });
+  
+
+
+      // axios.get("http://localhost:5000/elements/").then(response => {
+      //   this.setState(prev => {
+      //     const copy = { ...prev };
+      //     const { columns } = copy;
+      //     copy.elements = response.data;
+  
+      //     // const [firstColumnId] = Object.keys(columns);
+  
+      //     columns["column-1"].items = [
+      //       ...copy.columns["column-1"].items,
+      //       ...response.data,
+      //     ];
+  
+      //     return copy;
+      //   });
+      // });
   }
 
   onChangeTrackNumber = e => {
@@ -80,7 +139,7 @@ export default class ManageTrack extends Component {
     const track = {
       trackNumber,
       trackName,
-      // trackinfo: this.state.columns["column-2"].items
+      trackinfo: this.state.columns["column-2"].items
     };
 
     axios
@@ -91,31 +150,14 @@ export default class ManageTrack extends Component {
       .then(res => {
         console.log(res.data);
         console.log(track);
-
-        this.setState({
-          trackName: "",
-          trackNumber: "",
-          //   prev => {
-          //   return {
-          //     ...prev,
-          //     columns: {
-          //       "column-1": {
-          //         name: "Elements",
-          //         items: prev.elements,
-          //       },
-          //       "column-2": {
-          //         name: "Track List",
-          //         items: [],
-          //       }
-          //     },
-          //   };
-        });
+        alert("updated");
+        window.location = '../';
       });
-    // window.location = '../';
   };
 
   render() {
-    const { trackNumber, trackName, columns } = this.state;
+    const { trackNumber, trackName, columns, trackinfo } = this.state;
+    console.log(this.state, 'tes')
     return (
       <div>
         <Container>

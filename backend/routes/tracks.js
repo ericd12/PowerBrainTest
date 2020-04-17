@@ -38,9 +38,9 @@ router.route("/:id").delete((req, res) => {
 router.route("/update/:id").post((req, res) => {
   Track.findById(req.params.id)
     .then(track => {
-      trackNumber = req.body.trackNumber;
-      trackName = req.body.trackName;
-      // track.trackinfo = req.body.trackinfo;
+      track.trackNumber = req.body.trackNumber;
+      track.trackName = req.body.trackName;
+      track.trackinfo = req.body.trackinfo;
       track
         .save()
         .then(() => res.json("Track updated!"))
