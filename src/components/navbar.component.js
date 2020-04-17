@@ -71,6 +71,7 @@ const NavbarMain = () => {
                   <NavDropdown title="Create Dropdown Items" id="items-dropdown">
                         <NavDropdown.Item href="/formats/create">Create New Format</NavDropdown.Item>           
                         <NavDropdown.Item href="/categories/create">Create New Category</NavDropdown.Item>           
+                        <NavDropdown.Item href="/markets/create">Create New Market</NavDropdown.Item>           
                     </NavDropdown>
                 </NavDropdown>
                 <NavDropdown title="Tracks" id="track-dropdown">

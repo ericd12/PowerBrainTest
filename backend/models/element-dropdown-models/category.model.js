@@ -6,7 +6,7 @@ const categorySchema = new Schema({
   elementCategory: {
     type: String,
     required: true,
-    trim: true, // removes white space before and after
+    trim: true, 
   },
 });
 

@@ -20,6 +20,7 @@ export default class CreateElement extends Component {
       elementLink: "",
       formats: [],
       categories: [],
+      markets:[],
     };
   }
 
@@ -37,6 +38,14 @@ export default class CreateElement extends Component {
         this.setState({
           categories: response.data.map(cat => cat.elementCategory),
           elementCategory: response.data[0].elementCategory,
+        });
+      }
+    });
+    axios.get("http://localhost:5000/markets/").then(response => {
+      if (response.data.length > 0) {
+        this.setState({
+          markets: response.data.map(market => market.elementMarket),
+          elementMarket: response.data[0].elementMarket,
         });
       }
     });
@@ -140,6 +149,8 @@ export default class CreateElement extends Component {
         elementLink,
       })
       .then(res => console.log(res.data));
+      alert("Element Created!");
+
 
     // window.location = '/';
 
@@ -173,6 +184,7 @@ export default class CreateElement extends Component {
       elementLink,
       formats,
       categories,
+      markets
     } = this.state;
 
     return (
@@ -283,19 +295,21 @@ export default class CreateElement extends Component {
                 />
               </div>
               <div className="form-group col">
-                <label htmlFor="market">Market</label>
+                <label htmlFor="category">Market</label>
                 <select
+                  ref="marketInput"
                   className="form-control"
-                  id="market"
-                  name="market"
                   onChange={this.onChangeElementMarket}
                   required
                   value={elementMarket}
                 >
-                  <option defaultValue>Choose...</option>
-                  <option value="Memory Care">Memory Care</option>
-                  <option value="2">#</option>
-                  <option value="3">#</option>
+                  {markets.map(market => {
+                    return (
+                      <option key={market} value={market}>
+                        {market}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
             </div>

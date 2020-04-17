@@ -24,6 +24,8 @@ export default class CreateFormat extends Component {
       .then(res => console.log(res.data))
       .catch(error => console.log(error.response));
 
+    alert("New Format Added!");
+
     this.setState({
       elementFormat: "",
     });

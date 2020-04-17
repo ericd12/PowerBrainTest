@@ -1,55 +1,58 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-export default class CreateCategory extends Component {
+export default class CreateMarket extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      elementCategory: "",
+      elementMarket: "",
     };
   }
 
-  onChangeElementCategory = e => {
+  onChangeElementMarket = e => {
     this.setState({
-      elementCategory: e.target.value,
+        elementMarket: e.target.value,
     });
   };
 
   onSubmit = e => {
     e.preventDefault();
-    const { elementCategory } = this.state;
+    const { elementMarket } = this.state;
+
     axios
-      .post("http://localhost:5000/categories/add", { elementCategory })
+      .post("http://localhost:5000/markets/add", { elementMarket })
       .then(res => console.log(res.data))
       .catch(error => console.log(error.response));
-      alert("New Category Added!");
+
+      alert("New Market Added!");
 
     this.setState({
-      elementCategory: "",
+        elementMarket: "",
     });
   };
 
   render() {
-    const { elementCategory } = this.state;
+    const { elementMarket } = this.state;
+
     return (
       <div className="container">
-        <h3>Create New Category</h3>
+        <h3>Create New Market</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
-            <label>Category: </label>
+            <label>Market: </label>
             <input
               className="form-control"
-              onChange={this.onChangeElementCategory}
+              onChange={this.onChangeElementMarket}
               required
               type="text"
-              value={elementCategory}
+              value={elementMarket}
             />
           </div>
           <div className="form-group">
             <input
               className="btn btn-primary"
               type="submit"
-              value="Create New Category"
+              value="Create New Market"
             />
           </div>
         </form>
