@@ -17,7 +17,7 @@ const CategoriesTableRow = ({ elementCategory, _id, deleteCategory }) => (
         <Button size="sm" variant="outline-warning">
           edit
         </Button>
-      </Link>{" "}
+      </Link>
       <span> | </span>
       <Button
         onClick={() => {
