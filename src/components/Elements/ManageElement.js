@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-export default class ManageElement extends Component {
+class ManageElement extends Component {
   constructor(props) {
     super(props);
 
@@ -18,11 +18,13 @@ export default class ManageElement extends Component {
       elementPhysRating: "",
       elementLink: "",
       formats: [],
-      categories: []
+      categories: [],
     };
   }
 
   componentDidMount() {
+    const { id } = this.props.match.params;
+
     axios.get("http://localhost:5000/formats/").then(response => {
       if (response.data.length > 0) {
         this.setState({
@@ -31,6 +33,7 @@ export default class ManageElement extends Component {
         });
       }
     });
+
     axios.get("http://localhost:5000/categories/").then(response => {
       if (response.data.length > 0) {
         this.setState({
@@ -39,35 +42,12 @@ export default class ManageElement extends Component {
         });
       }
     });
-    axios
-      .get(`http://localhost:5000/elements/${this.props.match.params.id}`)
-      .then(response => {
-        const {
-          elementnumber,
-          elementlabel,
-          elementDescription,
-          elementFormat,
-          elementDuration,
-          elementCategory,
-          elementSubCategory,
-          elementMarket,
-          elementCogRating,
-          elementPhysRating,
-          elementLink,
-        } = response.data;
 
+    axios
+      .get(`http://localhost:5000/elements/${id}`)
+      .then(response => {
         this.setState({
-          elementnumber,
-          elementlabel,
-          elementDescription,
-          elementFormat,
-          elementDuration,
-          elementCategory,
-          elementSubCategory,
-          elementMarket,
-          elementCogRating,
-          elementPhysRating,
-          elementLink,
+          ...response.data,
         });
       })
       .catch(error => {
@@ -143,7 +123,7 @@ export default class ManageElement extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-
+    const { id } = this.props.match.params;
     const {
       elementnumber,
       elementlabel,
@@ -159,25 +139,22 @@ export default class ManageElement extends Component {
     } = this.state;
 
     axios
-      .post(
-        `http://localhost:5000/elements/update/${this.props.match.params.id}`,
-        {
-          elementnumber,
-          elementlabel,
-          elementDescription,
-          elementFormat,
-          elementDuration,
-          elementCategory,
-          elementSubCategory,
-          elementMarket,
-          elementCogRating,
-          elementPhysRating,
-          elementLink,
-        }
-      )
+      .post(`http://localhost:5000/elements/update/${id}`, {
+        elementnumber,
+        elementlabel,
+        elementDescription,
+        elementFormat,
+        elementDuration,
+        elementCategory,
+        elementSubCategory,
+        elementMarket,
+        elementCogRating,
+        elementPhysRating,
+        elementLink,
+      })
       .then(res => console.log(res.data));
     alert("updated");
-    window.location = '../';
+    window.location = "../";
   };
 
   render() {
@@ -193,6 +170,7 @@ export default class ManageElement extends Component {
       elementCogRating,
       elementPhysRating,
       elementLink,
+      formats,
     } = this.state;
 
     return (
@@ -245,8 +223,7 @@ export default class ManageElement extends Component {
                 required
                 value={elementFormat}
               >
-                >
-                {this.state.formats.map(function(format) {
+                {formats.map(format => {
                   return (
                     <option key={format} value={format}>
                       {format}
@@ -280,7 +257,6 @@ export default class ManageElement extends Component {
                 required
                 value={elementCategory}
               >
-                >
                 {this.state.categories.map(function(cat) {
                   return (
                     <option key={cat} value={cat}>
@@ -393,3 +369,5 @@ export default class ManageElement extends Component {
     );
   }
 }
+
+export default ManageElement;

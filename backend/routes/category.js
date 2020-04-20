@@ -32,9 +32,7 @@ router.route("/:id").delete((req, res) => {
 router.route("/update/:id").post((req, res) => {
   Category.findById(req.params.id)
     .then(category => {
-
       category.elementCategory = req.body.elementCategory;
-
 
       category
         .save()
@@ -43,6 +41,5 @@ router.route("/update/:id").post((req, res) => {
     })
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
-
 
 module.exports = router;

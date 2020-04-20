@@ -1,33 +1,10 @@
-import axios from "axios";
-import styled from "styled-components";
 import React, { Component } from "react";
+import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
-import Column from "./tracksBoard/column";
+import { Container, Form, Col, Button } from "react-bootstrap";
+import Column from "./TracksBoard/Column";
 
-const Container = styled.div`
-  width: 100%;
-  overflow: inherit;
-  margin-left: 3%;
-`;
-
-const Form = styled.form`
-  width: 90%;
-  margin-top: 1vh;
-`;
-
-const InputGroup = styled.div`
-  width: 45%;
-`;
-
-const Button = styled.input`
-  margin: 0 4px;
-  margin-top: calc(1.5rem + 4px);
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.5rem;
-  font-weight: 500;
-  color: white;
-`;
-export default class CreateTrack extends Component {
+class CreateTrack extends Component {
   constructor(props) {
     super(props);
 
@@ -55,8 +32,6 @@ export default class CreateTrack extends Component {
         const { columns } = copy;
         copy.elements = response.data;
 
-        // const [firstColumnId] = Object.keys(columns);
-
         columns["column-1"].items = [
           ...copy.columns["column-1"].items,
           ...response.data,
@@ -67,49 +42,42 @@ export default class CreateTrack extends Component {
     });
   }
 
-  onChangeTrackNumber = e => {
+  onChange = e => {
+    const { id, value } = e.target;
     this.setState({
-      trackNumber: e.target.value,
-    });
-  };
-
-  onChangeTrackName = e => {
-    this.setState({
-      trackName: e.target.value,
+      [id]: value,
     });
   };
 
   onSubmit = e => {
     e.preventDefault();
     const { trackNumber, trackName, columns } = this.state;
-    const track = {
-      trackNumber,
-      trackName,
-      trackinfo: columns["column-2"].items,
-    };
-
-    axios.post("http://localhost:5000/tracks/add", track).then(res => {
-      console.log(res.data);
-      console.log(track);
-
-      this.setState(prev => {
-        return {
-          ...prev,
-          trackName: "",
-          trackNumber: "",
-          columns: {
-            "column-1": {
-              name: "Elements",
-              items: prev.elements,
+    axios
+      .post("http://localhost:5000/tracks/add", {
+        trackNumber,
+        trackName,
+        trackinfo: columns["column-2"].items,
+      })
+      .then(res => {
+        console.log(res.data);
+        this.setState(prev => {
+          return {
+            ...prev,
+            trackName: "",
+            trackNumber: "",
+            columns: {
+              "column-1": {
+                name: "Elements",
+                items: prev.elements,
+              },
+              "column-2": {
+                name: "Track List",
+                items: [],
+              },
             },
-            "column-2": {
-              name: "Track List",
-              items: [],
-            },
-          },
-        };
+          };
+        });
       });
-    });
   };
 
   render() {
@@ -118,43 +86,36 @@ export default class CreateTrack extends Component {
       <div>
         <Container>
           <h1>Create Track</h1>
-
-          <Form
-            id="submit-track"
-            onSubmit={this.onSubmit} /* id="createForm" */
-          >
-            <InputGroup>
-              <div className="form-row">
-                <div className="form-group col">
-                  <label htmlFor="number">Number</label>
-                  <input
-                    className="form-control"
-                    onChange={this.onChangeTrackNumber}
-                    placeholder="add number"
-                    required
-                    type="text"
-                    value={trackNumber}
-                  />
-                </div>
-                <div className="form-group col">
-                  <label htmlFor="name">Name</label>
-                  <input
-                    className="form-control"
-                    onChange={this.onChangeTrackName}
-                    placeholder="add name"
-                    type="text"
-                    value={trackName}
-                  />
-                </div>
-                <Button
-                  className="btn btn-primary"
-                  form="submit-track"
-                  type="submit"
-                  value="Create Track"
+          <Form id="submit-track" onSubmit={this.onSubmit}>
+            <Form.Row
+              style={{
+                alignItems: "center",
+              }}
+            >
+              <Form.Group as={Col} controlId="trackNumber">
+                <Form.Label>Number</Form.Label>
+                <Form.Control
+                  onChange={this.onChange}
+                  placeholder="add number"
+                  type="text"
+                  value={trackNumber}
                 />
-              </div>
-            </InputGroup>
-
+              </Form.Group>
+              <Form.Group as={Col} controlId="trackName">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  onChange={this.onChange}
+                  placeholder="add name"
+                  type="text"
+                  value={trackName}
+                />
+              </Form.Group>
+              <Col>
+                <Button type="submit" variant="primary">
+                  Submit
+                </Button>
+              </Col>
+            </Form.Row>
             <DragDropContext
               onDragEnd={({ source, destination }) => {
                 if (!destination) {
@@ -214,3 +175,5 @@ export default class CreateTrack extends Component {
     );
   }
 }
+
+export default CreateTrack;

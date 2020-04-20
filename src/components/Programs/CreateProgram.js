@@ -3,7 +3,7 @@ import "@atlaskit/css-reset";
 import styled from "styled-components";
 import React, { Component } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import Column from "./programBoard/column";
+import Column from "./ProgramBoard/Column";
 
 const Container = styled.div`
   width: 100%;
