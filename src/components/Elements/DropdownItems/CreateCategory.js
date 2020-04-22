@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Form, Container } from "react-bootstrap";
 import CategoryList from "./CategoryList";
 
 class CreateCategory extends Component {
@@ -9,12 +10,6 @@ class CreateCategory extends Component {
       elementCategory: "",
     };
   }
-
-  onChangeElementCategory = e => {
-    this.setState({
-      elementCategory: e.target.value,
-    });
-  };
 
   onSubmit = e => {
     e.preventDefault();
@@ -34,30 +29,27 @@ class CreateCategory extends Component {
   render() {
     const { elementCategory } = this.state;
     return (
-      <div className="container">
+      <Container>
         <h3>Create New Category</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Category: </label>
-            <input
-              className="form-control"
-              onChange={this.onChangeElementCategory}
+        <Form onSubmit={this.onSubmit}>
+          <Form.Group controlId="elementCategory">
+            <Form.Label>Category: </Form.Label>
+            <Form.Control
+              name="elementCategory"
+              onChange={e => {
+                const { name, value } = e.target;
+                this.setState({
+                  [name]: value,
+                });
+              }}
               required
               type="text"
               value={elementCategory}
             />
-          </div>
-          <div className="form-group">
-            <input
-              className="btn btn-primary"
-              type="submit"
-              value="Create New Category"
-            />
-          </div>
-        </form>
-
+          </Form.Group>
+        </Form>
         <CategoryList />
-      </div>
+      </Container>
     );
   }
 }
