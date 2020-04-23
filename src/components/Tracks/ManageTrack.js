@@ -1,8 +1,8 @@
-import React, { Component } from "./node_modules/react";
-import axios from "./node_modules/axios";
-import { DragDropContext } from "./node_modules/react-beautiful-dnd";
+import React, { Component } from "react";
+import axios from "axios";
+import { DragDropContext } from "react-beautiful-dnd";
+import { Col, Container, Form, Button } from "react-bootstrap";
 import Column from "./TracksBoard/Column";
-import { Container, Form, InputGroup, Button } from "./styles";
 
 class ManageTrack extends Component {
   constructor(props) {
@@ -73,27 +73,13 @@ class ManageTrack extends Component {
     });
   }
 
-  onChangeTrackNumber = e => {
-    this.setState({
-      trackNumber: e.target.value,
-    });
-  };
-
-  onChangeTrackName = e => {
-    this.setState({
-      trackName: e.target.value,
-    });
-  };
-
   onSubmit = e => {
     e.preventDefault();
-
-    const { trackNumber, trackName } = this.state;
-
+    const { trackNumber, trackName, columns } = this.state;
     const track = {
       trackNumber,
       trackName,
-      trackinfo: this.state.columns["column-2"].items,
+      trackinfo: columns["column-2"].items,
     };
 
     axios
@@ -109,102 +95,107 @@ class ManageTrack extends Component {
       });
   };
 
+  onChange = e => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
   render() {
     const { trackNumber, trackName, columns } = this.state;
 
     return (
-      <div>
-        <Container>
-          <h1>Update Track</h1>
-          <Form id="submit-track" onSubmit={this.onSubmit}>
-            <InputGroup>
-              <div className="form-row">
-                <div className="form-group col">
-                  <label htmlFor="number">Number</label>
-                  <input
-                    className="form-control"
-                    onChange={this.onChangeTrackNumber}
-                    placeholder="add number"
-                    required
-                    type="text"
-                    value={trackNumber}
-                  />
-                </div>
-                <div className="form-group col">
-                  <label htmlFor="name">Name</label>
-                  <input
-                    className="form-control"
-                    onChange={this.onChangeTrackName}
-                    placeholder="add name"
-                    type="text"
-                    value={trackName}
-                  />
-                </div>
-                <Button
-                  className="btn btn-primary"
-                  form="submit-track"
-                  type="submit"
-                  value="Update Track"
-                />
-              </div>
-            </InputGroup>
+      <Container>
+        <h1>Update Track</h1>
+        <Form id="submit-track" onSubmit={this.onSubmit}>
+          <Form.Row>
+            <Form.Group as={Col} controlId="trackNumber">
+              <Form.Label>Number</Form.Label>
+              <Form.Control
+                name="trackNumber"
+                onChange={this.onChange}
+                placeholder="add #"
+                required
+                type="text"
+                value={trackNumber}
+              />
+            </Form.Group>
 
-            <DragDropContext
-              onDragEnd={({ source, destination }) => {
-                if (!destination) {
-                  return;
-                }
+            <Form.Group as={Col} controlId="trackName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                name="trackName"
+                onChange={this.onChange}
+                placeholder="add label"
+                required
+                type="text"
+                value={trackName}
+              />
+            </Form.Group>
 
-                if (source.droppableId !== destination.droppableId) {
-                  this.setState(prev => {
-                    const sourceColumn = prev.columns[source.droppableId];
-                    const destColumn = prev.columns[destination.droppableId];
-                    const sourceItems = [...sourceColumn.items];
-                    const destItems = [...destColumn.items];
-                    const [removed] = sourceItems.splice(source.index, 1);
-                    destItems.splice(destination.index, 0, removed);
-                    return {
-                      ...prev,
-                      columns: {
-                        ...prev.columns,
-                        [source.droppableId]: {
-                          ...sourceColumn,
-                          items: sourceItems,
-                        },
-                        [destination.droppableId]: {
-                          ...destColumn,
-                          items: destItems,
-                        },
-                      },
-                    };
-                  });
-                } else {
-                  this.setState(prev => {
-                    const column = prev.columns[source.droppableId];
-                    const copiedItems = [...column.items];
-                    const [removed] = copiedItems.splice(source.index, 1);
-                    copiedItems.splice(destination.index, 0, removed);
-                    return {
-                      ...prev,
-                      columns: {
-                        ...prev.columns,
-                        [source.droppableId]: {
-                          ...column,
-                          items: copiedItems,
-                        },
-                      },
-                    };
-                  });
-                }
-              }}
-            >
-              {Object.entries(columns).map(([id, column]) => {
-                return <Column {...{ ...column, id, key: id }} />;
-              })}
-            </DragDropContext>
-          </Form>
-        </Container>
-      </div>
+            <Col>
+              <Button type="submit" variant="primary">
+                Update Track
+              </Button>
+            </Col>
+          </Form.Row>
+        </Form>
+
+        <DragDropContext
+          onDragEnd={({ source, destination }) => {
+            if (!destination) {
+              return;
+            }
+
+            if (source.droppableId !== destination.droppableId) {
+              this.setState(prev => {
+                const sourceColumn = prev.columns[source.droppableId];
+                const destColumn = prev.columns[destination.droppableId];
+                const sourceItems = [...sourceColumn.items];
+                const destItems = [...destColumn.items];
+                const [removed] = sourceItems.splice(source.index, 1);
+                destItems.splice(destination.index, 0, removed);
+                return {
+                  ...prev,
+                  columns: {
+                    ...prev.columns,
+                    [source.droppableId]: {
+                      ...sourceColumn,
+                      items: sourceItems,
+                    },
+                    [destination.droppableId]: {
+                      ...destColumn,
+                      items: destItems,
+                    },
+                  },
+                };
+              });
+            } else {
+              this.setState(prev => {
+                const column = prev.columns[source.droppableId];
+                const copiedItems = [...column.items];
+                const [removed] = copiedItems.splice(source.index, 1);
+                copiedItems.splice(destination.index, 0, removed);
+                return {
+                  ...prev,
+                  columns: {
+                    ...prev.columns,
+                    [source.droppableId]: {
+                      ...column,
+                      items: copiedItems,
+                    },
+                  },
+                };
+              });
+            }
+          }}
+        >
+          {Object.entries(columns).map(([id, column]) => {
+            return <Column {...{ ...column, id, key: id }} />;
+          })}
+        </DragDropContext>
+      </Container>
     );
   }
 }
