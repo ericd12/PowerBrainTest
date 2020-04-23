@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Container, Button } from "react-bootstrap";
 
 class ManageCategory extends Component {
   constructor(props) {
@@ -24,6 +23,12 @@ class ManageCategory extends Component {
       });
   }
 
+  onChangeElementCategory = e => {
+    this.setState({
+      elementCategory: e.target.value,
+    });
+  };
+
   onSubmit = e => {
     e.preventDefault();
     const { elementCategory } = this.state;
@@ -42,30 +47,31 @@ class ManageCategory extends Component {
     const { elementCategory } = this.state;
 
     return (
-      <Container>
-        <h3>Update Category</h3>
-        <Form onSubmit={this.onSubmit}>
-          <Form.Group controlId="elementCategory">
-            <Form.Label>Category</Form.Label>
-            <Form.Control
-              name="elementCategory"
-              onChange={e => {
-                const { name, value } = e.target;
-                this.setState({
-                  [name]: value,
-                });
-              }}
-              placeholder="add category"
-              required
-              type="text"
-              value={elementCategory}
+      <div className="container">
+        <h1>Update Category</h1>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group row">
+            <div className="form-group col">
+              <label>Category</label>
+              <input
+                className="form-control"
+                onChange={this.onChangeElementCategory}
+                placeholder="add category"
+                required
+                type="text"
+                value={elementCategory}
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <input
+              className="btn btn-primary"
+              type="submit"
+              value="Update Category"
             />
-          </Form.Group>
-          <Button type="submit" variant="primary">
-            Update Category
-          </Button>
-        </Form>
-      </Container>
+          </div>
+        </form>
+      </div>
     );
   }
 }

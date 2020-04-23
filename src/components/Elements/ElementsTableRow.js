@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { Button } from "react-bootstrap";
-import { StyledTableRow } from "../../styles";
+
+const StyledTableRow = styled.tr`
+  td {
+    text-align: center;
+  }
+`;
 
 const ElementsTableRow = ({
   _id,

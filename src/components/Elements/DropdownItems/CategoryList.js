@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Table } from "react-bootstrap";
 import CategoriesTableRow from "./CategoriesTableRow";
-import { CoolTableHead } from "../../../styles";
 
 class CategoryList extends Component {
   constructor(props) {
@@ -25,10 +23,10 @@ class CategoryList extends Component {
     axios.delete(`http://localhost:5000/categories/${id}`).then(response => {
       console.log(response.data);
       alert("deleted");
-      this.setState(prev => {
-        return {
-          categories: prev.categories.filter(el => el._id !== id),
-        };
+      const { categories } = this.state;
+
+      this.setState({
+        categories: categories.filter(el => el._id !== id),
       });
     });
   };
@@ -38,11 +36,11 @@ class CategoryList extends Component {
     return (
       <div>
         <h3>Manage Categories</h3>
-        <Table>
-          <thead>
+        <table className="table">
+          <thead className="thead-light">
             <tr>
-              <CoolTableHead>Name</CoolTableHead>
-              <CoolTableHead>Actions</CoolTableHead>
+              <th>Name</th>
+              <th id="actions">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -56,7 +54,7 @@ class CategoryList extends Component {
               );
             })}
           </tbody>
-        </Table>
+        </table>
       </div>
     );
   }
