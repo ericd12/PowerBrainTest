@@ -10,12 +10,20 @@ const StyledColumnWrap = styled(Card)`
   border: 1px solid lightgrey;
   display: flex;
   flex-direction: column;
-  float: left;
   font-size: 90%; */
   height: 73vh;
   /* margin-right: 5vh;
   margin-top: 1vh;
   width: 30%; */
+`;
+
+
+const StyledTaskList = styled(ListGroup)`	
+  align-items: stretch;	
+  background-color: ${props => (props.isDraggingOver ? "lightblue" : "white")};	
+  flex-grow: 1;	
+  overflow-x: scroll;	
+  padding: 8px;	
 `;
 
 const Column = ({ id, name, items }) => {
@@ -25,7 +33,7 @@ const Column = ({ id, name, items }) => {
       <Droppable key={id} droppableId={id}>
         {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => {
           return (
-            <ListGroup
+            <StyledTaskList
               {...{ ...droppableProps }}
               ref={innerRef}
               style={{
@@ -37,7 +45,7 @@ const Column = ({ id, name, items }) => {
                 return <Task {...{ ...task, index, key: task._id }} />;
               })}
               {placeholder}
-            </ListGroup>
+            </StyledTaskList>
           );
         }}
       </Droppable>
