@@ -5,25 +5,19 @@ import { Card, ListGroup } from "react-bootstrap";
 import Task from "./Task";
 
 const StyledColumnWrap = styled(Card)`
-  align-items: stretch;
+  /* align-items: stretch;
   border-radius: 4px;
   border: 1px solid lightgrey;
   display: flex;
   flex-direction: column;
-  font-size: 90%; 
+  float: left;
+  font-size: 90%; */
   height: 73vh;
-  margin-right: 5vh;
+  /* margin-right: 5vh;
   margin-top: 1vh;
-  width: 50vh; 
+  width: 30%; */
 `;
 
-const StyledTaskList = styled(ListGroup)`	
-  align-items: stretch;	
-  background-color: ${props => (props.isDraggingOver ? "lightblue" : "white")};	
-  flex-grow: 1;	
-  overflow-x: scroll;	
-  padding: 8px;	
-`;
 const Column = ({ id, name, items }) => {
   return (
     <StyledColumnWrap>
@@ -31,7 +25,7 @@ const Column = ({ id, name, items }) => {
       <Droppable key={id} droppableId={id}>
         {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => {
           return (
-            <StyledTaskList
+            <ListGroup
               {...{ ...droppableProps }}
               ref={innerRef}
               style={{
@@ -43,7 +37,7 @@ const Column = ({ id, name, items }) => {
                 return <Task {...{ ...task, index, key: task._id }} />;
               })}
               {placeholder}
-            </StyledTaskList>
+            </ListGroup>
           );
         }}
       </Droppable>
