@@ -1,6 +1,19 @@
 import React from "react";
+import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
-import { ListGroup } from "react-bootstrap";
+
+const TaskContainer = styled.div`
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: ${props => (props.isDragging ? "lightgreen" : "white")};
+
+  p {
+    display: inline-block;
+    margin: 2px 10px 2px 5px;
+  }
+`;
 
 const Task = ({
   _id,
@@ -20,27 +33,22 @@ const Task = ({
   return (
     <Draggable draggableId={_id} index={index}>
       {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
-        <ListGroup.Item
-          style={{
-            backgroundColor: `${isDragging ? "lightgreen" : "white"}`,
-          }}
+        <TaskContainer
           {...{ ...draggableProps, ...dragHandleProps, isDragging }}
           ref={innerRef}
         >
-          <ul>
-            <li>{elementnumber}</li>
-            <li>{elementlabel}</li>
-            <li>Desc: {elementDescription}</li>
-            <li>{elementFormat}</li>
-            <li>Time: {elementDuration}</li>
-            <li>{elementCategory}</li>
-            <li>{elementSubCategory}</li>
-            <li>{elementMarket}</li>
-            <li>CogRating: {elementCogRating}</li>
-            <li>PhysRating: {elementPhysRating}</li>
-            <li>{elementLink}</li>
-          </ul>
-        </ListGroup.Item>
+          <p>{elementnumber}</p>
+          <p>{elementlabel}</p>
+          <p>Desc: {elementDescription}</p>
+          <p>{elementFormat}</p>
+          <p>Time: {elementDuration}</p>
+          <p>{elementCategory}</p>
+          <p>{elementSubCategory}</p>
+          <p>{elementMarket}</p>
+          <p>CogRating: {elementCogRating}</p>
+          <p>PhysRating: {elementPhysRating}</p>
+          <p>{elementLink}</p>
+        </TaskContainer>
       )}
     </Draggable>
   );

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Container, Button } from "react-bootstrap";
 
 class CreateFormat extends Component {
   constructor(props) {
@@ -9,6 +8,12 @@ class CreateFormat extends Component {
       elementFormat: "",
     };
   }
+
+  onChangeElementFormat = e => {
+    this.setState({
+      elementFormat: e.target.value,
+    });
+  };
 
   onSubmit = e => {
     e.preventDefault();
@@ -30,29 +35,28 @@ class CreateFormat extends Component {
     const { elementFormat } = this.state;
 
     return (
-      <Container>
+      <div className="container">
         <h3>Create New Format</h3>
-        <Form onSubmit={this.onSubmit}>
-          <Form.Group controlId="elementFormat">
-            <Form.Label>Format:</Form.Label>
-            <Form.Control
-              name="elementFormat"
-              onChange={e => {
-                const { name, value } = e.target;
-                this.setState({
-                  [name]: value,
-                });
-              }}
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label>Format: </label>
+            <input
+              className="form-control"
+              onChange={this.onChangeElementFormat}
               required
               type="text"
               value={elementFormat}
             />
-          </Form.Group>
-          <Button type="submit" variant="primary">
-            Create New Format
-          </Button>
-        </Form>
-      </Container>
+          </div>
+          <div className="form-group">
+            <input
+              className="btn btn-primary"
+              type="submit"
+              value="Create New Format"
+            />
+          </div>
+        </form>
+      </div>
     );
   }
 }

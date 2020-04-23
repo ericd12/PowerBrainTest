@@ -1,27 +1,33 @@
 import React from "react";
+import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
-import { ListGroup } from "react-bootstrap";
+
+const Container = styled.div`
+  background-color: ${props => (props.isDragging ? "lightgreen" : "white")};
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  margin-bottom: 8px;
+  margin-right: 2px;
+  padding: 8px;
+  width: 25vh;
+
+  p {
+    margin: 2px 5px;
+  }
+`;
 
 const Task = ({ _id, elementCategory, index }) => {
   return (
     <Draggable draggableId={_id} index={index}>
       {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
-        <ListGroup.Item
-          style={{
-            backgroundColor: `${isDragging ? "lightgreen" : "white"}`,
-          }}
+        <Container
           {...{ ...draggableProps, ...dragHandleProps, isDragging }}
           ref={innerRef}
         >
-          <ul
-            {...{ ...draggableProps, ...dragHandleProps, isDragging }}
-            ref={innerRef}
-          >
-            <li>{_id}</li>
-            <li>{elementCategory}</li>
-            <li>{index}</li>
-          </ul>
-        </ListGroup.Item>
+          <p>{_id}</p>
+          <p>{elementCategory}</p>
+          <p>{index}</p>
+        </Container>
       )}
     </Draggable>
   );

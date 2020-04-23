@@ -1,8 +1,26 @@
-import React, { Component } from "react";
 import axios from "axios";
+import "@atlaskit/css-reset";
+import styled from "styled-components";
+import React, { Component } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import { Container, Button, Row, Col } from "react-bootstrap";
 import Column from "./ProgramBoard/Column";
+
+const Container = styled.div`
+  width: 100%;
+  overflow: inherit;
+  margin-left: 3%;
+`;
+
+const Form = styled.form`
+  width: 90%;
+`;
+
+const Button = styled.input`
+  margin-top: 10px;
+  margin-right: 1%;
+  font-weight: 500;
+  color: white;
+`;
 
 export default class CreateProgram extends Component {
   constructor(props) {
@@ -41,7 +59,7 @@ export default class CreateProgram extends Component {
     });
   }
 
-  createProgram = e => {
+  onSubmit = e => {
     e.preventDefault();
     const { columns } = this.state;
 
@@ -51,6 +69,7 @@ export default class CreateProgram extends Component {
       })
       .then(res => {
         console.log(res.data);
+
         this.setState(prev => {
           return {
             ...prev,
@@ -72,80 +91,75 @@ export default class CreateProgram extends Component {
   render() {
     const { columns } = this.state;
     return (
-      <Container>
-        <h1>Create Program</h1>
-        <Row>
-          <Col>
-            <Button
-              onClick={this.createProgram}
-              style={{ marginBottom: "16px" }}
-              type="button"
-              variant="primary"
-            >
-              Create Program
-            </Button>
-          </Col>
-        </Row>
-        <DragDropContext
-          onDragEnd={({ source, destination }) => {
-            if (!destination) {
-              return;
-            }
+      <div>
+        <Container>
+          <h1>Create Program</h1>
+          <Button
+            className="btn btn-primary"
+            form="submit-program"
+            type="submit"
+            value="Create Program"
+          />
+          <Form
+            id="submit-program"
+            onSubmit={this.onSubmit} /* id="createForm" */
+          >
+            <DragDropContext
+              onDragEnd={({ source, destination }) => {
+                if (!destination) {
+                  return;
+                }
 
-            if (source.droppableId !== destination.droppableId) {
-              this.setState(prev => {
-                const sourceColumn = prev.columns[source.droppableId];
-                const destColumn = prev.columns[destination.droppableId];
-                const sourceItems = [...sourceColumn.items];
-                const destItems = [...destColumn.items];
-                const [removed] = sourceItems.splice(source.index, 1);
-                destItems.splice(destination.index, 0, removed);
-                return {
-                  ...prev,
-                  columns: {
-                    ...prev.columns,
-                    [source.droppableId]: {
-                      ...sourceColumn,
-                      items: sourceItems,
-                    },
-                    [destination.droppableId]: {
-                      ...destColumn,
-                      items: destItems,
-                    },
-                  },
-                };
-              });
-            } else {
-              this.setState(prev => {
-                const column = prev.columns[source.droppableId];
-                const copiedItems = [...column.items];
-                const [removed] = copiedItems.splice(source.index, 1);
-                copiedItems.splice(destination.index, 0, removed);
-                return {
-                  ...prev,
-                  columns: {
-                    ...prev.columns,
-                    [source.droppableId]: {
-                      ...column,
-                      items: copiedItems,
-                    },
-                  },
-                };
-              });
-            }
-          }}
-        >
-          <Row>
-            {Object.entries(columns).map(([id, column]) => {
-              return (
-                <Col key={id}>
-                  <Column {...{ ...column, id }} />
-                </Col>
-              );
-            })}
-          </Row>
-        </DragDropContext>
-      </Container>
+                if (source.droppableId !== destination.droppableId) {
+                  this.setState(prev => {
+                    const sourceColumn = prev.columns[source.droppableId];
+                    const destColumn = prev.columns[destination.droppableId];
+                    const sourceItems = [...sourceColumn.items];
+                    const destItems = [...destColumn.items];
+                    const [removed] = sourceItems.splice(source.index, 1);
+                    destItems.splice(destination.index, 0, removed);
+                    return {
+                      ...prev,
+                      columns: {
+                        ...prev.columns,
+                        [source.droppableId]: {
+                          ...sourceColumn,
+                          items: sourceItems,
+                        },
+                        [destination.droppableId]: {
+                          ...destColumn,
+                          items: destItems,
+                        },
+                      },
+                    };
+                  });
+                } else {
+                  this.setState(prev => {
+                    const column = prev.columns[source.droppableId];
+                    const copiedItems = [...column.items];
+                    const [removed] = copiedItems.splice(source.index, 1);
+                    copiedItems.splice(destination.index, 0, removed);
+                    return {
+                      ...prev,
+                      columns: {
+                        ...prev.columns,
+                        [source.droppableId]: {
+                          ...column,
+                          items: copiedItems,
+                        },
+                      },
+                    };
+                  });
+                }
+              }}
+            >
+              {Object.entries(columns).map(([id, column]) => {
+                return <Column {...{ ...column, id, key: id }} />;
+              })}
+            </DragDropContext>
+          </Form>
+        </Container>
+      </div>
     );
   }
 }
