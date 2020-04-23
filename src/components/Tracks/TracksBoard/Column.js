@@ -8,9 +8,7 @@ const StyledColumnWrap = styled.div`
   border-radius: 4px;
   border: 1px solid lightgrey;
   display: flex;
-  flex-direction: column;
-  float: left;
-  font-size: 90%;
+  flex-direction: column;*/
   height: 73vh;
   margin-right: 5vh;
   margin-top: 1vh;
@@ -29,6 +27,16 @@ const StyledTaskList = styled.div`
   padding: 8px;
 `;
 
+
+const StyledTaskList = styled(ListGroup)`	
+  align-items: stretch;	
+  background-color: ${props => (props.isDraggingOver ? "lightblue" : "white")};	
+  flex-grow: 1;	
+  overflow-x: scroll;	
+  padding: 8px;	
+  font-size: 70%;
+`;
+
 const Column = ({ id, name, items }) => {
   return (
     <StyledColumnWrap>
@@ -37,7 +45,8 @@ const Column = ({ id, name, items }) => {
         {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => {
           return (
             <StyledTaskList
-              {...{ ...droppableProps, isDraggingOver }}
+              {...{ ...droppableProps }}
+
               ref={innerRef}
             >
               {items.map((task, index) => {
