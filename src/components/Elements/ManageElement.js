@@ -1,24 +1,26 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Form, Container, Col, Button } from "react-bootstrap";
+import { isArrayEmpty } from "../../helpers";
 
 class ManageElement extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      elementnumber: "",
-      elementlabel: "",
-      elementDescription: "",
-      elementFormat: "",
-      elementDuration: "",
-      elementCategory: "",
-      elementSubCategory: "",
-      elementMarket: "",
-      elementCogRating: "",
-      elementPhysRating: "",
-      elementLink: "",
-      formats: [],
       categories: [],
+      elementCategory: "",
+      elementCogRating: "",
+      elementDescription: "",
+      elementDuration: "",
+      elementFormat: "",
+      elementlabel: "",
+      elementLink: "",
+      elementMarket: "",
+      elementnumber: "",
+      elementPhysRating: "",
+      elementSubCategory: "",
+      formats: [],
     };
   }
 
@@ -26,7 +28,7 @@ class ManageElement extends Component {
     const { id } = this.props.match.params;
 
     axios.get("http://localhost:5000/formats/").then(response => {
-      if (response.data.length > 0) {
+      if (!isArrayEmpty(response.data)) {
         this.setState({
           formats: response.data.map(format => format.elementFormat),
           elementFormat: response.data.elementFormat,
@@ -35,7 +37,7 @@ class ManageElement extends Component {
     });
 
     axios.get("http://localhost:5000/categories/").then(response => {
-      if (response.data.length > 0) {
+      if (!isArrayEmpty(response.data)) {
         this.setState({
           categories: response.data.map(format => format.elementCategory),
           elementCategory: response.data.elementCategory,
@@ -55,69 +57,10 @@ class ManageElement extends Component {
       });
   }
 
-  onChangeElementNumber = e => {
+  onChange = e => {
+    const { name, value } = e.target;
     this.setState({
-      elementnumber: e.target.value,
-    });
-  };
-
-  onChangeElementLabel = e => {
-    this.setState({
-      elementlabel: e.target.value,
-    });
-  };
-
-  onChangeElementDescription = e => {
-    this.setState({
-      elementDescription: e.target.value,
-    });
-  };
-
-  onChangeElementFormat = e => {
-    this.setState({
-      elementFormat: e.target.value,
-    });
-  };
-
-  onChangeElementDuration = e => {
-    this.setState({
-      elementDuration: e.target.value,
-    });
-  };
-
-  onChangeElementCategory = e => {
-    this.setState({
-      elementCategory: e.target.value,
-    });
-  };
-
-  onChangeElementSubCategory = e => {
-    this.setState({
-      elementSubCategory: e.target.value,
-    });
-  };
-
-  onChangeElementMarket = e => {
-    this.setState({
-      elementMarket: e.target.value,
-    });
-  };
-
-  onChangeElementCogRating = e => {
-    this.setState({
-      elementCogRating: e.target.value,
-    });
-  };
-
-  onChangeElementPhysRating = e => {
-    this.setState({
-      elementPhysRating: e.target.value,
-    });
-  };
-
-  onChangeElementLink = e => {
-    this.setState({
-      elementLink: e.target.value,
+      [name]: value,
     });
   };
 
@@ -125,36 +68,38 @@ class ManageElement extends Component {
     e.preventDefault();
     const { id } = this.props.match.params;
     const {
-      elementnumber,
-      elementlabel,
-      elementDescription,
-      elementFormat,
-      elementDuration,
       elementCategory,
-      elementSubCategory,
-      elementMarket,
       elementCogRating,
-      elementPhysRating,
+      elementDescription,
+      elementDuration,
+      elementFormat,
+      elementlabel,
       elementLink,
+      elementMarket,
+      elementnumber,
+      elementPhysRating,
+      elementSubCategory,
     } = this.state;
 
     axios
       .post(`http://localhost:5000/elements/update/${id}`, {
-        elementnumber,
-        elementlabel,
-        elementDescription,
-        elementFormat,
-        elementDuration,
         elementCategory,
-        elementSubCategory,
-        elementMarket,
         elementCogRating,
-        elementPhysRating,
+        elementDescription,
+        elementDuration,
+        elementFormat,
+        elementlabel,
         elementLink,
+        elementMarket,
+        elementnumber,
+        elementPhysRating,
+        elementSubCategory,
       })
-      .then(res => console.log(res.data));
-    alert("updated");
-    window.location = "../";
+      .then(res => {
+        console.log(res.data);
+        alert("updated");
+        window.location = "../";
+      });
   };
 
   render() {
@@ -171,55 +116,62 @@ class ManageElement extends Component {
       elementPhysRating,
       elementLink,
       formats,
+      categories,
     } = this.state;
 
+    //* Note: Pretty much the same as `CreateElement.js` could probably be a single reusable component
+
+    //! ? should the `markets` state be dynamic like in `CreateElement.js`?
+
     return (
-      <div className="container">
+      <Container>
         <h1>Update Element</h1>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group row">
-            <div className="form-group col">
-              <label>Number</label>
-              <input
-                className="form-control"
-                onChange={this.onChangeElementNumber}
+        <Form onSubmit={this.onSubmit}>
+          <Form.Row>
+            <Form.Group as={Col} controlId="elementnumber">
+              <Form.Label>Number</Form.Label>
+              <Form.Control
+                name="elementnumber"
+                onChange={this.onChange}
                 placeholder="add #"
                 required
                 type="text"
                 value={elementnumber}
               />
-            </div>
-            <div className="form-group col">
-              <label>Label</label>
-              <input
-                className="form-control"
-                onChange={this.onChangeElementLabel}
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="elementlabel">
+              <Form.Label>Number</Form.Label>
+              <Form.Control
+                name="elementlabel"
+                onChange={this.onChange}
                 placeholder="add label"
                 required
                 type="text"
                 value={elementlabel}
               />
-            </div>
-          </div>
-          <div className="form-group row">
-            <div className="form-group col">
-              <label htmlFor="description">Description</label>
-              <input
-                className="form-control"
-                onChange={this.onChangeElementDescription}
+            </Form.Group>
+          </Form.Row>
+
+          <Form.Row>
+            <Form.Group as={Col} controlId="elementDescription">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                name="elementDescription"
+                onChange={this.onChange}
                 placeholder="add description"
                 required
                 type="text"
                 value={elementDescription}
               />
-            </div>
-            <div className="form-group col">
-              <label htmlFor="format">Format</label>
-              <select
-                className="form-control"
-                id="format"
-                name="format"
-                onChange={this.onChangeElementFormat}
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="elementFormat">
+              <Form.Label>Format</Form.Label>
+              <Form.Control
+                as="select"
+                name="elementFormat"
+                onChange={this.onChange}
                 required
                 value={elementFormat}
               >
@@ -230,65 +182,62 @@ class ManageElement extends Component {
                     </option>
                   );
                 })}
-              </select>
-            </div>
-          </div>
-          <div className="form-group row">
-            <div className="form-group col">
-              <label htmlFor="duration">Duration</label>
-              <input
-                className="form-control"
-                id="duration"
-                name="duration"
-                onChange={this.onChangeElementDuration}
+              </Form.Control>
+            </Form.Group>
+          </Form.Row>
+
+          <Form.Row>
+            <Form.Group as={Col} controlId="elementDuration">
+              <Form.Label>Duration</Form.Label>
+              <Form.Control
+                name="elementDuration"
+                onChange={this.onChange}
                 placeholder="min:secs"
                 required
                 type="text"
                 value={elementDuration}
               />
-            </div>
-            <div className="form-group col">
-              <label htmlFor="category">Category</label>
-              <select
-                className="form-control"
-                id="category"
-                name="category"
-                onChange={this.onChangeElementCategory}
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="elementCategory">
+              <Form.Label>Category</Form.Label>
+              <Form.Control
+                as="select"
+                name="elementCategory"
+                onChange={this.onChange}
                 required
                 value={elementCategory}
               >
-                {this.state.categories.map(function(cat) {
+                {categories.map(format => {
                   return (
-                    <option key={cat} value={cat}>
-                      {cat}
+                    <option key={format} value={format}>
+                      {format}
                     </option>
                   );
                 })}
-              </select>
-            </div>
-          </div>
-          <div className="form-group row">
-            {/* May change 'Subcategory' to dropdown in future */}
-            <div className="form-group col">
-              <label htmlFor="subcategory">Subcategory</label>
-              <input
-                className="form-control"
-                id="subcategory"
-                name="subcategory"
-                onChange={this.onChangeElementSubCategory}
+              </Form.Control>
+            </Form.Group>
+          </Form.Row>
+
+          <Form.Row>
+            <Form.Group as={Col} controlId="elementSubCategory">
+              <Form.Label>Subcategory</Form.Label>
+              <Form.Control
+                name="elementSubCategory"
+                onChange={this.onChange}
                 placeholder="insert subcategory"
                 required
                 type="text"
                 value={elementSubCategory}
               />
-            </div>
-            <div className="form-group col">
-              <label htmlFor="market">Market</label>
-              <select
-                className="form-control"
-                id="market"
-                name="market"
-                onChange={this.onChangeElementMarket}
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="elementMarket">
+              <Form.Label>Market</Form.Label>
+              <Form.Control
+                as="select"
+                name="elementMarket"
+                onChange={this.onChange}
                 required
                 value={elementMarket}
               >
@@ -296,17 +245,17 @@ class ManageElement extends Component {
                 <option value="Memory Care">Memory Care</option>
                 <option value="2">#</option>
                 <option value="3">#</option>
-              </select>
-            </div>
-          </div>
-          <div className="form-group row">
-            <div className="form-group col">
-              <label htmlFor="cogRating">Cognitive Rating</label>
-              <select
-                className="form-control"
-                id="cogRating"
-                name="cogRating"
-                onChange={this.onChangeElementCogRating}
+              </Form.Control>
+            </Form.Group>
+          </Form.Row>
+
+          <Form.Row>
+            <Form.Group as={Col} controlId="elementCogRating">
+              <Form.Label>Cognitive Rating</Form.Label>
+              <Form.Control
+                as="select"
+                name="elementCogRating"
+                onChange={this.onChange}
                 required
                 value={elementCogRating}
               >
@@ -318,15 +267,15 @@ class ManageElement extends Component {
                 <option value="5">5</option>
                 <option value="6">6</option>
                 <option value="7">7</option>
-              </select>
-            </div>
-            <div className="form-group col">
-              <label htmlFor="physRating">Physical Rating</label>
-              <select
-                className="form-control"
-                id="physRating"
-                name="physRating"
-                onChange={this.onChangeElementPhysRating}
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="elementPhysRating">
+              <Form.Label>Physical Rating</Form.Label>
+              <Form.Control
+                as="select"
+                name="elementPhysRating"
+                onChange={this.onChange}
                 required
                 value={elementPhysRating}
               >
@@ -338,34 +287,29 @@ class ManageElement extends Component {
                 <option value="5">5</option>
                 <option value="6">6</option>
                 <option value="7">7</option>
-              </select>
-            </div>
-          </div>
-          <div className="form-group row">
-            <div className="form-group col">
-              <label className="vimeoLink">Vimeo Link</label>
-              <input
-                className="form-control"
-                id="vimeoLink"
-                name="vimeoLink"
-                onChange={this.onChangeElementLink}
-                placeholder="insert address"
+              </Form.Control>
+            </Form.Group>
+          </Form.Row>
+
+          <Form.Row>
+            <Form.Group as={Col} controlId="elementLink">
+              <Form.Label>Vimeo Link</Form.Label>
+              <Form.Control
+                name="elementLink"
+                onChange={this.onChange}
+                placeholder="insert subcategory"
                 required
                 type="text"
                 value={elementLink}
               />
-            </div>
-          </div>
+            </Form.Group>
+          </Form.Row>
 
-          <div className="form-group">
-            <input
-              className="btn btn-primary"
-              type="submit"
-              value="Update Element"
-            />
-          </div>
-        </form>
-      </div>
+          <Button type="submit" variant="primary">
+            Update Element
+          </Button>
+        </Form>
+      </Container>
     );
   }
 }
