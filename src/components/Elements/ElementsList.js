@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Container } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import ElementsTableRow from "./ElementsTableRow";
+import { CoolTableHead } from "../../styles";
 
 class ElementsList extends Component {
   constructor(props) {
@@ -24,8 +25,10 @@ class ElementsList extends Component {
     axios.delete(`http://localhost:5000/elements/${id}`).then(response => {
       console.log(response.data);
       alert("deleted");
-      this.setState({
-        elements: this.state.elements.filter(el => el._id !== id),
+      this.setState(prev => {
+        return {
+          elements: prev.elements.filter(el => el._id !== id),
+        };
       });
     });
   };
@@ -35,21 +38,21 @@ class ElementsList extends Component {
     return (
       <Container>
         <h1>Manage Elements</h1>
-        <table className="table">
-          <thead className="thead-light">
+        <Table>
+          <thead>
             <tr>
-              <th>Number</th>
-              <th>Label</th>
-              <th>Description</th>
-              <th>Format</th>
-              <th>Duration</th>
-              <th>Category</th>
-              <th>Subcategory</th>
-              <th>Market</th>
-              <th>Cognitive Rating</th>
-              <th>Physical Rating</th>
-              <th>Vimeo Link</th>
-              <th id="actions">Actions</th>
+              <CoolTableHead>Number</CoolTableHead>
+              <CoolTableHead>Label</CoolTableHead>
+              <CoolTableHead>Description</CoolTableHead>
+              <CoolTableHead>Format</CoolTableHead>
+              <CoolTableHead>Duration</CoolTableHead>
+              <CoolTableHead>Category</CoolTableHead>
+              <CoolTableHead>Subcategory</CoolTableHead>
+              <CoolTableHead>Market</CoolTableHead>
+              <CoolTableHead>Cognitive Rating</CoolTableHead>
+              <CoolTableHead>Physical Rating</CoolTableHead>
+              <CoolTableHead>Vimeo Link</CoolTableHead>
+              <CoolTableHead>Actions</CoolTableHead>
             </tr>
           </thead>
           <tbody>
@@ -63,7 +66,7 @@ class ElementsList extends Component {
               );
             })}
           </tbody>
-        </table>
+        </Table>
       </Container>
     );
   }

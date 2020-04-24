@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Container } from "react-bootstrap";
+import { Table, Container } from "react-bootstrap";
 import TracksTableRow from "./TracksTableRow";
+import { CoolTableHead } from "../../styles";
 
 class TracksList extends Component {
   constructor(props) {
@@ -21,12 +22,13 @@ class TracksList extends Component {
   }
 
   deleteTrack = id => {
-    const { trackinfo } = this.state;
     axios.delete(`http://localhost:5000/tracks/${id}`).then(response => {
       console.log(response.data);
       alert("deleted");
-      this.setState({
-        trackinfo: trackinfo.filter(el => el._id !== id),
+      this.setState(prev => {
+        return {
+          trackinfo: prev.trackinfo.filter(el => el._id !== id),
+        };
       });
     });
   };
@@ -36,12 +38,12 @@ class TracksList extends Component {
     return (
       <Container>
         <h3>Tracks</h3>
-        <table className="table">
-          <thead className="thead-light">
+        <Table>
+          <thead>
             <tr>
-              <th>Track #</th>
-              <th>Track Name</th>
-              <th>Actions</th>
+              <CoolTableHead>Track #</CoolTableHead>
+              <CoolTableHead>Track Name</CoolTableHead>
+              <CoolTableHead>Actions</CoolTableHead>
             </tr>
           </thead>
           <tbody>
@@ -55,7 +57,7 @@ class TracksList extends Component {
               );
             })}
           </tbody>
-        </table>
+        </Table>
       </Container>
     );
   }

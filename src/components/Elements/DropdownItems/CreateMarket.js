@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Form, Container, Button } from "react-bootstrap";
 
 class CreateMarket extends Component {
   constructor(props) {
@@ -8,12 +9,6 @@ class CreateMarket extends Component {
       elementMarket: "",
     };
   }
-
-  onChangeElementMarket = e => {
-    this.setState({
-      elementMarket: e.target.value,
-    });
-  };
 
   onSubmit = e => {
     e.preventDefault();
@@ -34,28 +29,29 @@ class CreateMarket extends Component {
     const { elementMarket } = this.state;
 
     return (
-      <div className="container">
+      <Container>
         <h3>Create New Market</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Market: </label>
-            <input
-              className="form-control"
-              onChange={this.onChangeElementMarket}
+        <Form onSubmit={this.onSubmit}>
+          <Form.Group controlId="elementMarket">
+            <Form.Label>Market:</Form.Label>
+            <Form.Control
+              name="elementMarket"
+              onChange={e => {
+                const { name, value } = e.target;
+                this.setState({
+                  [name]: value,
+                });
+              }}
               required
               type="text"
               value={elementMarket}
             />
-          </div>
-          <div className="form-group">
-            <input
-              className="btn btn-primary"
-              type="submit"
-              value="Create New Market"
-            />
-          </div>
-        </form>
-      </div>
+          </Form.Group>
+          <Button type="submit" variant="primary">
+            Create New Market
+          </Button>
+        </Form>
+      </Container>
     );
   }
 }
