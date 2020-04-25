@@ -86,65 +86,61 @@ export default class CreateProgram extends Component {
             </Button>
           </Col>
         </Row>
-        <DragDropContext
-          onDragEnd={({ source, destination }) => {
-            if (!destination) {
-              return;
-            }
+        <Row>
+          <DragDropContext
+            onDragEnd={({ source, destination }) => {
+              if (!destination) {
+                return;
+              }
 
-            if (source.droppableId !== destination.droppableId) {
-              this.setState(prev => {
-                const sourceColumn = prev.columns[source.droppableId];
-                const destColumn = prev.columns[destination.droppableId];
-                const sourceItems = [...sourceColumn.items];
-                const destItems = [...destColumn.items];
-                const [removed] = sourceItems.splice(source.index, 1);
-                destItems.splice(destination.index, 0, removed);
-                return {
-                  ...prev,
-                  columns: {
-                    ...prev.columns,
-                    [source.droppableId]: {
-                      ...sourceColumn,
-                      items: sourceItems,
+              if (source.droppableId !== destination.droppableId) {
+                this.setState(prev => {
+                  const sourceColumn = prev.columns[source.droppableId];
+                  const destColumn = prev.columns[destination.droppableId];
+                  const sourceItems = [...sourceColumn.items];
+                  const destItems = [...destColumn.items];
+                  const [removed] = sourceItems.splice(source.index, 1);
+                  destItems.splice(destination.index, 0, removed);
+                  return {
+                    ...prev,
+                    columns: {
+                      ...prev.columns,
+                      [source.droppableId]: {
+                        ...sourceColumn,
+                        items: sourceItems,
+                      },
+                      [destination.droppableId]: {
+                        ...destColumn,
+                        items: destItems,
+                      },
                     },
-                    [destination.droppableId]: {
-                      ...destColumn,
-                      items: destItems,
+                  };
+                });
+              } else {
+                this.setState(prev => {
+                  const column = prev.columns[source.droppableId];
+                  const copiedItems = [...column.items];
+                  const [removed] = copiedItems.splice(source.index, 1);
+                  copiedItems.splice(destination.index, 0, removed);
+                  return {
+                    ...prev,
+                    columns: {
+                      ...prev.columns,
+                      [source.droppableId]: {
+                        ...column,
+                        items: copiedItems,
+                      },
                     },
-                  },
-                };
-              });
-            } else {
-              this.setState(prev => {
-                const column = prev.columns[source.droppableId];
-                const copiedItems = [...column.items];
-                const [removed] = copiedItems.splice(source.index, 1);
-                copiedItems.splice(destination.index, 0, removed);
-                return {
-                  ...prev,
-                  columns: {
-                    ...prev.columns,
-                    [source.droppableId]: {
-                      ...column,
-                      items: copiedItems,
-                    },
-                  },
-                };
-              });
-            }
-          }}
-        >
-          <Row>
+                  };
+                });
+              }
+            }}
+          >
             {Object.entries(columns).map(([id, column]) => {
-              return (
-                <Col key={id}>
-                  <Column {...{ ...column, id }} />
-                </Col>
-              );
+              return <Column {...{ ...column, id, key: id }} />;
             })}
-          </Row>
-        </DragDropContext>
+          </DragDropContext>
+        </Row>
       </Container>
     );
   }

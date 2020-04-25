@@ -4,7 +4,7 @@ import { Container, Table } from "react-bootstrap";
 import ElementsTableRow from "./ElementsTableRow";
 import { CoolTableHead } from "../../styles";
 
-class ElementsList extends Component {
+class ElementsTable extends Component {
   constructor(props) {
     super(props);
     this.state = { elements: [] };
@@ -72,4 +72,4 @@ class ElementsList extends Component {
   }
 }
 
-export default ElementsList;
+export default ElementsTable;

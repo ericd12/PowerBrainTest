@@ -3,6 +3,7 @@ import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Container, Form, Col, Button, Row } from "react-bootstrap";
 import Column from "./TracksBoard/Column";
+import TrackForm from "./TrackForm";
 
 class CreateTrack extends Component {
   constructor(props) {
@@ -81,42 +82,16 @@ class CreateTrack extends Component {
   };
 
   render() {
-    const { trackNumber, trackName, columns } = this.state;
+    const { columns } = this.state;
     return (
       <Container>
         <h1>Create Track</h1>
-        <Form id="submit-track" onSubmit={this.onSubmit}>
-          <Form.Row
-            style={{
-              alignItems: "center",
-            }}
-          >
-            <Form.Group as={Col} controlId="trackNumber">
-              <Form.Label>Number</Form.Label>
-              <Form.Control
-                onChange={this.onChange}
-                placeholder="add number"
-                type="text"
-                value={trackNumber}
-              />
-            </Form.Group>
-            <Form.Group as={Col} controlId="trackName">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                onChange={this.onChange}
-                placeholder="add name"
-                type="text"
-                value={trackName}
-              />
-            </Form.Group>
-            <Col>
-              <Button type="submit" variant="primary">
-                Submit
-              </Button>
-            </Col>
-          </Form.Row>
-        </Form>
-
+        <TrackForm
+          {...this.state}
+          buttonText="Submit"
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
+        />
         <DragDropContext
           onDragEnd={({ source, destination }) => {
             if (!destination) {
@@ -168,11 +143,7 @@ class CreateTrack extends Component {
         >
           <Row>
             {Object.entries(columns).map(([id, column]) => {
-              return (
-                <Col key={id}>
-                  <Column {...{ ...column, id }} />
-                </Col>
-              );
+              return <Column {...{ ...column, id, key: id }} />;
             })}
           </Row>
         </DragDropContext>

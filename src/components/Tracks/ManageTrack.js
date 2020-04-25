@@ -3,6 +3,7 @@ import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Col, Container, Form, Button } from "react-bootstrap";
 import Column from "./TracksBoard/Column";
+import TrackForm from "./TrackForm";
 
 class ManageTrack extends Component {
   constructor(props) {
@@ -108,40 +109,12 @@ class ManageTrack extends Component {
     return (
       <Container>
         <h1>Update Track</h1>
-        <Form id="submit-track" onSubmit={this.onSubmit}>
-          <Form.Row>
-            <Form.Group as={Col} controlId="trackNumber">
-              <Form.Label>Number</Form.Label>
-              <Form.Control
-                name="trackNumber"
-                onChange={this.onChange}
-                placeholder="add #"
-                required
-                type="text"
-                value={trackNumber}
-              />
-            </Form.Group>
-
-            <Form.Group as={Col} controlId="trackName">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                name="trackName"
-                onChange={this.onChange}
-                placeholder="add label"
-                required
-                type="text"
-                value={trackName}
-              />
-            </Form.Group>
-
-            <Col>
-              <Button type="submit" variant="primary">
-                Update Track
-              </Button>
-            </Col>
-          </Form.Row>
-        </Form>
-
+        <TrackForm
+          {...this.state}
+          buttonText="Update Track"
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
+        />
         <DragDropContext
           onDragEnd={({ source, destination }) => {
             if (!destination) {

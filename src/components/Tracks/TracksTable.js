@@ -4,7 +4,7 @@ import { Table, Container } from "react-bootstrap";
 import TracksTableRow from "./TracksTableRow";
 import { CoolTableHead } from "../../styles";
 
-class TracksList extends Component {
+class TracksTable extends Component {
   constructor(props) {
     super(props);
     this.state = { trackinfo: [] };
@@ -63,4 +63,4 @@ class TracksList extends Component {
   }
 }
 
-export default TracksList;
+export default TracksTable;
