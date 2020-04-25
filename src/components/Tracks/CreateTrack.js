@@ -85,7 +85,7 @@ class CreateTrack extends Component {
     const { columns } = this.state;
     return (
       <Container>
-        <h1>Create Track</h1>
+        <h3>Create Track</h3>
         <TrackForm
           {...this.state}
           buttonText="Submit"

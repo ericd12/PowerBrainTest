@@ -108,7 +108,7 @@ class ManageTrack extends Component {
 
     return (
       <Container>
-        <h1>Update Track</h1>
+        <h3>Update Track</h3>
         <TrackForm
           {...this.state}
           buttonText="Update Track"

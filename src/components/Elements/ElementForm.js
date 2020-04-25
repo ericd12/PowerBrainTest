@@ -37,7 +37,7 @@ const ElementForm = ({
         </Form.Group>
 
         <Form.Group as={Col} controlId="elementlabel">
-          <Form.Label>Number</Form.Label>
+          <Form.Label>Label</Form.Label>
           <Form.Control
             name="elementlabel"
             onChange={onChange}

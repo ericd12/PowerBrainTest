@@ -37,7 +37,7 @@ class ElementsTable extends Component {
     const { elements } = this.state;
     return (
       <Container>
-        <h1>Manage Elements</h1>
+        <h3>Manage Elements</h3>
         <Table>
           <thead>
             <tr>

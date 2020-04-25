@@ -109,8 +109,8 @@ class CreateElement extends Component {
     //* Note: Pretty much the same as `ManageElement.js` could probably be a single reusable component
     return (
       <Container>
+      <h3>Create a New Element</h3>
         <Card bg="light">
-          <Card.Header>Create a New Element</Card.Header>
           <Card.Body>
             <ElementForm
               {...this.state}

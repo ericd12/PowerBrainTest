@@ -73,7 +73,7 @@ export default class CreateProgram extends Component {
     const { columns } = this.state;
     return (
       <Container>
-        <h1>Create Program</h1>
+        <h3>Create Program</h3>
         <Row>
           <Col>
             <Button
