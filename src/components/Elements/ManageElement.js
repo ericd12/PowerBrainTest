@@ -41,8 +41,17 @@ class ManageElement extends Component {
     axios.get("http://localhost:5000/categories/").then(response => {
       if (!isArrayEmpty(response.data)) {
         this.setState({
-          categories: response.data.map(format => format.elementCategory),
+          categories: response.data.map(cat => cat.elementCategory),
           elementCategory: response.data.elementCategory,
+        });
+      }
+    });
+
+    axios.get("http://localhost:5000/markets/").then(response => {
+      if (!isArrayEmpty(response.data)) {
+        this.setState({
+          markets: response.data.map(market => market.elementMarket),
+          elementMarket: response.data.elementMarket,
         });
       }
     });
@@ -109,7 +118,7 @@ class ManageElement extends Component {
 
     return (
       <Container>
-        <h1>Update Element</h1>
+        <h3>Update Element</h3>
         <ElementForm
           {...this.state}
           buttonText="Update Element"
