@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Form, Container, Button } from "react-bootstrap";
+import MarketList from "./MarketList";
 
 class CreateMarket extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class CreateMarket extends Component {
             Create New Market
           </Button>
         </Form>
+        <MarketList />
       </Container>
     );
   }
