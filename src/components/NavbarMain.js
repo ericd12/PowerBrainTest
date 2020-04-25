@@ -26,15 +26,15 @@ const NavbarMain = () => {
               Manage Elements
             </NavDropdown.Item>
             <Dropdown.Divider />
-            <NavDropdown id="items-dropdown" title="Create Dropdown Items">
+            <NavDropdown id="items-dropdown" title="Manage Dropdown Options">
               <NavDropdown.Item href="/formats/create">
-                Create New Format
+                Format
               </NavDropdown.Item>
               <NavDropdown.Item href="/categories/create">
-                Create New Category
+                Category
               </NavDropdown.Item>
               <NavDropdown.Item href="/markets/create">
-                Create New Market
+                Market
               </NavDropdown.Item>
             </NavDropdown>
           </NavDropdown>

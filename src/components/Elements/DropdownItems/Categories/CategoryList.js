@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Table } from "react-bootstrap";
 import CategoriesTableRow from "./CategoriesTableRow";
-import { CoolTableHead } from "../../../styles";
+import { CoolTableHead } from "../../../../styles";
 
 class CategoryList extends Component {
   constructor(props) {

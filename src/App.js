@@ -10,8 +10,8 @@ import ManageElement from "./components/Elements/ManageElement";
 import ElementsTable from "./components/Elements/ElementsTable";
 
 import CreateFormat from "./components/Elements/DropdownItems/CreateFormat";
-import CreateCategory from "./components/Elements/DropdownItems/CreateCategory";
-import ManageCategory from "./components/Elements/DropdownItems/ManageCategory";
+import CreateCategory from "./components/Elements/DropdownItems/Categories/CreateCategory";
+import ManageCategory from "./components/Elements/DropdownItems/Categories/ManageCategory";
 import CreateMarket from "./components/Elements/DropdownItems/CreateMarket";
 
 import CreateTrack from "./components/Tracks/CreateTrack";
