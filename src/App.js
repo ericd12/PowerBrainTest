@@ -7,7 +7,7 @@ import NavbarMain from "./components/NavbarMain";
 
 import CreateElement from "./components/Elements/CreateElement";
 import ManageElement from "./components/Elements/ManageElement";
-import ElementsList from "./components/Elements/ElementsList";
+import ElementsTable from "./components/Elements/ElementsTable";
 
 import CreateFormat from "./components/Elements/DropdownItems/CreateFormat";
 import CreateCategory from "./components/Elements/DropdownItems/CreateCategory";
@@ -16,7 +16,7 @@ import CreateMarket from "./components/Elements/DropdownItems/CreateMarket";
 
 import CreateTrack from "./components/Tracks/CreateTrack";
 import ManageTrack from "./components/Tracks/ManageTrack";
-import TracksList from "./components/Tracks/TracksList";
+import TracksTable from "./components/Tracks/TracksTable";
 
 import CreateProgram from "./components/Programs/CreateProgram";
 import ManageProgram from "./components/Programs/ManageProgram";
@@ -28,7 +28,7 @@ const App = () => {
       <div id="App">
         <NavbarMain />
         <br />
-        <Route component={ElementsList} exact path="/elements" />
+        <Route component={ElementsTable} exact path="/elements" />
         <Route component={CreateElement} exact path="/elements/create" />
         <Route component={ManageElement} exact path="/elements/edit/:id" />
 
@@ -37,7 +37,7 @@ const App = () => {
         <Route component={ManageCategory} exact path="/categories/edit/:id" />
         <Route component={CreateMarket} exact path="/markets/create" />
 
-        <Route component={TracksList} exact path="/tracks" />
+        <Route component={TracksTable} exact path="/tracks" />
         <Route component={CreateTrack} exact path="/tracks/create" />
         <Route component={ManageTrack} exact path="/tracks/edit/:id" />
 
