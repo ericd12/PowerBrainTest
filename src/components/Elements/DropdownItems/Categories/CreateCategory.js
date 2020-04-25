@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Container } from "react-bootstrap";
+import { Form, Container, Button } from "react-bootstrap";
 import CategoryList from "./CategoryList";
 
 class CreateCategory extends Component {
@@ -47,7 +47,10 @@ class CreateCategory extends Component {
               value={elementCategory}
             />
           </Form.Group>
-        </Form>
+          <Button type="submit" variant="primary">
+            Create New Category
+          </Button>
+        </Form>        
         <CategoryList />
       </Container>
     );
