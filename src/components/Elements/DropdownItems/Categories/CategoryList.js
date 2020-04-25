@@ -38,7 +38,7 @@ class CategoryList extends Component {
     return (
       <div style={{marginTop: '5vh'}}>
         <h3>Manage Categories</h3>
-        <Table>
+        <Table hover>
           <thead>
             <tr>
               <CoolTableHead>Name</CoolTableHead>

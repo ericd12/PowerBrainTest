@@ -38,7 +38,7 @@ class MarketList extends Component {
     return (
       <div style={{marginTop: '10vh'}}>
         <h3>Manage Markets</h3>
-        <Table>
+        <Table hover>
           <thead>
             <tr>
               <CoolTableHead>Name</CoolTableHead>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Table } from "react-bootstrap";
+import {Table} from 'react-bootstrap';
 import FormatsTableRow from "./FormatsTableRow";
 import { CoolTableHead } from "../../../../styles";
 
@@ -38,7 +38,7 @@ class FormatList extends Component {
     return (
       <div style={{marginTop: '5vh'}}>
         <h3>Manage Formats</h3>
-        <Table>
+        <Table hover>
           <thead>
             <tr>
               <CoolTableHead>Name</CoolTableHead>
