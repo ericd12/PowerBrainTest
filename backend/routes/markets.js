@@ -17,4 +17,30 @@ router.route("/add").post((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
+router.route("/:id").get((req, res) => {
+  Market.findById(req.params.id)
+    .then(markets => res.json(markets))
+    .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
+router.route("/:id").delete((req, res) => {
+  Market.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Market deleted."))
+    .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
+router.route("/update/:id").post((req, res) => {
+  Market.findById(req.params.id)
+    .then(market => {
+      market.elementMarket = req.body.elementMarket;
+
+      market
+        .save()
+        .then(() => res.json("Market updated!"))
+        .catch(err => res.status(400).json(`Error: ${err}`));
+    })
+    .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
+
 module.exports = router;
