@@ -36,11 +36,13 @@ const App = () => {
         <Route component={CreateElement} exact path="/elements/create" />
         <Route component={ManageElement} exact path="/elements/edit/:id" />
 
-        <Route component={CreateFormat} exact path="/formats/create" />
-        <Route component={ManageFormat} exact path="/formats/edit/:id" />
-        <Route component={CreateCategory} exact path="/categories/create" />
+
+
+        <Route component={CreateFormat} exact path="/formats"/>
+        <Route component={ManageFormat} exact path="/formats/edit/:id" />       
+        <Route component={CreateCategory} exact path="/categories" />
         <Route component={ManageCategory} exact path="/categories/edit/:id" />
-        <Route component={CreateMarket} exact path="/markets/create" />
+        <Route component={CreateMarket} exact path="/markets" />
         <Route component={ManageMarket} exact path="/markets/edit/:id" />
 
         <Route component={TracksTable} exact path="/tracks" />
