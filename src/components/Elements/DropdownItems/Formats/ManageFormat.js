@@ -2,28 +2,40 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Form, Container, Button } from "react-bootstrap";
 
-class CreateFormat extends Component {
+class ManageFormat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      elementFormat: "",
+        elementFormat: "",
     };
+  }
+
+  componentDidMount() {
+    axios
+      .get(`http://localhost:5000/formats/${this.props.match.params.id}`)
+      .then(response => {
+        const { elementFormat } = response.data;
+        this.setState({
+            elementFormat,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   onSubmit = e => {
     e.preventDefault();
     const { elementFormat } = this.state;
-
+    const { id } = this.props.match.params;
     axios
-      .post("http://localhost:5000/formats/add", { elementFormat })
+      .post(`http://localhost:5000/formats/update/${id}`, {
+        elementFormat,
+      })
       .then(res => {
         console.log(res.data);
-        alert("New Format Added!");
-        this.setState({
-          elementFormat: "",
-        });
-      })
-      .catch(error => console.log(error.response));
+        alert("updated");
+      });
   };
 
   render() {
@@ -31,10 +43,10 @@ class CreateFormat extends Component {
 
     return (
       <Container>
-        <h3>Create New Format</h3>
+        <h3>Update Format</h3>
         <Form onSubmit={this.onSubmit}>
           <Form.Group controlId="elementFormat">
-            <Form.Label>Format:</Form.Label>
+            <Form.Label>Format</Form.Label>
             <Form.Control
               name="elementFormat"
               onChange={e => {
@@ -43,13 +55,14 @@ class CreateFormat extends Component {
                   [name]: value,
                 });
               }}
+              placeholder="add format"
               required
               type="text"
               value={elementFormat}
             />
           </Form.Group>
           <Button type="submit" variant="primary">
-            Create New Format
+            Update Format
           </Button>
         </Form>
       </Container>
@@ -57,4 +70,4 @@ class CreateFormat extends Component {
   }
 }
 
-export default CreateFormat;
+export default ManageFormat;
