@@ -22,6 +22,7 @@ class ManageElement extends Component {
       elementPhysRating: "",
       elementSubCategory: "",
       formats: [],
+      markets:[]
     };
   }
 
@@ -105,7 +106,6 @@ class ManageElement extends Component {
 
   render() {
     //* Note: Pretty much the same as `CreateElement.js` could probably be a single reusable component
-    //! ? should the `markets` state be dynamic like in `CreateElement.js`?
 
     return (
       <Container>

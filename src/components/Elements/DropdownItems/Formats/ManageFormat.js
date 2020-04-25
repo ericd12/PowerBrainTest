@@ -35,6 +35,8 @@ class ManageFormat extends Component {
       .then(res => {
         console.log(res.data);
         alert("updated");
+        window.location ='/formats/create';
+
       });
   };
 
