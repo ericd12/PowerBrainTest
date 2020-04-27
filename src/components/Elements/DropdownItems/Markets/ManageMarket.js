@@ -6,7 +6,7 @@ class ManageMarket extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        elementMarket: "",
+      elementMarket: "",
     };
   }
 
@@ -16,7 +16,7 @@ class ManageMarket extends Component {
       .then(response => {
         const { elementMarket } = response.data;
         this.setState({
-            elementMarket,
+          elementMarket,
         });
       })
       .catch(error => {
@@ -35,7 +35,8 @@ class ManageMarket extends Component {
       .then(res => {
         console.log(res.data);
         alert("updated");
-        window.location ='/markets/create';
+        const { history } = this.props;
+        history.push("/markets/create");
       });
   };
 

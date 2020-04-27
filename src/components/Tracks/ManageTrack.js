@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
-import { Col, Container, Form, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Column from "./TracksBoard/Column";
 import TrackForm from "./TrackForm";
 
@@ -89,10 +89,11 @@ class ManageTrack extends Component {
         track
       )
       .then(res => {
+        const { history } = this.props;
         console.log(res.data);
         console.log(track);
         alert("updated");
-        window.location = "../";
+        history.push("/tracks");
       });
   };
 
@@ -104,7 +105,7 @@ class ManageTrack extends Component {
   };
 
   render() {
-    const { trackNumber, trackName, columns } = this.state;
+    const { columns } = this.state;
 
     return (
       <Container>

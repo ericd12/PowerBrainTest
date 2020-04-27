@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
-import { Container, Form, Col, Button, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Column from "./TracksBoard/Column";
 import TrackForm from "./TrackForm";
 
 class CreateTrack extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       trackName: "",
       trackNumber: "",
@@ -83,6 +82,7 @@ class CreateTrack extends Component {
 
   render() {
     const { columns } = this.state;
+
     return (
       <Container>
         <h3>Create Track</h3>

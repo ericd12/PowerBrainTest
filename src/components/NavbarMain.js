@@ -27,15 +27,9 @@ const NavbarMain = () => {
             </NavDropdown.Item>
             <Dropdown.Divider />
             <NavDropdown id="items-dropdown" title="Manage Dropdown Options">
-              <NavDropdown.Item href="/formats">
-                Format
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/categories">
-                Category
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/markets">
-                Market
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/formats">Format</NavDropdown.Item>
+              <NavDropdown.Item href="/categories">Category</NavDropdown.Item>
+              <NavDropdown.Item href="/markets">Market</NavDropdown.Item>
             </NavDropdown>
           </NavDropdown>
           <NavDropdown id="track-dropdown" title="Tracks">

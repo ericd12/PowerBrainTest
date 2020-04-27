@@ -50,7 +50,7 @@ class CreateCategory extends Component {
           <Button type="submit" variant="primary">
             Create New Category
           </Button>
-        </Form>        
+        </Form>
         <CategoryList />
       </Container>
     );

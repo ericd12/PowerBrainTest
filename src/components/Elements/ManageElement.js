@@ -22,7 +22,7 @@ class ManageElement extends Component {
       elementPhysRating: "",
       elementSubCategory: "",
       formats: [],
-      markets:[]
+      markets: [],
     };
   }
 
@@ -109,7 +109,8 @@ class ManageElement extends Component {
       .then(res => {
         console.log(res.data);
         alert("updated");
-        window.location = "../";
+        const { history } = this.props;
+        history.push("/elements");
       });
   };
 

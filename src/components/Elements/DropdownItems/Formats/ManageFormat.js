@@ -6,7 +6,7 @@ class ManageFormat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        elementFormat: "",
+      elementFormat: "",
     };
   }
 
@@ -16,7 +16,7 @@ class ManageFormat extends Component {
       .then(response => {
         const { elementFormat } = response.data;
         this.setState({
-            elementFormat,
+          elementFormat,
         });
       })
       .catch(error => {
@@ -35,8 +35,8 @@ class ManageFormat extends Component {
       .then(res => {
         console.log(res.data);
         alert("updated");
-        window.location ='/formats/create';
-
+        const { history } = this.props;
+        history.push("/formats/create");
       });
   };
 

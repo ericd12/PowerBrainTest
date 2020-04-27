@@ -36,7 +36,7 @@ class CategoryList extends Component {
   render() {
     const { categories } = this.state;
     return (
-      <div style={{marginTop: '5vh'}}>
+      <div style={{ marginTop: "5vh" }}>
         <h3>Manage Categories</h3>
         <Table hover>
           <thead>
