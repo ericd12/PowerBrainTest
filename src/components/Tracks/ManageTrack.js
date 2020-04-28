@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
-import { Col, Container, Form, Button } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import Column from "./TracksBoard/Column";
 import TrackForm from "./TrackForm";
+import {TrackContainer} from './../../styles';
 
 class ManageTrack extends Component {
   constructor(props) {
@@ -107,7 +108,7 @@ class ManageTrack extends Component {
     const { trackNumber, trackName, columns } = this.state;
 
     return (
-      <Container>
+      <TrackContainer>
         <h3>Update Track</h3>
         <TrackForm
           {...this.state}
@@ -164,11 +165,13 @@ class ManageTrack extends Component {
             }
           }}
         >
-          {Object.entries(columns).map(([id, column]) => {
-            return <Column {...{ ...column, id, key: id }} />;
-          })}
+          <Row>
+            {Object.entries(columns).map(([id, column]) => {
+              return <Column {...{ ...column, id, key: id }} />;
+            })}
+          </Row>
         </DragDropContext>
-      </Container>
+      </TrackContainer>
     );
   }
 }

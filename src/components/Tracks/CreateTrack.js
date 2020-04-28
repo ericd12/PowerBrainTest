@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
-import { Container, Form, Col, Button, Row } from "react-bootstrap";
+import {Row } from "react-bootstrap";
 import Column from "./TracksBoard/Column";
 import TrackForm from "./TrackForm";
+import {TrackContainer} from './../../styles';
+
+
 
 class CreateTrack extends Component {
   constructor(props) {
@@ -84,7 +87,7 @@ class CreateTrack extends Component {
   render() {
     const { columns } = this.state;
     return (
-      <Container>
+      <TrackContainer>
         <h3>Create Track</h3>
         <TrackForm
           {...this.state}
@@ -147,7 +150,7 @@ class CreateTrack extends Component {
             })}
           </Row>
         </DragDropContext>
-      </Container>
+      </TrackContainer>
     );
   }
 }

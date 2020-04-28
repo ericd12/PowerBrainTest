@@ -1,6 +1,22 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import { ListGroup } from "react-bootstrap";
+import { Table, Card } from "react-bootstrap";
+import styled from 'styled-components';
+
+const TrackTable = styled(Table)`
+table-layout: fixed;
+white-space: nowrap;
+background-color: white;
+  th, td{
+    padding: 2px;
+    border-style : hidden!Important;
+  }
+`
+
+const ElementCard = styled(Card)`
+  margin: 2px;
+  padding: 10px;
+`
 
 const Task = ({
   _id,
@@ -20,27 +36,41 @@ const Task = ({
   return (
     <Draggable draggableId={_id} index={index}>
       {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
-        <ListGroup.Item
+        <ElementCard
           style={{
             backgroundColor: `${isDragging ? "lightgreen" : "white"}`,
           }}
           {...{ ...draggableProps, ...dragHandleProps, isDragging }}
           ref={innerRef}
         >
-          <ul>
-            <li>{elementnumber}</li>
-            <li>{elementlabel}</li>
-            <li>Desc: {elementDescription}</li>
-            <li>{elementFormat}</li>
-            <li>Time: {elementDuration}</li>
-            <li>{elementCategory}</li>
-            <li>{elementSubCategory}</li>
-            <li>{elementMarket}</li>
-            <li>CogRating: {elementCogRating}</li>
-            <li>PhysRating: {elementPhysRating}</li>
-            <li>{elementLink}</li>
-          </ul>
-        </ListGroup.Item>
+          <TrackTable>
+            <thead>
+              <tr>
+                <th>Number: {elementnumber}</th>
+                <th>Label: {elementlabel}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Description: {elementDescription}</td>
+              </tr>
+              <tr>
+                <td>Format: {elementFormat}</td>
+                <td>Time: {elementDuration}</td>
+                <td>Category: {elementCategory}</td>
+              </tr>
+              <tr>     
+                <td>SubCategory: {elementSubCategory}</td>
+                <td>{elementMarket}</td> 
+                <td>Cog Rating: {elementCogRating}</td>
+                <td>Phys Rating: {elementPhysRating}</td>
+              </tr>
+              <tr>        
+                <td>{elementLink}</td>
+              </tr>
+            </tbody>
+          </TrackTable>
+        </ElementCard>
       )}
     </Draggable>
   );

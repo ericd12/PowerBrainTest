@@ -7,18 +7,20 @@ import Task from "./Task";
 const StyledColumnWrap = styled(Card)`
   height: 73vh;
   margin: 1px;
-  overflow: scroll;
   transition: background-color 0.1s ease 0s;
+  width:
 `;
 
 const StyledTaskList = styled(ListGroup)`
   align-items: stretch;
   background-color: ${props => (props.isDraggingOver ? "lightblue" : "white")};
   flex-grow: 1;
-  font-size: 70%;
+  font-size: 90%;
   overflow-x: scroll;
   padding: 8px;
 `;
+
+
 
 const Column = ({ id, name, items }) => {
   return (
