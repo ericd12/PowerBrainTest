@@ -20,8 +20,6 @@ const StyledTaskList = styled(ListGroup)`
   padding: 8px;
 `;
 
-
-
 const Column = ({ id, name, items }) => {
   return (
     <Col>

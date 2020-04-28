@@ -35,8 +35,8 @@ class ManageCategory extends Component {
       .then(res => {
         console.log(res.data);
         alert("updated");
-        window.location ='/categories/create';
-
+        const { history } = this.props;
+        history.push("/categories/create");
       });
   };
 

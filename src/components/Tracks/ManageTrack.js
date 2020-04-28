@@ -90,10 +90,11 @@ class ManageTrack extends Component {
         track
       )
       .then(res => {
+        const { history } = this.props;
         console.log(res.data);
         console.log(track);
         alert("updated");
-        window.location = "../";
+        history.push("/tracks");
       });
   };
 
@@ -105,7 +106,7 @@ class ManageTrack extends Component {
   };
 
   render() {
-    const { trackNumber, trackName, columns } = this.state;
+    const { columns } = this.state;
 
     return (
       <TrackContainer>

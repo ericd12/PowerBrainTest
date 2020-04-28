@@ -27,7 +27,7 @@ class MarketList extends Component {
       alert("deleted");
       this.setState(prev => {
         return {
-            markets: prev.markets.filter(el => el._id !== id),
+          markets: prev.markets.filter(el => el._id !== id),
         };
       });
     });
@@ -36,7 +36,7 @@ class MarketList extends Component {
   render() {
     const { markets } = this.state;
     return (
-      <div style={{marginTop: '10vh'}}>
+      <div style={{ marginTop: "10vh" }}>
         <h3>Manage Markets</h3>
         <Table hover>
           <thead>

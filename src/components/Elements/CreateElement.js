@@ -109,7 +109,7 @@ class CreateElement extends Component {
     //* Note: Pretty much the same as `ManageElement.js` could probably be a single reusable component
     return (
       <Container>
-      <h3>Create a New Element</h3>
+        <h3>Create a New Element</h3>
         <Card bg="light">
           <Card.Body>
             <ElementForm

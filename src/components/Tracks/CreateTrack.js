@@ -6,8 +6,6 @@ import Column from "./TracksBoard/Column";
 import TrackForm from "./TrackForm";
 import {TrackContainer} from './../../styles';
 
-
-
 class CreateTrack extends Component {
   constructor(props) {
     super(props);
