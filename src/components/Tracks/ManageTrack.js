@@ -103,8 +103,7 @@ class ManageTrack extends Component {
     const { columns } = this.state;
 
     return (
-      <TrackContainer>
-        <h3>Update Track</h3>
+      <TrackContainer fluid title="Update Track">
         <TrackForm
           {...this.state}
           buttonText="Update Track"

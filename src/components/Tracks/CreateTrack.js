@@ -86,8 +86,7 @@ class CreateTrack extends Component {
   render() {
     const { columns } = this.state;
     return (
-      <TrackContainer>
-        <h3>Create Track</h3>
+      <TrackContainer fluid title="Create Track">
         <TrackForm
           {...this.state}
           buttonText="Submit"

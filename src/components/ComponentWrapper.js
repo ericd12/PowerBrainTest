@@ -2,9 +2,9 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-const ComponentWrapper = ({ children, title, style }) => {
+const ComponentWrapper = ({ children, title, style, fluid, ...restProps }) => {
   return (
-    <Container style={style}>
+    <Container fluid={fluid} style={style} {...restProps}>
       <h3>{title}</h3>
       {children}
     </Container>
@@ -12,11 +12,13 @@ const ComponentWrapper = ({ children, title, style }) => {
 };
 
 ComponentWrapper.propTypes = {
-  styled: PropTypes.shape,
+  style: PropTypes.shape({}),
+  fluid: PropTypes.bool,
 };
 
 ComponentWrapper.defaultProps = {
-  styled: {},
+  style: {},
+  fluid: false,
 };
 
 export default ComponentWrapper;
