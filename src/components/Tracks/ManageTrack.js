@@ -4,7 +4,8 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { Row } from "react-bootstrap";
 import Column from "./TracksBoard/Column";
 import TrackForm from "./TrackForm";
-import {TrackContainer} from './../../styles';
+import { TrackContainer } from "../../styles";
+import { API_URL } from "../../constants";
 
 class ManageTrack extends Component {
   constructor(props) {
@@ -27,31 +28,28 @@ class ManageTrack extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`http://localhost:5000/tracks/${this.props.match.params.id}`)
-      .then(response => {
-        console.log({ response });
-        this.setState(oldState => {
-          console.log({ oldState });
-          oldState.columns["column-2"].items = response.data.trackinfo;
-          return {
-            ...oldState,
-            ...response.data,
-          };
-        });
+    const { id } = this.props.match.params;
+    axios.get(`http://localhost:5000/tracks/${id}`).then(response => {
+      console.log({ response });
+      this.setState(oldState => {
+        console.log({ oldState });
+        oldState.columns["column-2"].items = response.data.trackinfo;
+        return {
+          ...oldState,
+          ...response.data,
+        };
       });
+    });
 
     const tracksPromise = axios
-      .get(`http://localhost:5000/tracks/${this.props.match.params.id}`)
+      .get(`http://localhost:5000/tracks/${id}`)
       .then(response => {
         return response.data;
       });
 
-    const elementsPromise = axios
-      .get("http://localhost:5000/elements/")
-      .then(response => {
-        return response.data;
-      });
+    const elementsPromise = axios.get(`${API_URL}/elements/`).then(response => {
+      return response.data;
+    });
 
     Promise.all([tracksPromise, elementsPromise]).then(data => {
       const tracks = data[0];
@@ -77,6 +75,7 @@ class ManageTrack extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+    const { id } = this.props.match.params;
     const { trackNumber, trackName, columns } = this.state;
     const track = {
       trackNumber,
@@ -84,18 +83,13 @@ class ManageTrack extends Component {
       trackinfo: columns["column-2"].items,
     };
 
-    axios
-      .post(
-        `http://localhost:5000/tracks/update/${this.props.match.params.id}`,
-        track
-      )
-      .then(res => {
-        const { history } = this.props;
-        console.log(res.data);
-        console.log(track);
-        alert("updated");
-        history.push("/tracks");
-      });
+    axios.post(`http://localhost:5000/tracks/update/${id}`, track).then(res => {
+      const { history } = this.props;
+      console.log(res.data);
+      console.log(track);
+      alert("updated");
+      history.push("/tracks");
+    });
   };
 
   onChange = e => {

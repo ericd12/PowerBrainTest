@@ -3,6 +3,7 @@ import axios from "axios";
 import { Table } from "react-bootstrap";
 import FormatsTableRow from "./FormatsTableRow";
 import { CoolTableHead } from "../../../../styles";
+import { API_URL } from "../../../../constants";
 
 class FormatList extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class FormatList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/formats/")
+      .get(`${API_URL}/formats/`)
       .then(response => {
         this.setState({ formats: response.data });
       })

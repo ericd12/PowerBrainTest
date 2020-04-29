@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Container, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import ElementsTableRow from "./ElementsTableRow";
 import { CoolTableHead } from "../../styles";
+import ComponentWrapper from "../ComponentWrapper";
+import { API_URL } from "../../constants";
 
 class ElementsTable extends Component {
   constructor(props) {
@@ -12,7 +14,7 @@ class ElementsTable extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/elements/")
+      .get(`${API_URL}/elements/`)
       .then(response => {
         this.setState({ elements: response.data });
       })
@@ -36,8 +38,7 @@ class ElementsTable extends Component {
   render() {
     const { elements } = this.state;
     return (
-      <Container>
-        <h3>Manage Elements</h3>
+      <ComponentWrapper title="Manage Elements">
         <Table>
           <thead>
             <tr>
@@ -67,7 +68,7 @@ class ElementsTable extends Component {
             })}
           </tbody>
         </Table>
-      </Container>
+      </ComponentWrapper>
     );
   }
 }

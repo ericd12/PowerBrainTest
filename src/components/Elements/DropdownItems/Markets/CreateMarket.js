@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import MarketList from "./MarketList";
+import ComponentWrapper from "../../../ComponentWrapper";
+import { API_URL } from "../../../../constants";
 
 class CreateMarket extends Component {
   constructor(props) {
@@ -15,7 +17,7 @@ class CreateMarket extends Component {
     e.preventDefault();
     const { elementMarket } = this.state;
     axios
-      .post("http://localhost:5000/markets/add", { elementMarket })
+      .post(`${API_URL}/markets/add`, { elementMarket })
       .then(res => {
         console.log(res.data);
         alert("New Market Added!");
@@ -30,8 +32,7 @@ class CreateMarket extends Component {
     const { elementMarket } = this.state;
 
     return (
-      <Container>
-        <h3>Create New Market</h3>
+      <ComponentWrapper title="Create New Market">
         <Form onSubmit={this.onSubmit}>
           <Form.Group controlId="elementMarket">
             <Form.Label>Market:</Form.Label>
@@ -53,7 +54,7 @@ class CreateMarket extends Component {
           </Button>
         </Form>
         <MarketList />
-      </Container>
+      </ComponentWrapper>
     );
   }
 }

@@ -3,6 +3,8 @@ import axios from "axios";
 import { Table } from "react-bootstrap";
 import CategoriesTableRow from "./CategoriesTableRow";
 import { CoolTableHead } from "../../../../styles";
+import ComponentWrapper from "../../../ComponentWrapper";
+import { API_URL } from "../../../../constants";
 
 class CategoryList extends Component {
   constructor(props) {
@@ -12,7 +14,7 @@ class CategoryList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/categories/")
+      .get(`${API_URL}/categories/`)
       .then(response => {
         this.setState({ categories: response.data });
       })
@@ -36,8 +38,7 @@ class CategoryList extends Component {
   render() {
     const { categories } = this.state;
     return (
-      <div style={{ marginTop: "5vh" }}>
-        <h3>Manage Categories</h3>
+      <ComponentWrapper style={{ marginTop: "5vh" }} title="Manage Categories">
         <Table hover>
           <thead>
             <tr>
@@ -57,7 +58,7 @@ class CategoryList extends Component {
             })}
           </tbody>
         </Table>
-      </div>
+      </ComponentWrapper>
     );
   }
 }
