@@ -15,7 +15,7 @@ const StyledTaskList = styled(ListGroup)`
   background-color: ${props => (props.isDraggingOver ? "lightblue" : "white")};
   flex-grow: 1;
   font-size: 90%;
-  overflow-x: scroll;
+  overflow-y: scroll;
   padding: 8px;
 `;
 
@@ -31,7 +31,6 @@ const Column = ({ id, name, items }) => {
                 {...{ ...droppableProps }}
                 ref={innerRef}
                 style={{
-                  overflow: "scroll",
                   backgroundColor: `${isDraggingOver ? "lightblue" : "white"}`,
                 }}
               >

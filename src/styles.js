@@ -13,6 +13,7 @@ export const StyledTableRow = styled.tr`
 `;
 
 export const TrackContainer = styled(ComponentWrapper)`
-  padding-right: 35px;
-  padding-left: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%; 
 `;

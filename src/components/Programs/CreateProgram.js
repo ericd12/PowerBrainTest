@@ -3,8 +3,18 @@ import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Button, Row, Col } from "react-bootstrap";
 import Column from "./ProgramBoard/Column";
-import ComponentWrapper from "../ComponentWrapper";
 import { API_URL } from "../../constants";
+import styled from "styled-components";
+
+
+const Container = styled.div`
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+`;
+
 
 export default class CreateProgram extends Component {
   constructor(props) {
@@ -74,7 +84,8 @@ export default class CreateProgram extends Component {
   render() {
     const { columns } = this.state;
     return (
-      <ComponentWrapper title="Create Program">
+      <Container>
+        <h3>Create Program</h3>
         <Row>
           <Col>
             <Button
@@ -83,7 +94,7 @@ export default class CreateProgram extends Component {
               type="button"
               variant="primary"
             >
-              Create Program
+              Create New Program
             </Button>
           </Col>
         </Row>
@@ -142,7 +153,7 @@ export default class CreateProgram extends Component {
             })}
           </DragDropContext>
         </Row>
-      </ComponentWrapper>
+      </Container>
     );
   }
 }
