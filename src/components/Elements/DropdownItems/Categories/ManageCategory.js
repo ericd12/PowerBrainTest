@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
+import ComponentWrapper from "../../../ComponentWrapper";
 
 class ManageCategory extends Component {
   constructor(props) {
@@ -11,8 +12,9 @@ class ManageCategory extends Component {
   }
 
   componentDidMount() {
+    const { id } = this.props.match.params;
     axios
-      .get(`http://localhost:5000/categories/${this.props.match.params.id}`)
+      .get(`http://localhost:5000/categories/${id}`)
       .then(response => {
         const { elementCategory } = response.data;
         this.setState({
@@ -44,8 +46,7 @@ class ManageCategory extends Component {
     const { elementCategory } = this.state;
 
     return (
-      <Container>
-        <h3>Update Category</h3>
+      <ComponentWrapper title="Update Category">
         <Form onSubmit={this.onSubmit}>
           <Form.Group controlId="elementCategory">
             <Form.Label>Category</Form.Label>
@@ -67,7 +68,7 @@ class ManageCategory extends Component {
             Update Category
           </Button>
         </Form>
-      </Container>
+      </ComponentWrapper>
     );
   }
 }

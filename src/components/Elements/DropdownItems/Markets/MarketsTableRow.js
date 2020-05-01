@@ -15,7 +15,7 @@ const MarketsTableRow = ({ elementMarket, _id, deleteMarket }) => (
       <span> | </span>
       <Button
         onClick={() => {
-            deleteMarket(_id);
+          deleteMarket(_id);
         }}
         size="sm"
         variant="outline-danger"

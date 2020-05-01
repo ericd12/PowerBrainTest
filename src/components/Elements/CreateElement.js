@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Container, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { isArrayEmpty } from "../../helpers";
 import ElementForm from "./ElementForm";
+import ComponentWrapper from "../ComponentWrapper";
+import { API_URL } from "../../constants";
 
 const initalElementState = {
   elementCategory: "",
@@ -31,7 +33,7 @@ class CreateElement extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:5000/formats/").then(response => {
+    axios.get(`${API_URL}/formats/`).then(response => {
       if (!isArrayEmpty(response.data)) {
         this.setState({
           formats: response.data.map(format => format.elementFormat),
@@ -39,7 +41,7 @@ class CreateElement extends Component {
         });
       }
     });
-    axios.get("http://localhost:5000/categories/").then(response => {
+    axios.get(`${API_URL}/categories/`).then(response => {
       if (!isArrayEmpty(response.data)) {
         this.setState({
           categories: response.data.map(cat => cat.elementCategory),
@@ -47,7 +49,7 @@ class CreateElement extends Component {
         });
       }
     });
-    axios.get("http://localhost:5000/markets/").then(response => {
+    axios.get(`${API_URL}/markets/`).then(response => {
       if (!isArrayEmpty(response.data)) {
         this.setState({
           markets: response.data.map(market => market.elementMarket),
@@ -82,7 +84,7 @@ class CreateElement extends Component {
     } = this.state;
 
     axios
-      .post("http://localhost:5000/elements/add", {
+      .post(`${API_URL}/elements/add`, {
         elementCategory,
         elementCogRating,
         elementDescription,
@@ -108,8 +110,7 @@ class CreateElement extends Component {
   render() {
     //* Note: Pretty much the same as `ManageElement.js` could probably be a single reusable component
     return (
-      <Container>
-        <h3>Create a New Element</h3>
+      <ComponentWrapper title="Create a New Element">
         <Card bg="light">
           <Card.Body>
             <ElementForm
@@ -120,7 +121,7 @@ class CreateElement extends Component {
             />
           </Card.Body>
         </Card>
-      </Container>
+      </ComponentWrapper>
     );
   }
 }

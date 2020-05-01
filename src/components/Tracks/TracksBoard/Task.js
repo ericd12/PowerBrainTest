@@ -1,22 +1,23 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { Table, Card } from "react-bootstrap";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const TrackTable = styled(Table)`
-table-layout: fixed;
-white-space: nowrap;
-background-color: white;
-  th, td{
+  table-layout: fixed;
+  white-space: nowrap;
+  background-color: white;
+  th,
+  td {
     padding: 2px;
-    border-style : hidden!Important;
+    border-style: hidden !important;
   }
-`
+`;
 
 const ElementCard = styled(Card)`
   margin: 2px;
   padding: 10px;
-`
+`;
 
 const Task = ({
   _id,
@@ -59,13 +60,13 @@ const Task = ({
                 <td>Time: {elementDuration}</td>
                 <td>Category: {elementCategory}</td>
               </tr>
-              <tr>     
+              <tr>
                 <td>SubCategory: {elementSubCategory}</td>
-                <td>{elementMarket}</td> 
+                <td>{elementMarket}</td>
                 <td>Cog Rating: {elementCogRating}</td>
                 <td>Phys Rating: {elementPhysRating}</td>
               </tr>
-              <tr>        
+              <tr>
                 <td>{elementLink}</td>
               </tr>
             </tbody>

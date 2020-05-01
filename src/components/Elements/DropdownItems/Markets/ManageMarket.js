@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
+import ComponentWrapper from "../../../ComponentWrapper";
 
 class ManageMarket extends Component {
   constructor(props) {
@@ -11,8 +12,9 @@ class ManageMarket extends Component {
   }
 
   componentDidMount() {
+    const { id } = this.props.match.params;
     axios
-      .get(`http://localhost:5000/markets/${this.props.match.params.id}`)
+      .get(`http://localhost:5000/markets/${id}`)
       .then(response => {
         const { elementMarket } = response.data;
         this.setState({
@@ -44,8 +46,7 @@ class ManageMarket extends Component {
     const { elementMarket } = this.state;
 
     return (
-      <Container>
-        <h3>Update Market</h3>
+      <ComponentWrapper title="Update Market">
         <Form onSubmit={this.onSubmit}>
           <Form.Group controlId="elementMarket">
             <Form.Label>Market</Form.Label>
@@ -67,7 +68,7 @@ class ManageMarket extends Component {
             Update Market
           </Button>
         </Form>
-      </Container>
+      </ComponentWrapper>
     );
   }
 }

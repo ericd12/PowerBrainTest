@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Table, Container } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import TracksTableRow from "./TracksTableRow";
 import { CoolTableHead } from "../../styles";
+import ComponentWrapper from "../ComponentWrapper";
+import { API_URL } from "../../constants";
 
 class TracksTable extends Component {
   constructor(props) {
@@ -12,7 +14,7 @@ class TracksTable extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/tracks/")
+      .get(`${API_URL}/tracks/`)
       .then(response => {
         this.setState({ trackinfo: response.data });
       })
@@ -36,8 +38,7 @@ class TracksTable extends Component {
   render() {
     const { trackinfo } = this.state;
     return (
-      <Container>
-        <h3>Tracks</h3>
+      <ComponentWrapper title="Tracks">
         <Table>
           <thead>
             <tr>
@@ -58,7 +59,7 @@ class TracksTable extends Component {
             })}
           </tbody>
         </Table>
-      </Container>
+      </ComponentWrapper>
     );
   }
 }

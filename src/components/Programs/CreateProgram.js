@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
-import { Container, Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import Column from "./ProgramBoard/Column";
+import ComponentWrapper from "../ComponentWrapper";
+import { API_URL } from "../../constants";
 
 export default class CreateProgram extends Component {
   constructor(props) {
@@ -23,7 +25,7 @@ export default class CreateProgram extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:5000/tracks/").then(response => {
+    axios.get(`${API_URL}/tracks/`).then(response => {
       this.setState(prev => {
         const copy = { ...prev };
         const { columns } = copy;
@@ -46,7 +48,7 @@ export default class CreateProgram extends Component {
     const { columns } = this.state;
 
     axios
-      .post("http://localhost:5000/programs/add", {
+      .post(`${API_URL}/programs/add`, {
         programinfo: columns["column-2"].items,
       })
       .then(res => {
@@ -72,8 +74,7 @@ export default class CreateProgram extends Component {
   render() {
     const { columns } = this.state;
     return (
-      <Container>
-        <h3>Create Program</h3>
+      <ComponentWrapper title="Create Program">
         <Row>
           <Col>
             <Button
@@ -141,7 +142,7 @@ export default class CreateProgram extends Component {
             })}
           </DragDropContext>
         </Row>
-      </Container>
+      </ComponentWrapper>
     );
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
+import ComponentWrapper from "../../../ComponentWrapper";
 
 class ManageFormat extends Component {
   constructor(props) {
@@ -11,8 +12,9 @@ class ManageFormat extends Component {
   }
 
   componentDidMount() {
+    const { id } = this.props.match.params;
     axios
-      .get(`http://localhost:5000/formats/${this.props.match.params.id}`)
+      .get(`http://localhost:5000/formats/${id}`)
       .then(response => {
         const { elementFormat } = response.data;
         this.setState({
@@ -44,8 +46,7 @@ class ManageFormat extends Component {
     const { elementFormat } = this.state;
 
     return (
-      <Container>
-        <h3>Update Format</h3>
+      <ComponentWrapper title="Update Format">
         <Form onSubmit={this.onSubmit}>
           <Form.Group controlId="elementFormat">
             <Form.Label>Format</Form.Label>
@@ -67,7 +68,7 @@ class ManageFormat extends Component {
             Update Format
           </Button>
         </Form>
-      </Container>
+      </ComponentWrapper>
     );
   }
 }

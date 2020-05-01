@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Container } from "react-bootstrap";
 import { isArrayEmpty } from "../../helpers";
 import ElementForm from "./ElementForm";
+import ComponentWrapper from "../ComponentWrapper";
+import { API_URL } from "../../constants";
 
 class ManageElement extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class ManageElement extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
 
-    axios.get("http://localhost:5000/formats/").then(response => {
+    axios.get(`${API_URL}/formats/`).then(response => {
       if (!isArrayEmpty(response.data)) {
         this.setState({
           formats: response.data.map(format => format.elementFormat),
@@ -38,7 +39,7 @@ class ManageElement extends Component {
       }
     });
 
-    axios.get("http://localhost:5000/categories/").then(response => {
+    axios.get(`${API_URL}/categories/`).then(response => {
       if (!isArrayEmpty(response.data)) {
         this.setState({
           categories: response.data.map(cat => cat.elementCategory),
@@ -47,7 +48,7 @@ class ManageElement extends Component {
       }
     });
 
-    axios.get("http://localhost:5000/markets/").then(response => {
+    axios.get(`${API_URL}/markets/`).then(response => {
       if (!isArrayEmpty(response.data)) {
         this.setState({
           markets: response.data.map(market => market.elementMarket),
@@ -118,15 +119,14 @@ class ManageElement extends Component {
     //* Note: Pretty much the same as `CreateElement.js` could probably be a single reusable component
 
     return (
-      <Container>
-        <h3>Update Element</h3>
+      <ComponentWrapper title="Update Element">
         <ElementForm
           {...this.state}
           buttonText="Update Element"
           onChange={this.onChange}
           onSubmit={this.onSubmit}
         />
-      </Container>
+      </ComponentWrapper>
     );
   }
 }

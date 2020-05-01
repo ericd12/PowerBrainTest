@@ -3,6 +3,7 @@ import axios from "axios";
 import { Table } from "react-bootstrap";
 import MarketsTableRow from "./MarketsTableRow";
 import { CoolTableHead } from "../../../../styles";
+import { API_URL } from "../../../../constants";
 
 class MarketList extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class MarketList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/markets/")
+      .get(`${API_URL}/markets/`)
       .then(response => {
         this.setState({ markets: response.data });
       })

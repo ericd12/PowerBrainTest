@@ -15,7 +15,7 @@ const FormatsTableRow = ({ elementFormat, _id, deleteFormat }) => (
       <span> | </span>
       <Button
         onClick={() => {
-            deleteFormat(_id);
+          deleteFormat(_id);
         }}
         size="sm"
         variant="outline-danger"

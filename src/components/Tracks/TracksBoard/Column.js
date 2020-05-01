@@ -8,7 +8,6 @@ const StyledColumnWrap = styled(Card)`
   height: 73vh;
   margin: 1px;
   transition: background-color 0.1s ease 0s;
-  width:
 `;
 
 const StyledTaskList = styled(ListGroup)`

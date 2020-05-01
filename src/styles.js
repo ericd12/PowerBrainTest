@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import ComponentWrapper from "./components/ComponentWrapper";
 
 export const CoolTableHead = styled.th`
   text-align: left;
-  width: 40px; 
+  width: 40px;
 `;
 
 export const StyledTableRow = styled.tr`
@@ -11,10 +12,7 @@ export const StyledTableRow = styled.tr`
   }
 `;
 
-export const TrackContainer = styled.div`
+export const TrackContainer = styled(ComponentWrapper)`
   padding-right: 35px;
   padding-left: 35px;
-  margin-right: auto;
-  margin-left: auto;
 `;
-

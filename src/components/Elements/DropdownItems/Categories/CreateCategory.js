@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import CategoryList from "./CategoryList";
+import ComponentWrapper from "../../../ComponentWrapper";
+import { API_URL } from "../../../../constants";
 
 class CreateCategory extends Component {
   constructor(props) {
@@ -15,7 +17,7 @@ class CreateCategory extends Component {
     e.preventDefault();
     const { elementCategory } = this.state;
     axios
-      .post("http://localhost:5000/categories/add", { elementCategory })
+      .post(`${API_URL}/categories/add`, { elementCategory })
       .then(res => {
         console.log(res.data);
         alert("New Category Added!");
@@ -29,8 +31,7 @@ class CreateCategory extends Component {
   render() {
     const { elementCategory } = this.state;
     return (
-      <Container>
-        <h3>Create New Category</h3>
+      <ComponentWrapper title="Create New Category">
         <Form onSubmit={this.onSubmit}>
           <Form.Group controlId="elementCategory">
             <Form.Label>Category: </Form.Label>
@@ -52,7 +53,7 @@ class CreateCategory extends Component {
           </Button>
         </Form>
         <CategoryList />
-      </Container>
+      </ComponentWrapper>
     );
   }
 }

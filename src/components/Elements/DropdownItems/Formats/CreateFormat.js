@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import FormatList from "./FormatList";
+import ComponentWrapper from "../../../ComponentWrapper";
+import { API_URL } from "../../../../constants";
 
 class CreateFormat extends Component {
   constructor(props) {
@@ -16,7 +18,7 @@ class CreateFormat extends Component {
     const { elementFormat } = this.state;
 
     axios
-      .post("http://localhost:5000/formats/add", { elementFormat })
+      .post(`${API_URL}/formats/add`, { elementFormat })
       .then(res => {
         console.log(res.data);
         alert("New Format Added!");
@@ -31,8 +33,7 @@ class CreateFormat extends Component {
     const { elementFormat } = this.state;
 
     return (
-      <Container>
-        <h3>Create New Format</h3>
+      <ComponentWrapper title="Create New Format">
         <Form onSubmit={this.onSubmit}>
           <Form.Group controlId="elementFormat">
             <Form.Label>Format:</Form.Label>
@@ -54,7 +55,7 @@ class CreateFormat extends Component {
           </Button>
         </Form>
         <FormatList />
-      </Container>
+      </ComponentWrapper>
     );
   }
 }
