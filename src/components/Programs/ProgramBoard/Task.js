@@ -13,8 +13,7 @@ const Task = ({ _id, elementCategory, index }) => {
           {...{ ...draggableProps, ...dragHandleProps, isDragging }}
           ref={innerRef}
         >
-          <ul
-          >
+          <ul>          >
             <li>{_id}</li>
             <li>{elementCategory}</li>
             <li>{index}</li>
