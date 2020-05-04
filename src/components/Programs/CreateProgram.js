@@ -1,18 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Col } from "react-bootstrap";
 import Column from "./ProgramBoard/Column";
 import { API_URL } from "../../constants";
 import styled from "styled-components";
 
-
 const Container = styled.div`
-  width: 80%;
   margin-left: auto;
   margin-right: auto;
-  display: flex;
-  flex-direction: column;
+  width: 90%; 
 `;
 
 
@@ -84,9 +81,9 @@ export default class CreateProgram extends Component {
   render() {
     const { columns } = this.state;
     return (
-      <Container>
+      <Container title="Create Program">
         <h3>Create Program</h3>
-        <Row>
+
           <Col>
             <Button
               onClick={this.createProgram}
@@ -97,8 +94,7 @@ export default class CreateProgram extends Component {
               Create New Program
             </Button>
           </Col>
-        </Row>
-        <Row>
+
           <DragDropContext
             onDragEnd={({ source, destination }) => {
               if (!destination) {
@@ -152,7 +148,6 @@ export default class CreateProgram extends Component {
               return <Column {...{ ...column, id, key: id }} />;
             })}
           </DragDropContext>
-        </Row>
       </Container>
     );
   }
