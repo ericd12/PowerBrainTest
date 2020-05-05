@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Button, Col } from "react-bootstrap";
+import styled from "styled-components";
 import Column from "./ProgramBoard/Column";
 import { API_URL } from "../../constants";
-import styled from "styled-components";
+import ComponentWrapper from "../ComponentWrapper";
 
 const Container = styled.div`
   margin-left: auto;
   margin-right: auto;
-  width: 90%; 
+  width: 90%;
 `;
-
 
 export default class CreateProgram extends Component {
   constructor(props) {
@@ -81,74 +81,72 @@ export default class CreateProgram extends Component {
   render() {
     const { columns } = this.state;
     return (
-      <Container title="Create Program">
-        <h3>Create Program</h3>
-
-          <Col>
-            <Button
-              onClick={this.createProgram}
-              style={{ marginBottom: "16px" }}
-              type="button"
-              variant="primary"
-            >
-              Create New Program
-            </Button>
-          </Col>
-
-          <DragDropContext
-            onDragEnd={({ source, destination }) => {
-              if (!destination) {
-                return;
-              }
-
-              if (source.droppableId !== destination.droppableId) {
-                this.setState(prev => {
-                  const sourceColumn = prev.columns[source.droppableId];
-                  const destColumn = prev.columns[destination.droppableId];
-                  const sourceItems = [...sourceColumn.items];
-                  const destItems = [...destColumn.items];
-                  const [removed] = sourceItems.splice(source.index, 1);
-                  destItems.splice(destination.index, 0, removed);
-                  return {
-                    ...prev,
-                    columns: {
-                      ...prev.columns,
-                      [source.droppableId]: {
-                        ...sourceColumn,
-                        items: sourceItems,
-                      },
-                      [destination.droppableId]: {
-                        ...destColumn,
-                        items: destItems,
-                      },
-                    },
-                  };
-                });
-              } else {
-                this.setState(prev => {
-                  const column = prev.columns[source.droppableId];
-                  const copiedItems = [...column.items];
-                  const [removed] = copiedItems.splice(source.index, 1);
-                  copiedItems.splice(destination.index, 0, removed);
-                  return {
-                    ...prev,
-                    columns: {
-                      ...prev.columns,
-                      [source.droppableId]: {
-                        ...column,
-                        items: copiedItems,
-                      },
-                    },
-                  };
-                });
-              }
-            }}
+      <ComponentWrapper fluid title="Create Program">
+        <Col>
+          <Button
+            onClick={this.createProgram}
+            style={{ marginBottom: "16px" }}
+            type="button"
+            variant="primary"
           >
-            {Object.entries(columns).map(([id, column]) => {
-              return <Column {...{ ...column, id, key: id }} />;
-            })}
-          </DragDropContext>
-      </Container>
+            Create New Program
+          </Button>
+        </Col>
+
+        <DragDropContext
+          onDragEnd={({ source, destination }) => {
+            if (!destination) {
+              return;
+            }
+
+            if (source.droppableId !== destination.droppableId) {
+              this.setState(prev => {
+                const sourceColumn = prev.columns[source.droppableId];
+                const destColumn = prev.columns[destination.droppableId];
+                const sourceItems = [...sourceColumn.items];
+                const destItems = [...destColumn.items];
+                const [removed] = sourceItems.splice(source.index, 1);
+                destItems.splice(destination.index, 0, removed);
+                return {
+                  ...prev,
+                  columns: {
+                    ...prev.columns,
+                    [source.droppableId]: {
+                      ...sourceColumn,
+                      items: sourceItems,
+                    },
+                    [destination.droppableId]: {
+                      ...destColumn,
+                      items: destItems,
+                    },
+                  },
+                };
+              });
+            } else {
+              this.setState(prev => {
+                const column = prev.columns[source.droppableId];
+                const copiedItems = [...column.items];
+                const [removed] = copiedItems.splice(source.index, 1);
+                copiedItems.splice(destination.index, 0, removed);
+                return {
+                  ...prev,
+                  columns: {
+                    ...prev.columns,
+                    [source.droppableId]: {
+                      ...column,
+                      items: copiedItems,
+                    },
+                  },
+                };
+              });
+            }
+          }}
+        >
+          {Object.entries(columns).map(([id, column]) => {
+            return <Column {...{ ...column, id, key: id }} />;
+          })}
+        </DragDropContext>
+      </ComponentWrapper>
     );
   }
 }
