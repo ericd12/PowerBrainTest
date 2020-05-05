@@ -8,9 +8,13 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-  const { programinfo } = req.body;
+  const { programNumber, programName, programInfo } = req.body;
 
-  const newProgram = new Program({ programinfo });
+  const newProgram = new Program({ 
+    programNumber,
+    programName,
+    programInfo 
+  });
 
   newProgram
     .save()
@@ -19,28 +23,30 @@ router.route("/add").post((req, res) => {
   console.log(newProgram);
 });
 
-// router.route('/:id').get((req, res) => {
-//     Track.findById(req.params.id)
-//       .then(track => res.json(track))
-//       .catch(err => res.status(400).json('Error: ' + err));
-// });
+router.route('/:id').get((req, res) => {
+  Program.findById(req.params.id)
+      .then(program => res.json(program))
+      .catch(err => res.status(400).json('Error: ' + err));
+});
 
-// router.route('/:id').delete((req, res) => {
-//     Track.findByIdAndDelete(req.params.id)
-//       .then(() => res.json('Element deleted.'))
-//       .catch(err => res.status(400).json('Error: ' + err));
-// });
+router.route('/:id').delete((req, res) => {
+  Program.findByIdAndDelete(req.params.id)
+      .then(() => res.json('Program deleted.'))
+      .catch(err => res.status(400).json('Error: ' + err));
+});
 
-// router.route('/update/:id').post((req, res) => {
-//     Track.findById(req.params.id)
-//       .then(track => {
-//         track.trackinfo = req.body.trackinfo;
+router.route('/update/:id').post((req, res) => {
+  Program.findById(req.params.id)
+      .then(program => {
+        program.programNumber = req.body.programNumber;
+        program.programName = req.body.programName;
+        program.programInfo = req.body.programInfo;
 
-//         track.save()
-//           .then(() => res.json('Element updated!'))
-//           .catch(err => res.status(400).json('Error: ' + err));
-//       })
-//       .catch(err => res.status(400).json('Error: ' + err));
-// });
+        program.save()
+          .then(() => res.json('Program updated!'))
+          .catch(err => res.status(400).json('Error: ' + err));
+      })
+      .catch(err => res.status(400).json('Error: ' + err));
+});
 
 module.exports = router;

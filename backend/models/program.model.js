@@ -4,7 +4,9 @@ const { Schema } = mongoose;
 
 const programSchema = new Schema(
   {
-    programinfo: {
+    programNumber: String,
+    programName: String,
+    programInfo: {
       type: [],
       required: true,
     },
