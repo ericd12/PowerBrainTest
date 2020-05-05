@@ -24,7 +24,7 @@ import TracksTable from "./components/Tracks/TracksTable";
 
 import CreateProgram from "./components/Programs/CreateProgram";
 import ManageProgram from "./components/Programs/ManageProgram";
-import ProgramsList from "./components/Programs/ProgramsList";
+import ProgramsTable from "./components/Programs/ProgramsTable";
 
 const App = () => {
   return (
@@ -49,7 +49,7 @@ const App = () => {
         <Route component={CreateTrack} exact path="/tracks/create" />
         <Route component={ManageTrack} exact path="/tracks/edit/:id" />
 
-        <Route component={ProgramsList} exact path="/programs" />
+        <Route component={ProgramsTable} exact path="/programs" />
         <Route component={CreateProgram} exact path="/programs/create" />
         <Route component={ManageProgram} exact path="/programs/edit/:id" />
       </div>
