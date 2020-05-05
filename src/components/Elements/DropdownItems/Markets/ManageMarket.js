@@ -38,7 +38,7 @@ class ManageMarket extends Component {
         console.log(res.data);
         alert("updated");
         const { history } = this.props;
-        history.push("/markets/create");
+        history.push("/markets");
       });
   };
 

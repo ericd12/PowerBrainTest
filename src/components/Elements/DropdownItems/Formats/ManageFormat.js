@@ -38,7 +38,7 @@ class ManageFormat extends Component {
         console.log(res.data);
         alert("updated");
         const { history } = this.props;
-        history.push("/formats/create");
+        history.push("/formats");
       });
   };
 
