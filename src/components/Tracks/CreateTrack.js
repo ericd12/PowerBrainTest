@@ -4,7 +4,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { Row } from "react-bootstrap";
 import Column from "./TracksBoard/Column";
 import TrackForm from "./TrackForm";
-import { TrackContainer } from "../../styles";
+import { StyledContainer } from "../../styles";
 import { API_URL } from "../../constants";
 
 class CreateTrack extends Component {
@@ -29,8 +29,8 @@ class CreateTrack extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${API_URL}/elements/`).then(response => {
-      this.setState(prev => {
+    axios.get(`${API_URL}/elements/`).then((response) => {
+      this.setState((prev) => {
         const copy = { ...prev };
         const { columns } = copy;
         copy.elements = response.data;
@@ -45,14 +45,14 @@ class CreateTrack extends Component {
     });
   }
 
-  onChange = e => {
+  onChange = (e) => {
     const { id, value } = e.target;
     this.setState({
       [id]: value,
     });
   };
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     const { trackNumber, trackName, columns } = this.state;
     axios
@@ -61,9 +61,9 @@ class CreateTrack extends Component {
         trackName,
         trackinfo: columns["column-2"].items,
       })
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
-        this.setState(prev => {
+        this.setState((prev) => {
           return {
             ...prev,
             trackName: "",
@@ -86,7 +86,7 @@ class CreateTrack extends Component {
   render() {
     const { columns } = this.state;
     return (
-      <TrackContainer fluid title="Create Track">
+      <StyledContainer fluid title="Create Track">
         <TrackForm
           {...this.state}
           buttonText="Submit"
@@ -100,7 +100,7 @@ class CreateTrack extends Component {
             }
 
             if (source.droppableId !== destination.droppableId) {
-              this.setState(prev => {
+              this.setState((prev) => {
                 const sourceColumn = prev.columns[source.droppableId];
                 const destColumn = prev.columns[destination.droppableId];
                 const sourceItems = [...sourceColumn.items];
@@ -123,7 +123,7 @@ class CreateTrack extends Component {
                 };
               });
             } else {
-              this.setState(prev => {
+              this.setState((prev) => {
                 const column = prev.columns[source.droppableId];
                 const copiedItems = [...column.items];
                 const [removed] = copiedItems.splice(source.index, 1);
@@ -148,7 +148,7 @@ class CreateTrack extends Component {
             })}
           </Row>
         </DragDropContext>
-      </TrackContainer>
+      </StyledContainer>
     );
   }
 }

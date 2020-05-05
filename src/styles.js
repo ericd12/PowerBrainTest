@@ -12,8 +12,8 @@ export const StyledTableRow = styled.tr`
   }
 `;
 
-export const TrackContainer = styled(ComponentWrapper)`
+export const StyledContainer = styled(ComponentWrapper)`
   margin-left: auto;
   margin-right: auto;
-  width: 95%; 
+  width: 95%;
 `;

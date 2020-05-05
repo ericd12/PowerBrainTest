@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 
 const Container = styled.div`
-  background-color: ${props => (props.isDragging ? "lightgreen" : "white")};
+  background-color: ${(props) => (props.isDragging ? "lightgreen" : "white")};
   border-radius: 5px;
   border: 1px solid lightgrey;
   margin-bottom: 8px;
@@ -14,6 +14,7 @@ const Container = styled.div`
 
   ul {
     padding-left: 20px;
+    font-weight: 700;
   }
 `;
 
@@ -29,7 +30,6 @@ const Task = ({ _id, trackNumber, trackName, index }) => {
             <li>{trackNumber}</li>
             <li>{trackName}</li>
           </ul>
-
         </Container>
       )}
     </Draggable>

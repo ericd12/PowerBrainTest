@@ -7,7 +7,7 @@ const TracksTableRow = ({ trackNumber, trackName, _id, deleteTrack }) => {
     <tr>
       <td>{trackNumber}</td>
       <td>{trackName}</td>
-      <td>
+      <td style={{ whiteSpace: "nowrap" }}>
         <Link to={`/tracks/edit/${_id}`}>
           <Button size="sm" variant="outline-warning">
             edit

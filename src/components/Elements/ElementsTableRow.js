@@ -31,7 +31,7 @@ const ElementsTableRow = ({
       <td>{elementCogRating}</td>
       <td>{elementPhysRating}</td>
       <td>{elementLink}</td>
-      <td>
+      <td style={{ whiteSpace: "nowrap" }}>
         <Link to={`/elements/edit/${_id}`}>
           <Button size="sm" variant="outline-warning">
             edit
