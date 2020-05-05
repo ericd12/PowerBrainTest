@@ -11,9 +11,7 @@ const StyledColumnWrap = styled.div`
   flex-direction: column;
   font-size: 90%;
   height: 35vh;
-  margin-right: 5vh;
-  margin-top: 1vh;
-  margin: 8px 0px;
+  margin: 1vh 5vh 8px 1px;
   transition: background-color 0.1s ease 0s;
 `;
 
@@ -26,30 +24,29 @@ const StyledTaskList = styled.div`
   padding: 8px;
 `;
 
-
 const Column = ({ id, name, items }) => {
   return (
-      <StyledColumnWrap>
-        <Card.Header>{name}</Card.Header>
-        <Droppable key={id} direction="horizontal" droppableId={id}>
-          {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => {
-            return (
-              <StyledTaskList
-                {...{ ...droppableProps }}
-                ref={innerRef}
-                style={{
-                  backgroundColor: `${isDraggingOver ? "lightblue" : "white"}`,
-                }}
-              >
-                {items.map((task, index) => {
-                  return <Task {...{ ...task, index, key: task._id }} />;
-                })}
-                {placeholder}
-              </StyledTaskList>
-            );
-          }}
-        </Droppable>
-      </StyledColumnWrap>
+    <StyledColumnWrap>
+      <Card.Header>{name}</Card.Header>
+      <Droppable key={id} direction="horizontal" droppableId={id}>
+        {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => {
+          return (
+            <StyledTaskList
+              {...{ ...droppableProps }}
+              ref={innerRef}
+              style={{
+                backgroundColor: `${isDraggingOver ? "lightblue" : "white"}`,
+              }}
+            >
+              {items.map((task, index) => {
+                return <Task {...{ ...task, index, key: task._id }} />;
+              })}
+              {placeholder}
+            </StyledTaskList>
+          );
+        }}
+      </Droppable>
+    </StyledColumnWrap>
   );
 };
 
