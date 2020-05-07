@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Table } from "react-bootstrap";
 import CategoriesTableRow from "./CategoriesTableRow";
-import { CoolTableHead } from "../../../../styles";
-import ComponentWrapper from "../../../ComponentWrapper";
+import { CoolTableHead, StyledTable, StyledTbody, StyledThead } from "../../../../styles";
 import { API_URL } from "../../../../constants";
+
 
 class CategoryList extends Component {
   constructor(props) {
@@ -38,15 +37,16 @@ class CategoryList extends Component {
   render() {
     const { categories } = this.state;
     return (
-      <ComponentWrapper style={{ marginTop: "5vh" }} title="Manage Categories">
-        <Table hover>
-          <thead>
+      <div style={{ marginTop: "6vh" }}>
+        <h3>Manage Categories</h3>
+        <StyledTable hover>
+          <StyledThead>
             <tr>
               <CoolTableHead>Name</CoolTableHead>
               <CoolTableHead>Actions</CoolTableHead>
             </tr>
-          </thead>
-          <tbody>
+          </StyledThead>
+          <StyledTbody>
             {categories.map(currentcat => {
               return (
                 <CategoriesTableRow
@@ -56,9 +56,9 @@ class CategoryList extends Component {
                 />
               );
             })}
-          </tbody>
-        </Table>
-      </ComponentWrapper>
+          </StyledTbody>
+        </StyledTable>
+      </div>
     );
   }
 }

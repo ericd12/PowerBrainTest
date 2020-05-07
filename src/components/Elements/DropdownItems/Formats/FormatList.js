@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Table } from "react-bootstrap";
 import FormatsTableRow from "./FormatsTableRow";
-import { CoolTableHead } from "../../../../styles";
+import { CoolTableHead, StyledTable, StyledTbody, StyledThead } from "../../../../styles";
 import { API_URL } from "../../../../constants";
 
 class FormatList extends Component {
@@ -37,16 +36,16 @@ class FormatList extends Component {
   render() {
     const { formats } = this.state;
     return (
-      <div style={{ marginTop: "5vh" }}>
+      <div style={{ marginTop: "6vh" }}>
         <h3>Manage Formats</h3>
-        <Table hover>
-          <thead>
+        <StyledTable hover>
+          <StyledThead>
             <tr>
               <CoolTableHead>Name</CoolTableHead>
               <CoolTableHead>Actions</CoolTableHead>
             </tr>
-          </thead>
-          <tbody>
+          </StyledThead>
+          <StyledTbody>
             {formats.map(currentFormat => {
               return (
                 <FormatsTableRow
@@ -56,8 +55,8 @@ class FormatList extends Component {
                 />
               );
             })}
-          </tbody>
-        </Table>
+          </StyledTbody>
+        </StyledTable>
       </div>
     );
   }

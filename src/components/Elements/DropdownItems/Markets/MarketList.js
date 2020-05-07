@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Table } from "react-bootstrap";
 import MarketsTableRow from "./MarketsTableRow";
-import { CoolTableHead } from "../../../../styles";
+import { CoolTableHead, StyledTable, StyledTbody, StyledThead } from "../../../../styles";
 import { API_URL } from "../../../../constants";
 
 class MarketList extends Component {
@@ -37,16 +36,16 @@ class MarketList extends Component {
   render() {
     const { markets } = this.state;
     return (
-      <div style={{ marginTop: "10vh" }}>
+      <div style={{ marginTop: "6vh" }}>
         <h3>Manage Markets</h3>
-        <Table hover>
-          <thead>
+        <StyledTable hover>
+          <StyledThead>
             <tr>
               <CoolTableHead>Name</CoolTableHead>
               <CoolTableHead>Actions</CoolTableHead>
             </tr>
-          </thead>
-          <tbody>
+          </StyledThead>
+          <StyledTbody>
             {markets.map(currentMarket => {
               return (
                 <MarketsTableRow
@@ -56,8 +55,8 @@ class MarketList extends Component {
                 />
               );
             })}
-          </tbody>
-        </Table>
+          </StyledTbody>
+        </StyledTable>
       </div>
     );
   }
