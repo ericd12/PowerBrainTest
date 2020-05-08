@@ -34,7 +34,7 @@ const TrackForm = ({
           />
         </Form.Group>
         <Col>
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" style={{marginTop: '15px'}}>
             {buttonText}
           </Button>
         </Col>

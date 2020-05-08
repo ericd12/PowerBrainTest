@@ -38,19 +38,19 @@ class ElementsTable extends Component {
     const { elements } = this.state;
     return (
       <StyledContainer fluid title="Manage Elements">
-        <Table>
+        <Table hover>
           <thead>
             <tr>
-              <CoolTableHead>Number</CoolTableHead>
+              <CoolTableHead>#</CoolTableHead>
               <CoolTableHead>Label</CoolTableHead>
               <CoolTableHead>Description</CoolTableHead>
               <CoolTableHead>Format</CoolTableHead>
-              <CoolTableHead>Duration</CoolTableHead>
+              <CoolTableHead>Time</CoolTableHead>
               <CoolTableHead>Category</CoolTableHead>
               <CoolTableHead>Subcategory</CoolTableHead>
               <CoolTableHead>Market</CoolTableHead>
-              <CoolTableHead>Cognitive Rating</CoolTableHead>
-              <CoolTableHead>Physical Rating</CoolTableHead>
+              <CoolTableHead>Cog#</CoolTableHead>
+              <CoolTableHead>Phys#</CoolTableHead>
               <CoolTableHead>Vimeo Link</CoolTableHead>
               <CoolTableHead>Actions</CoolTableHead>
             </tr>

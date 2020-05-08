@@ -41,7 +41,7 @@ class ProgramsTable extends Component {
     const { programInfo } = this.state;
     return (
       <ComponentWrapper title="Programs">
-        <Table>
+        <Table hover>
           <thead>
             <tr>
               <CoolTableHead>Program #</CoolTableHead>

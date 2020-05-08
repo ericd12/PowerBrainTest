@@ -39,7 +39,7 @@ class TracksTable extends Component {
     const { trackinfo } = this.state;
     return (
       <ComponentWrapper title="Tracks">
-        <Table>
+        <Table hover>
           <thead>
             <tr>
               <CoolTableHead>Track #</CoolTableHead>
