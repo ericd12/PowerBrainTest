@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Element = require("../models/element.model");
+const Element = require("../models/elementModel");
 
 router.route("/").get((req, res) => {
   Element.find()
@@ -56,18 +56,35 @@ router.route("/:id").delete((req, res) => {
 
 router.route("/update/:id").post((req, res) => {
   Element.findById(req.params.id)
-    .then(element => {
-      element.elementnumber = req.body.elementnumber;
-      element.elementlabel = req.body.elementlabel;
-      element.elementDescription = req.body.elementDescription;
-      element.elementFormat = req.body.elementFormat;
-      element.elementDuration = req.body.elementDuration;
-      element.elementCategory = req.body.elementCategory;
-      element.elementSubCategory = req.body.elementSubCategory;
-      element.elementMarket = req.body.elementMarket;
-      element.elementCogRating = req.body.elementCogRating;
-      element.elementPhysRating = req.body.elementPhysRating;
-      element.elementLink = req.body.elementLink;
+    .then(response => {
+      const {
+        elementnumber,
+        elementlabel,
+        elementDescription,
+        elementFormat,
+        elementDuration,
+        elementCategory,
+        elementSubCategory,
+        elementMarket,
+        elementCogRating,
+        elementPhysRating,
+        elementLink,
+      } = req.body;
+
+      const element = {
+        ...response,
+        elementnumber,
+        elementlabel,
+        elementDescription,
+        elementFormat,
+        elementDuration,
+        elementCategory,
+        elementSubCategory,
+        elementMarket,
+        elementCogRating,
+        elementPhysRating,
+        elementLink,
+      };
 
       element
         .save()

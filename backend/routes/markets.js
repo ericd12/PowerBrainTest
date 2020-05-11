@@ -42,5 +42,4 @@ router.route("/update/:id").post((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-
 module.exports = router;
