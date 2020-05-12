@@ -28,9 +28,9 @@ class ManageProgram extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    axios.get(`http://localhost:5000/programs/${id}`).then((response) => {
+    axios.get(`http://localhost:5000/programs/${id}`).then(response => {
       console.log({ response });
-      this.setState((oldState) => {
+      this.setState(oldState => {
         console.log({ oldState });
         oldState.columns["column-2"].items = response.data.programInfo;
         return {
@@ -42,23 +42,21 @@ class ManageProgram extends Component {
 
     const programsPromise = axios
       .get(`http://localhost:5000/programs/${id}`)
-      .then((response) => {
+      .then(response => {
         return response.data;
       });
 
-    const tracksPromise = axios.get(`${API_URL}/tracks/`).then((response) => {
+    const tracksPromise = axios.get(`${API_URL}/tracks/`).then(response => {
       return response.data;
     });
 
-    Promise.all([programsPromise, tracksPromise]).then((data) => {
+    Promise.all([programsPromise, tracksPromise]).then(data => {
       const programs = data[0];
       const tracks = data[1];
 
-      this.setState((oldState) => {
+      this.setState(oldState => {
         oldState.columns["column-1"].items = tracks.reduce((all, one) => {
-          const test = programs.programInfo.find(
-            (item) => item._id === one._id
-          );
+          const test = programs.programInfo.find(item => item._id === one._id);
           if (!test) {
             all.push(one);
           }
@@ -73,7 +71,7 @@ class ManageProgram extends Component {
     });
   }
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
     const { id } = this.props.match.params;
     const { programNumber, programName, columns } = this.state;
@@ -85,7 +83,7 @@ class ManageProgram extends Component {
 
     axios
       .post(`http://localhost:5000/programs/update/${id}`, program)
-      .then((res) => {
+      .then(res => {
         const { history } = this.props;
         console.log(res.data);
         console.log(program);
@@ -94,7 +92,7 @@ class ManageProgram extends Component {
       });
   };
 
-  onChange = (e) => {
+  onChange = e => {
     const { name, value } = e.target;
     this.setState({
       [name]: value,
@@ -119,7 +117,7 @@ class ManageProgram extends Component {
             }
 
             if (source.droppableId !== destination.droppableId) {
-              this.setState((prev) => {
+              this.setState(prev => {
                 const sourceColumn = prev.columns[source.droppableId];
                 const destColumn = prev.columns[destination.droppableId];
                 const sourceItems = [...sourceColumn.items];
@@ -142,7 +140,7 @@ class ManageProgram extends Component {
                 };
               });
             } else {
-              this.setState((prev) => {
+              this.setState(prev => {
                 const column = prev.columns[source.droppableId];
                 const copiedItems = [...column.items];
                 const [removed] = copiedItems.splice(source.index, 1);

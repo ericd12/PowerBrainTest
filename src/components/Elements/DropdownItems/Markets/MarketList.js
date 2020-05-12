@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import MarketsTableRow from "./MarketsTableRow";
-import { CoolTableHead, StyledTable, StyledTbody, StyledThead } from "../../../../styles";
+import {
+  CoolTableHead,
+  StyledTable,
+  StyledTbody,
+  StyledThead,
+} from "../../../../styles";
 import { API_URL } from "../../../../constants";
 
 class MarketList extends Component {

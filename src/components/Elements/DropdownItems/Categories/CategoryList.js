@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import CategoriesTableRow from "./CategoriesTableRow";
-import { CoolTableHead, StyledTable, StyledTbody, StyledThead } from "../../../../styles";
+import {
+  CoolTableHead,
+  StyledTable,
+  StyledTbody,
+  StyledThead,
+} from "../../../../styles";
 import { API_URL } from "../../../../constants";
-
 
 class CategoryList extends Component {
   constructor(props) {

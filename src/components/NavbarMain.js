@@ -42,7 +42,9 @@ const NavbarMain = () => {
             <NavDropdown.Item href="/programs/create">
               Create Program
             </NavDropdown.Item>
-            <NavDropdown.Item href="/programs">Manage Programs</NavDropdown.Item>
+            <NavDropdown.Item href="/programs">
+              Manage Programs
+            </NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>

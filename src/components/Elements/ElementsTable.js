@@ -14,21 +14,21 @@ class ElementsTable extends Component {
   componentDidMount() {
     axios
       .get(`${API_URL}/elements/`)
-      .then((response) => {
+      .then(response => {
         this.setState({ elements: response.data });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
 
-  deleteElement = (id) => {
-    axios.delete(`http://localhost:5000/elements/${id}`).then((response) => {
+  deleteElement = id => {
+    axios.delete(`http://localhost:5000/elements/${id}`).then(response => {
       console.log(response.data);
       alert("deleted");
-      this.setState((prev) => {
+      this.setState(prev => {
         return {
-          elements: prev.elements.filter((el) => el._id !== id),
+          elements: prev.elements.filter(el => el._id !== id),
         };
       });
     });
@@ -56,7 +56,7 @@ class ElementsTable extends Component {
             </tr>
           </thead>
           <tbody>
-            {elements.map((currentelement) => {
+            {elements.map(currentelement => {
               return (
                 <ElementsTableRow
                   key={currentelement._id}
