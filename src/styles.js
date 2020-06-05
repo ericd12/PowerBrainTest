@@ -1,6 +1,6 @@
 import styled from "styled-components";
+import { Table } from "react-bootstrap";
 import ComponentWrapper from "./components/ComponentWrapper";
-import {Table } from "react-bootstrap";
 
 export const CoolTableHead = styled.th`
   text-align: left;
@@ -8,7 +8,7 @@ export const CoolTableHead = styled.th`
 `;
 
 export const StyledTableRow = styled.tr`
-td {
+  td {
     text-align: left;
     width: 700px;
   }
@@ -25,7 +25,7 @@ export const StyledTable = styled(Table)`
 `;
 
 export const StyledTbody = styled.tbody`
-  display:block;
+  display: block;
   width: 100%;
   overflow: auto;
   height: 40vh;
@@ -33,7 +33,7 @@ export const StyledTbody = styled.tbody`
 `;
 
 export const StyledThead = styled.thead`
-  tr{
+  tr {
     display: block;
   }
   border: none;

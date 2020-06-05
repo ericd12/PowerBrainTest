@@ -7,7 +7,6 @@ import { API_URL } from "../../constants";
 import ProgramForm from "./ProgramForm";
 import { StyledContainer } from "../../styles";
 
-
 export default class CreateProgram extends Component {
   constructor(props) {
     super(props);
@@ -29,8 +28,8 @@ export default class CreateProgram extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${API_URL}/tracks/`).then((response) => {
-      this.setState((prev) => {
+    axios.get(`${API_URL}/tracks/`).then(response => {
+      this.setState(prev => {
         const copy = { ...prev };
         const { columns } = copy;
         copy.tracks = response.data;
@@ -47,14 +46,14 @@ export default class CreateProgram extends Component {
     });
   }
 
-  onChange = (e) => {
+  onChange = e => {
     const { id, value } = e.target;
     this.setState({
       [id]: value,
     });
   };
 
-  createProgram = (e) => {
+  createProgram = e => {
     e.preventDefault();
     const { programNumber, programName, columns } = this.state;
     axios
@@ -63,9 +62,9 @@ export default class CreateProgram extends Component {
         programName,
         programInfo: columns["column-2"].items,
       })
-      .then((res) => {
+      .then(res => {
         console.log(res.data);
-        this.setState((prev) => {
+        this.setState(prev => {
           return {
             ...prev,
             programNumber: "",
@@ -102,7 +101,7 @@ export default class CreateProgram extends Component {
             }
 
             if (source.droppableId !== destination.droppableId) {
-              this.setState((prev) => {
+              this.setState(prev => {
                 const sourceColumn = prev.columns[source.droppableId];
                 const destColumn = prev.columns[destination.droppableId];
                 const sourceItems = [...sourceColumn.items];
@@ -125,7 +124,7 @@ export default class CreateProgram extends Component {
                 };
               });
             } else {
-              this.setState((prev) => {
+              this.setState(prev => {
                 const column = prev.columns[source.droppableId];
                 const copiedItems = [...column.items];
                 const [removed] = copiedItems.splice(source.index, 1);

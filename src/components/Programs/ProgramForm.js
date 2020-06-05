@@ -34,7 +34,7 @@ const ProgramForm = ({
           />
         </Form.Group>
         <Col>
-          <Button type="submit" variant="primary" style={{marginTop: '15px'}}>
+          <Button style={{ marginTop: "15px" }} type="submit" variant="primary">
             {buttonText}
           </Button>
         </Col>
