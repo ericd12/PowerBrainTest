@@ -12,10 +12,10 @@ const initalElementState = {
   elementDescription: "",
   elementDuration: "",
   elementFormat: "",
-  elementlabel: "",
+  elementLabel: "",
   elementLink: "",
   elementMarket: "",
-  elementnumber: "",
+  elementNumber: "",
   elementPhysRating: "",
   elementSubCategory: "",
 };
@@ -70,8 +70,8 @@ class CreateElement extends Component {
     e.preventDefault();
 
     const {
-      elementnumber,
-      elementlabel,
+      elementNumber,
+      elementLabel,
       elementDescription,
       elementFormat,
       elementDuration,
@@ -90,10 +90,10 @@ class CreateElement extends Component {
         elementDescription,
         elementDuration,
         elementFormat,
-        elementlabel,
+        elementLabel,
         elementLink,
         elementMarket,
-        elementnumber,
+        elementNumber,
         elementPhysRating,
         elementSubCategory,
       })

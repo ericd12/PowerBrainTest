@@ -10,18 +10,18 @@ const ElementsTableRow = ({
   elementDescription,
   elementDuration,
   elementFormat,
-  elementlabel,
+  elementLabel,
   elementLink,
   elementMarket,
-  elementnumber,
+  elementNumber,
   elementPhysRating,
   elementSubCategory,
   deleteElement,
 }) => {
   return (
     <StyledTableRow>
-      <td>{elementnumber}</td>
-      <td>{elementlabel}</td>
+      <td>{elementNumber}</td>
+      <td>{elementLabel}</td>
       <td>{elementDescription}</td>
       <td>{elementFormat}</td>
       <td>{elementDuration}</td>

@@ -26,10 +26,10 @@ const Task = ({
   elementDescription,
   elementDuration,
   elementFormat,
-  elementlabel,
+  elementLabel,
   elementLink,
   elementMarket,
-  elementnumber,
+  elementNumber,
   elementPhysRating,
   elementSubCategory,
   index,
@@ -47,8 +47,8 @@ const Task = ({
           <TrackTable>
             <thead>
               <tr>
-                <th>Number: {elementnumber}</th>
-                <th>Label: {elementlabel}</th>
+                <th>Number: {elementNumber}</th>
+                <th>Label: {elementLabel}</th>
               </tr>
             </thead>
             <tbody>

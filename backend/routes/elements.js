@@ -9,8 +9,8 @@ router.route("/").get((req, res) => {
 
 router.route("/add").post((req, res) => {
   const {
-    elementnumber,
-    elementlabel,
+    elementNumber,
+    elementLabel,
     elementDescription,
     elementFormat,
     elementDuration,
@@ -23,8 +23,8 @@ router.route("/add").post((req, res) => {
   } = req.body;
 
   const newElement = new Element({
-    elementnumber,
-    elementlabel,
+    elementNumber,
+    elementLabel,
     elementDescription,
     elementFormat,
     elementDuration,
@@ -58,8 +58,8 @@ router.route("/update/:id").post((req, res) => {
   Element.findById(req.params.id)
     .then(response => {
       const {
-        elementnumber,
-        elementlabel,
+        elementNumber,
+        elementLabel,
         elementDescription,
         elementFormat,
         elementDuration,
@@ -73,8 +73,8 @@ router.route("/update/:id").post((req, res) => {
 
       const element = {
         ...response,
-        elementnumber,
-        elementlabel,
+        elementNumber,
+        elementLabel,
         elementDescription,
         elementFormat,
         elementDuration,

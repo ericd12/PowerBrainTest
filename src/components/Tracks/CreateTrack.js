@@ -59,7 +59,7 @@ class CreateTrack extends Component {
       .post(`${API_URL}/tracks/add`, {
         trackNumber,
         trackName,
-        trackinfo: columns["column-2"].items,
+        trackInfo: columns["column-2"].items,
       })
       .then(res => {
         console.log(res.data);

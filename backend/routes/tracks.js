@@ -8,19 +8,19 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-  const { trackNumber, trackName, trackinfo } = req.body;
+  const { trackNumber, trackName, trackInfo } = req.body;
 
   const newTrack = new Track({
     trackNumber,
     trackName,
-    trackinfo,
+    trackInfo,
   });
 
   newTrack
     .save()
     .then(() => res.json("Track added!"))
     .catch(err => res.status(400).json(`Error: ${err}`));
-  console.log(req.body.trackinfo);
+  console.log(req.body.trackInfo);
 });
 
 router.route("/:id").get((req, res) => {
@@ -40,7 +40,7 @@ router.route("/update/:id").post((req, res) => {
     .then(track => {
       track.trackNumber = req.body.trackNumber;
       track.trackName = req.body.trackName;
-      track.trackinfo = req.body.trackinfo;
+      track.trackInfo = req.body.trackInfo;
       track
         .save()
         .then(() => res.json("Track updated!"))

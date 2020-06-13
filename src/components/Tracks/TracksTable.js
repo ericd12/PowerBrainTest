@@ -9,14 +9,14 @@ import { API_URL } from "../../constants";
 class TracksTable extends Component {
   constructor(props) {
     super(props);
-    this.state = { trackinfo: [] };
+    this.state = { trackInfo: [] };
   }
 
   componentDidMount() {
     axios
       .get(`${API_URL}/tracks/`)
       .then(response => {
-        this.setState({ trackinfo: response.data });
+        this.setState({ trackInfo: response.data });
       })
       .catch(error => {
         console.log(error);
@@ -29,14 +29,14 @@ class TracksTable extends Component {
       alert("deleted");
       this.setState(prev => {
         return {
-          trackinfo: prev.trackinfo.filter(el => el._id !== id),
+          trackInfo: prev.trackInfo.filter(el => el._id !== id),
         };
       });
     });
   };
 
   render() {
-    const { trackinfo } = this.state;
+    const { trackInfo } = this.state;
     return (
       <ComponentWrapper title="Tracks">
         <Table hover>
@@ -44,15 +44,18 @@ class TracksTable extends Component {
             <tr>
               <CoolTableHead>Track #</CoolTableHead>
               <CoolTableHead>Track Name</CoolTableHead>
+              <CoolTableHead colSpan="5">Slide data</CoolTableHead>
               <CoolTableHead>Actions</CoolTableHead>
             </tr>
           </thead>
           <tbody>
-            {trackinfo.map(currentTrack => {
+            {trackInfo.map(currentTrack => {
+              // console.log(currentTrack)
               return (
                 <TracksTableRow
                   key={currentTrack._id}
                   deleteTrack={this.deleteTrack}
+                  info={currentTrack}
                   {...currentTrack}
                 />
               );

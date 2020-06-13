@@ -5,8 +5,8 @@ import { Form, Col, Button } from "react-bootstrap";
 const ElementForm = ({
   onSubmit,
   onChange,
-  elementnumber,
-  elementlabel,
+  elementNumber,
+  elementLabel,
   elementDescription,
   elementFormat,
   elementDuration,
@@ -24,27 +24,27 @@ const ElementForm = ({
   return (
     <Form onSubmit={onSubmit}>
       <Form.Row>
-        <Form.Group as={Col} controlId="elementnumber">
+        <Form.Group as={Col} controlId="elementNumber">
           <Form.Label>Number</Form.Label>
           <Form.Control
-            name="elementnumber"
+            name="elementNumber"
             onChange={onChange}
             placeholder="add #"
             required
             type="text"
-            value={elementnumber}
+            value={elementNumber}
           />
         </Form.Group>
 
-        <Form.Group as={Col} controlId="elementlabel">
+        <Form.Group as={Col} controlId="elementLabel">
           <Form.Label>Label</Form.Label>
           <Form.Control
-            name="elementlabel"
+            name="elementLabel"
             onChange={onChange}
             placeholder="add label"
             required
             type="text"
-            value={elementlabel}
+            value={elementLabel}
           />
         </Form.Group>
       </Form.Row>

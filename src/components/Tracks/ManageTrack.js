@@ -33,7 +33,7 @@ class ManageTrack extends Component {
       console.log({ response });
       this.setState(oldState => {
         console.log({ oldState });
-        oldState.columns["column-2"].items = response.data.trackinfo;
+        oldState.columns["column-2"].items = response.data.trackInfo;
         return {
           ...oldState,
           ...response.data,
@@ -57,17 +57,17 @@ class ManageTrack extends Component {
 
       this.setState(oldState => {
         oldState.columns["column-1"].items = elements.reduce((all, one) => {
-          const test = tracks.trackinfo.find(item => item._id === one._id);
+          const test = tracks.trackInfo.find(item => item._id === one._id);
           if (!test) {
             all.push(one);
           }
           return all;
         }, []);
-        oldState.columns["column-2"].items = tracks.trackinfo;
+        oldState.columns["column-2"].items = tracks.trackInfo;
         return {
           ...oldState,
           ...tracks,
-          // trackinfo: response.data.trackinfo
+          // trackInfo: response.data.trackInfo
         };
       });
     });
@@ -80,7 +80,7 @@ class ManageTrack extends Component {
     const track = {
       trackNumber,
       trackName,
-      trackinfo: columns["column-2"].items,
+      trackInfo: columns["column-2"].items,
     };
 
     axios.post(`http://localhost:5000/tracks/update/${id}`, track).then(res => {
