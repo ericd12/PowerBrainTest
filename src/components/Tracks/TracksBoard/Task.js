@@ -4,11 +4,13 @@ import { Table, Card } from "react-bootstrap";
 import styled from "styled-components";
 
 const TrackTable = styled(Table)`
+  font-size: 95%;
   table-layout: fixed;
   white-space: nowrap;
   background-color: white;
   th,
   td {
+    width: 30%;
     padding: 2px;
     border-style: hidden !important;
   }
@@ -47,8 +49,8 @@ const Task = ({
           <TrackTable>
             <thead>
               <tr>
-                <th>Number: {elementNumber}</th>
-                <th>Label: {elementLabel}</th>
+                <th>Element #: {elementNumber}</th>
+                <th>{elementLabel}</th>
               </tr>
             </thead>
             <tbody>
@@ -61,11 +63,12 @@ const Task = ({
                 <td>Category: {elementCategory}</td>
               </tr>
               <tr>
-                <td>SubCategory: {elementSubCategory}</td>
-                <td>{elementMarket}</td>
+                <td>SubCat: {elementSubCategory}</td>
+                <td>Market: {elementMarket}</td>
                 <td>Cog Rating: {elementCogRating}</td>
                 <td>Phys Rating: {elementPhysRating}</td>
               </tr>
+
               <tr>
                 <td>{elementLink}</td>
               </tr>

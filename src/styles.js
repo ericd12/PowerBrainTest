@@ -3,8 +3,8 @@ import { Table } from "react-bootstrap";
 import ComponentWrapper from "./components/ComponentWrapper";
 
 export const CoolTableHead = styled.th`
-  text-align: left;
-  width: 700px;
+  // text-align: left;
+  // width: 700px;
 `;
 
 export const StyledTableRow = styled.tr`

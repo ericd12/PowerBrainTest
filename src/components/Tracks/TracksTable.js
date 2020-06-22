@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Table } from "react-bootstrap";
 import TracksTableRow from "./TracksTableRow";
-import { CoolTableHead } from "../../styles";
+import { CoolTableHead, StyledContainer } from "../../styles";
 import ComponentWrapper from "../ComponentWrapper";
 import { API_URL } from "../../constants";
 
@@ -38,13 +38,13 @@ class TracksTable extends Component {
   render() {
     const { trackInfo } = this.state;
     return (
-      <ComponentWrapper title="Tracks">
+      <StyledContainer fluid title="Tracks">
         <Table hover>
-          <thead>
+          <thead style={{borderBottom: "2px solid white"}}> 
             <tr>
-              <CoolTableHead>Track #</CoolTableHead>
-              <CoolTableHead>Track Name</CoolTableHead>
-              <CoolTableHead colSpan="5">Slide data</CoolTableHead>
+              <CoolTableHead width="200">Track #</CoolTableHead>
+              <CoolTableHead width="200">Track Name</CoolTableHead>
+              <CoolTableHead>Slide Data</CoolTableHead>
               <CoolTableHead>Actions</CoolTableHead>
             </tr>
           </thead>
@@ -62,7 +62,7 @@ class TracksTable extends Component {
             })}
           </tbody>
         </Table>
-      </ComponentWrapper>
+      </StyledContainer>
     );
   }
 }
