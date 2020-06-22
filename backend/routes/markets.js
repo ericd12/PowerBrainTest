@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Market = require("../models/element-dropdown-models/market.model");
+const Market = require("../models/element-dropdown-models/marketModel");
 
 router.route("/").get((req, res) => {
   Market.find()

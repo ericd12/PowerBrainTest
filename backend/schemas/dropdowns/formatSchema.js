@@ -6,10 +6,8 @@ const formatSchema = new Schema({
   elementFormat: {
     type: String,
     required: true,
-    trim: true, // removes white space before and after
+    trim: true,
   },
 });
 
-const Format = mongoose.model("Format", formatSchema);
-
-module.exports = Format;
+modules.export = formatSchema;

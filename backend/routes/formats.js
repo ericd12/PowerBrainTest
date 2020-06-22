@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Format = require("../models/element-dropdown-models/format.model");
+const Format = require("../models/element-dropdown-models/formatModel");
 
 router.route("/").get((req, res) => {
   Format.find()

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Category = require("../models/element-dropdown-models/category.model");
+const Category = require("../models/element-dropdown-models/categoryModel");
 
 router.route("/").get((req, res) => {
   Category.find()
