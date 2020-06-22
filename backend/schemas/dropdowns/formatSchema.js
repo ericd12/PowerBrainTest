@@ -10,4 +10,4 @@ const formatSchema = new Schema({
   },
 });
 
-modules.export = formatSchema;
+module.export = formatSchema;
