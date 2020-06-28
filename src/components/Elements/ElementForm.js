@@ -71,9 +71,9 @@ const ElementForm = ({
             required
             value={elementFormat}
           >
-            {formats.map(format => {
+            {formats.map((format, idx) => {
               return (
-                <option key={format} value={format}>
+                <option key={`format-${idx}`} value={format}>
                   {format}
                 </option>
               );
@@ -106,7 +106,7 @@ const ElementForm = ({
           >
             {categories.map(categorie => {
               return (
-                <option key={categorie} value={categorie}>
+                <option key={`categorie-${categorie}`} value={categorie}>
                   {categorie}
                 </option>
               );
@@ -139,7 +139,7 @@ const ElementForm = ({
           >
             {markets.map(market => {
               return (
-                <option key={market} value={market}>
+                <option key={`market-${market}`} value={market}>
                   {market}
                 </option>
               );

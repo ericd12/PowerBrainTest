@@ -29,17 +29,17 @@ class ManageTrack extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    axios.get(`http://localhost:5000/tracks/${id}`).then(response => {
-      console.log({ response });
-      this.setState(oldState => {
-        console.log({ oldState });
-        oldState.columns["column-2"].items = response.data.trackInfo;
-        return {
-          ...oldState,
-          ...response.data,
-        };
-      });
-    });
+    // axios.get(`http://localhost:5000/tracks/${id}`).then(response => {
+    //   console.log({ response });
+    //   this.setState(oldState => {
+    //     console.log({ oldState });
+    //     oldState.columns["column-2"].items = response.data.trackInfo;
+    //     return {
+    //       ...oldState,
+    //       ...response.data,
+    //     };
+    //   });
+    // });
 
     const tracksPromise = axios
       .get(`http://localhost:5000/tracks/${id}`)
@@ -53,17 +53,24 @@ class ManageTrack extends Component {
 
     Promise.all([tracksPromise, elementsPromise]).then(data => {
       const tracks = data[0];
-      const elements = data[1];
+      const elements = data[1].reduce((all, one) => {
+        return {
+                ...all,
+                [one._id]: one
+              }
+            }, {});
+
+
 
       this.setState(oldState => {
-        oldState.columns["column-1"].items = elements.reduce((all, one) => {
+        oldState.columns["column-1"].items = data[1].reduce((all, one) => {
           const test = tracks.trackInfo.find(item => item._id === one._id);
           if (!test) {
             all.push(one);
           }
           return all;
         }, []);
-        oldState.columns["column-2"].items = tracks.trackInfo;
+        oldState.columns["column-2"].items = tracks.trackInfo.map(id => elements[id]);
         return {
           ...oldState,
           ...tracks,
@@ -101,7 +108,7 @@ class ManageTrack extends Component {
 
   render() {
     const { columns } = this.state;
-
+console.log({columns})
     return (
       <StyledContainer fluid title="Update Track">
         <TrackForm

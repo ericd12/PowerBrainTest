@@ -104,7 +104,7 @@ class CreateElement extends Component {
         this.setState({
           ...initalElementState,
         });
-      });
+      }).catch(err => console.log({err}));
   };
 
   render() {

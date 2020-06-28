@@ -1,11 +1,11 @@
 import React from 'react';
 
 
-const ElemData = ({info, slideNumber}) => {
-    const {elementNumber, 
-        elementLabel,
-        elementDuration,
-        elementLink} = info
+const ElemData = ({ elementNumber,
+    elementLabel,
+    elementDuration,
+    elementLink, slideNumber}) => {
+
     return (
         <tr>
             <td>

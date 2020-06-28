@@ -13,14 +13,23 @@ class TracksTable extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`${API_URL}/tracks/`)
-      .then(response => {
-        this.setState({ trackInfo: response.data });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+
+    Promise.all([axios
+      .get(`${API_URL}/elements/`), axios
+        .get(`${API_URL}/tracks/`)]).then(([elements, tracks]) => {
+          console.log({elements, tracks})
+          this.setState({ 
+            elements: elements.data.reduce((all, one) => {
+
+              return {
+                ...all,
+                [one._id]: one
+              }
+            }, {}),
+            trackInfo: tracks.data});
+        })
+
+
   }
 
   deleteTrack = id => {
@@ -36,7 +45,8 @@ class TracksTable extends Component {
   };
 
   render() {
-    const { trackInfo } = this.state;
+    const { trackInfo, elements } = this.state;
+    console.log({elements})
     return (
       <StyledContainer fluid title="Tracks">
         <Table hover>
@@ -50,12 +60,13 @@ class TracksTable extends Component {
           </thead>
           <tbody>
             {trackInfo.map(currentTrack => {
-              // console.log(currentTrack)
+              console.log({ currentTrack }, currentTrack.trackInfo.map(id => elements[id]))
               return (
                 <TracksTableRow
                   key={currentTrack._id}
                   deleteTrack={this.deleteTrack}
                   info={currentTrack}
+                  elementDeets={currentTrack.trackInfo.map(id => elements[id])}
                   {...currentTrack}
                 />
               );

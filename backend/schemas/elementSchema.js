@@ -10,9 +10,9 @@ const elementSchema = new Schema(
     elementFormat: { type: String, required: true },
     elementDuration: { type: String, required: true }, // Probably change type to Num
     elementCategory: {
-      type: Schema.Types.ObjectId,
-      ref: "category",
-      required: true,
+      type: String,
+      // ref: 'category',
+      // required: true,
     },
     elementSubCategory: { type: String, required: true },
     elementMarket: { type: String, required: true },

@@ -94,7 +94,7 @@ class ManageElement extends Component {
     } = this.state;
 
     axios
-      .post(`http://localhost:5000/elements/update/${id}`, {
+      .put(`http://localhost:5000/elements/update/${id}`, {
         elementCategory,
         elementCogRating,
         elementDescription,
@@ -112,7 +112,7 @@ class ManageElement extends Component {
         alert("updated");
         const { history } = this.props;
         history.push("/elements");
-      });
+      }).catch(err => console.log({err}));
   };
 
   render() {

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Element = require("../models/elementModel");
+const mongoose = require("mongoose");
 
 router.route("/").get((req, res) => {
   Element.find()
@@ -36,6 +37,17 @@ router.route("/add").post((req, res) => {
     elementLink,
   });
 
+      // const run = async () => {
+    //   const newElement = await Element.create({
+    //     elementCategory: mongoose.Types.ObjectId()
+    //   })
+    //   console.log(newElement)
+    // }
+    // run()
+  
+    
+    // console.log(`newElement: ${newElement}`)
+
   newElement
     .save()
     .then(() => res.json("Element added!"))
@@ -54,44 +66,67 @@ router.route("/:id").delete((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-router.route("/update/:id").post((req, res) => {
-  Element.findById(req.params.id)
-    .then(response => {
-      const {
-        elementNumber,
-        elementLabel,
-        elementDescription,
-        elementFormat,
-        elementDuration,
-        elementCategory,
-        elementSubCategory,
-        elementMarket,
-        elementCogRating,
-        elementPhysRating,
-        elementLink,
-      } = req.body;
+router.route("/update/:id").put((req, res) => {
 
-      const element = {
-        ...response,
-        elementNumber,
-        elementLabel,
-        elementDescription,
-        elementFormat,
-        elementDuration,
-        elementCategory,
-        elementSubCategory,
-        elementMarket,
-        elementCogRating,
-        elementPhysRating,
-        elementLink,
-      };
+  Element.findByIdAndUpdate(req.params.id, { ...req.body }, (err, result) => {
 
-      element
-        .save()
-        .then(() => res.json("Element updated!"))
-        .catch(err => res.status(400).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    if (err) {
+      res.send(err)
+    }
+    else {
+      res.send(result)
+    }
+
+  })
+
+  // Element.findByIdAndUpdate(req.params.id, { "elementNumber": "69" }, function (err, comment) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log('bango')
+  //     // res.redirect("/campgrounds/" + req.params.id);
+  //   }
+  // })
+    // .then(response => {
+    //   const {
+    //     elementNumber,
+    //     elementLabel,
+    //     elementDescription,
+    //     elementFormat,
+    //     elementDuration,
+    //     elementCategory,
+    //     elementSubCategory,
+    //     elementMarket,
+    //     elementCogRating,
+    //     elementPhysRating,
+    //     elementLink,
+    //   } = req.body;
+
+
+
+    //   const element = {
+    //     ...response,
+    //     elementNumber,
+    //     elementLabel,
+    //     elementDescription,
+    //     elementFormat,
+    //     elementDuration,
+    //     elementCategory,
+    //     elementSubCategory,
+    //     elementMarket,
+    //     elementCogRating,
+    //     elementPhysRating,
+    //     elementLink,
+    //   };
+
+    //   console.log({ response })
+
+    //   element
+    //     .save()
+    //     .then(() => res.json("Element updated!"))
+    //     .catch(err => res.status(400).json(`Error: ${err}`));
+    // })
+    // .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 module.exports = router;

@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import ElemData from "./TracksTableElemData";
 import { StyledTable } from "../../styles";
 
-const TracksTableRow = ({ trackNumber, trackName, _id, deleteTrack, info }) => {
+const TracksTableRow = ({ trackNumber, trackName, _id, deleteTrack, info, elementDeets }) => {
   return (
     <Fragment>
       <tr>
@@ -24,11 +24,10 @@ const TracksTableRow = ({ trackNumber, trackName, _id, deleteTrack, info }) => {
               <th width="400">Link</th>
             </tr>
             <tbody style={{ border: "none", fontSize: "90%" }}>
-              {info.trackInfo.map((currentTrack, index) => {
+              {elementDeets.map((currentTrack, index) => {
                 return (
                   <ElemData
                     key={currentTrack._id}
-                    info={currentTrack}
                     slideNumber={index}
                     {...currentTrack}
                   />

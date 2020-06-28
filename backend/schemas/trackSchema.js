@@ -6,7 +6,13 @@ const { Schema } = mongoose;
 const trackSchema = new Schema({
   trackNumber: String,
   trackName: String,
-  trackInfo: [elementSchema],
+  // trackInfo: [elementSchema],
+  trackInfo: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Element"
+    }
+  ]
 });
 
 module.exports = trackSchema;
