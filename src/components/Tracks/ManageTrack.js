@@ -32,10 +32,10 @@ class ManageTrack extends Component {
     axios.get(`http://localhost:5000/tracks/${id}`).then(response => {
       console.log({ response });
       this.setState(oldState => {
-        console.log({ oldState });
-        oldState.columns["column-2"].items = response.data.trackInfo;
+        const state = { ...oldState };
+        state.columns["column-2"].items = response.data.trackInfo;
         return {
-          ...oldState,
+          ...state,
           ...response.data,
         };
       });
@@ -56,16 +56,17 @@ class ManageTrack extends Component {
       const elements = data[1];
 
       this.setState(oldState => {
-        oldState.columns["column-1"].items = elements.reduce((all, one) => {
+        const state = { ...oldState };
+        state.columns["column-1"].items = elements.reduce((all, one) => {
           const test = tracks.trackInfo.find(item => item._id === one._id);
           if (!test) {
             all.push(one);
           }
           return all;
         }, []);
-        oldState.columns["column-2"].items = tracks.trackInfo;
+        state.columns["column-2"].items = tracks.trackInfo;
         return {
-          ...oldState,
+          ...state,
           ...tracks,
           // trackInfo: response.data.trackInfo
         };
@@ -83,7 +84,7 @@ class ManageTrack extends Component {
       trackInfo: columns["column-2"].items,
     };
 
-    axios.post(`http://localhost:5000/tracks/update/${id}`, track).then(res => {
+    axios.put(`http://localhost:5000/tracks/update/${id}`, track).then(res => {
       const { history } = this.props;
       console.log(res.data);
       console.log(track);
