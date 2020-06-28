@@ -3,7 +3,7 @@ import axios from "axios";
 import { Table } from "react-bootstrap";
 import TracksTableRow from "./TracksTableRow";
 import { CoolTableHead, StyledContainer } from "../../styles";
-import ComponentWrapper from "../ComponentWrapper";
+// import ComponentWrapper from "../ComponentWrapper";
 import { API_URL } from "../../constants";
 
 class TracksTable extends Component {

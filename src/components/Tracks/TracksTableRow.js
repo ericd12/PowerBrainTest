@@ -16,13 +16,15 @@ const TracksTableRow = ({ trackNumber, trackName, _id, deleteTrack, info, elemen
         </td>
         <td>
           <StyledTable borderless responsive size="sm">
-            <tr>
-              <th width="75">Slide #</th>
-              <th width="100">Element #</th>
-              <th width="200">Label</th>
-              <th width="100">Timing</th>
-              <th width="400">Link</th>
-            </tr>
+            <thead>
+              <tr>
+                <th width="75">Slide #</th>
+                <th width="100">Element #</th>
+                <th width="200">Label</th>
+                <th width="100">Timing</th>
+                <th width="400">Link</th>
+              </tr>
+            </thead>
             <tbody style={{ border: "none", fontSize: "90%" }}>
               {elementDeets.map((currentTrack, index) => {
                 return (

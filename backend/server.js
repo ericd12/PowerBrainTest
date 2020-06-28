@@ -16,6 +16,8 @@ mongoose.connect("mongodb://127.0.0.1:27017/powerbrain", {
   useUnifiedTopology: true,
 });
 
+mongoose.set('useFindAndModify', false);
+
 const { connection } = mongoose;
 connection.once("open", () => {
   console.log("db connection created successfully");
