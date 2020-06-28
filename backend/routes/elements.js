@@ -67,66 +67,43 @@ router.route("/:id").delete((req, res) => {
 });
 
 router.route("/update/:id").put((req, res) => {
+  Element.findByIdAndUpdate(req.params.id, req.body);
+  // .then(response => {
+  //   const {
+  //     elementNumber,
+  //     elementLabel,
+  //     elementDescription,
+  //     elementFormat,
+  //     elementDuration,
+  //     elementCategory,
+  //     elementSubCategory,
+  //     elementMarket,
+  //     elementCogRating,
+  //     elementPhysRating,
+  //     elementLink,
+  //   } = req.body;
 
-  Element.findByIdAndUpdate(req.params.id, { ...req.body }, (err, result) => {
+  //   const element = {
+  //     ...response,
+  //     elementNumber,
+  //     elementLabel,
+  //     elementDescription,
+  //     elementFormat,
+  //     elementDuration,
+  //     elementCategory,
+  //     elementSubCategory,
+  //     elementMarket,
+  //     elementCogRating,
+  //     elementPhysRating,
+  //     elementLink,
+  //   };
 
-    if (err) {
-      res.send(err)
-    }
-    else {
-      res.send(result)
-    }
-
-  })
-
-  // Element.findByIdAndUpdate(req.params.id, { "elementNumber": "69" }, function (err, comment) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     console.log('bango')
-  //     // res.redirect("/campgrounds/" + req.params.id);
-  //   }
+  //   element
+  //     .save()
+  //     .then(() => res.json("Element updated!"))
+  //     .catch(err => res.status(400).json(`Error: ${err}`));
   // })
-    // .then(response => {
-    //   const {
-    //     elementNumber,
-    //     elementLabel,
-    //     elementDescription,
-    //     elementFormat,
-    //     elementDuration,
-    //     elementCategory,
-    //     elementSubCategory,
-    //     elementMarket,
-    //     elementCogRating,
-    //     elementPhysRating,
-    //     elementLink,
-    //   } = req.body;
-
-
-
-    //   const element = {
-    //     ...response,
-    //     elementNumber,
-    //     elementLabel,
-    //     elementDescription,
-    //     elementFormat,
-    //     elementDuration,
-    //     elementCategory,
-    //     elementSubCategory,
-    //     elementMarket,
-    //     elementCogRating,
-    //     elementPhysRating,
-    //     elementLink,
-    //   };
-
-    //   console.log({ response })
-
-    //   element
-    //     .save()
-    //     .then(() => res.json("Element updated!"))
-    //     .catch(err => res.status(400).json(`Error: ${err}`));
-    // })
-    // .catch(err => res.status(400).json(`Error: ${err}`));
+  // .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 module.exports = router;

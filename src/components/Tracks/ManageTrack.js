@@ -29,17 +29,17 @@ class ManageTrack extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    // axios.get(`http://localhost:5000/tracks/${id}`).then(response => {
-    //   console.log({ response });
-    //   this.setState(oldState => {
-    //     console.log({ oldState });
-    //     oldState.columns["column-2"].items = response.data.trackInfo;
-    //     return {
-    //       ...oldState,
-    //       ...response.data,
-    //     };
-    //   });
-    // });
+    axios.get(`http://localhost:5000/tracks/${id}`).then(response => {
+      console.log({ response });
+      this.setState(oldState => {
+        const state = { ...oldState };
+        state.columns["column-2"].items = response.data.trackInfo;
+        return {
+          ...state,
+          ...response.data,
+        };
+      });
+    });
 
     const tracksPromise = axios
       .get(`http://localhost:5000/tracks/${id}`)
@@ -63,16 +63,17 @@ class ManageTrack extends Component {
 
 
       this.setState(oldState => {
-        oldState.columns["column-1"].items = data[1].reduce((all, one) => {
+        const state = { ...oldState };
+        state.columns["column-1"].items = elements.reduce((all, one) => {
           const test = tracks.trackInfo.find(item => item._id === one._id);
           if (!test) {
             all.push(one);
           }
           return all;
         }, []);
-        oldState.columns["column-2"].items = tracks.trackInfo.map(id => elements[id]);
+        state.columns["column-2"].items = tracks.trackInfo;
         return {
-          ...oldState,
+          ...state,
           ...tracks,
           // trackInfo: response.data.trackInfo
         };
@@ -90,7 +91,7 @@ class ManageTrack extends Component {
       trackInfo: columns["column-2"].items,
     };
 
-    axios.post(`http://localhost:5000/tracks/update/${id}`, track).then(res => {
+    axios.put(`http://localhost:5000/tracks/update/${id}`, track).then(res => {
       const { history } = this.props;
       console.log(res.data);
       console.log(track);
