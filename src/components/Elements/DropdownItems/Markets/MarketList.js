@@ -26,6 +26,19 @@ class MarketList extends Component {
       });
   }
 
+  componentDidUpdate(prevProps){
+    if(prevProps.newItem !== this.props.newItem){
+      axios
+      .get(`${API_URL}/markets/`)
+      .then(response => {
+        this.setState({ markets: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
+  }
+
   deleteMarket = id => {
     axios.delete(`http://localhost:5000/markets/${id}`).then(response => {
       console.log(response.data);

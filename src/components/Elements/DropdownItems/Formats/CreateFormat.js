@@ -10,6 +10,7 @@ class CreateFormat extends Component {
     super(props);
     this.state = {
       elementFormat: "",
+      new_item: {},
     };
   }
 
@@ -17,13 +18,16 @@ class CreateFormat extends Component {
     e.preventDefault();
     const { elementFormat } = this.state;
 
+    const newItem = {elementFormat}
+    
     axios
-      .post(`${API_URL}/formats/add`, { elementFormat })
+      .post(`${API_URL}/formats/add`, newItem)
       .then(res => {
         console.log(res.data);
         alert("New Format Added!");
         this.setState({
           elementFormat: "",
+          new_item: newItem
         });
       })
       .catch(error => console.log(error.response));
@@ -54,7 +58,7 @@ class CreateFormat extends Component {
             Create New Format
           </Button>
         </Form>
-        <FormatList />
+        <FormatList newItem={this.state.new_item}/>
       </ComponentWrapper>
     );
   }

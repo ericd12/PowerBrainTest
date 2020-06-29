@@ -10,19 +10,24 @@ class CreateMarket extends Component {
     super(props);
     this.state = {
       elementMarket: "",
+      new_item: {}
     };
   }
 
   onSubmit = e => {
     e.preventDefault();
     const { elementMarket } = this.state;
+
+    const newItem = {elementMarket}
+
     axios
-      .post(`${API_URL}/markets/add`, { elementMarket })
+      .post(`${API_URL}/markets/add`, newItem)
       .then(res => {
         console.log(res.data);
         alert("New Market Added!");
         this.setState({
           elementMarket: "",
+          new_item: newItem
         });
       })
       .catch(error => console.log(error.response));
@@ -53,7 +58,7 @@ class CreateMarket extends Component {
             Create New Market
           </Button>
         </Form>
-        <MarketList />
+        <MarketList newItem={this.state.new_item}/>
       </ComponentWrapper>
     );
   }

@@ -26,6 +26,19 @@ class CategoryList extends Component {
       });
   }
 
+  componentDidUpdate(prevProps){
+    if(prevProps.newItem !== this.props.newItem){
+      axios
+      .get(`${API_URL}/categories/`)
+      .then(response => {
+        this.setState({ categories: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
+  }
+
   deleteCategory = id => {
     axios.delete(`http://localhost:5000/categories/${id}`).then(response => {
       console.log(response.data);

@@ -10,19 +10,24 @@ class CreateCategory extends Component {
     super(props);
     this.state = {
       elementCategory: "",
+      new_item: {},
     };
   }
 
   onSubmit = e => {
     e.preventDefault();
     const { elementCategory } = this.state;
+
+    const newItem = {elementCategory}
+
     axios
-      .post(`${API_URL}/categories/add`, { elementCategory })
+      .post(`${API_URL}/categories/add`, newItem)
       .then(res => {
         console.log(res.data);
         alert("New Category Added!");
         this.setState({
-          elementCategory: "",
+          elementCategory: "",    
+          new_item: newItem      
         });
       })
       .catch(error => console.log(error.response));
@@ -52,7 +57,7 @@ class CreateCategory extends Component {
             Create New Category
           </Button>
         </Form>
-        <CategoryList />
+        <CategoryList newItem={this.state.new_item}/>
       </ComponentWrapper>
     );
   }
