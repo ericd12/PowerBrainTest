@@ -67,43 +67,45 @@ router.route("/:id").delete((req, res) => {
 });
 
 router.route("/update/:id").put((req, res) => {
-  Element.findByIdAndUpdate(req.params.id, req.body)
-  .then(response => {
-    const {
-      elementNumber,
-      elementLabel,
-      elementDescription,
-      elementFormat,
-      elementDuration,
-      elementCategory,
-      elementSubCategory,
-      elementMarket,
-      elementCogRating,
-      elementPhysRating,
-      elementLink,
-    } = req.body;
+  Element.findByIdAndUpdate(req.params.id, req.body).then(res => {
+    res.send(err)
+  }).catch(err => res.send(err));
+  // .then(response => {
+  //   const {
+  //     elementNumber,
+  //     elementLabel,
+  //     elementDescription,
+  //     elementFormat,
+  //     elementDuration,
+  //     elementCategory,
+  //     elementSubCategory,
+  //     elementMarket,
+  //     elementCogRating,
+  //     elementPhysRating,
+  //     elementLink,
+  //   } = req.body;
 
-    const element = {
-      ...response,
-      elementNumber,
-      elementLabel,
-      elementDescription,
-      elementFormat,
-      elementDuration,
-      elementCategory,
-      elementSubCategory,
-      elementMarket,
-      elementCogRating,
-      elementPhysRating,
-      elementLink,
-    };
+  //   const element = {
+  //     ...response,
+  //     elementNumber,
+  //     elementLabel,
+  //     elementDescription,
+  //     elementFormat,
+  //     elementDuration,
+  //     elementCategory,
+  //     elementSubCategory,
+  //     elementMarket,
+  //     elementCogRating,
+  //     elementPhysRating,
+  //     elementLink,
+  //   };
 
-    element
-      .save()
-      .then(() => res.json("Element updated!"))
-      .catch(err => res.status(400).json(`Error: ${err}`));
-  })
-  .catch(err => res.status(400).json(`Error: ${err}`));
+  //   element
+  //     .save()
+  //     .then(() => res.json("Element updated!"))
+  //     .catch(err => res.status(400).json(`Error: ${err}`));
+  // })
+  // .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 module.exports = router;

@@ -9,65 +9,62 @@ import { API_URL } from "../../constants";
 class TracksTable extends Component {
   constructor(props) {
     super(props);
-    this.state = { trackInfo: [] };
+    this.state = { tracks: [] };
   }
 
   componentDidMount() {
+    Promise.all([
+      axios.get(`${API_URL}/elements/`),
+      axios.get(`${API_URL}/tracks/`),
+    ]).then(([e, t]) => {
+      const { data: elements } = e;
+      const { data: tracks } = t;
 
-    Promise.all([axios
-      .get(`${API_URL}/elements/`), axios
-        .get(`${API_URL}/tracks/`)]).then(([elements, tracks]) => {
-          console.log({elements, tracks})
-          this.setState({ 
-            elements: elements.data.reduce((all, one) => {
-
-              return {
-                ...all,
-                [one._id]: one
-              }
-            }, {}),
-            trackInfo: tracks.data});
-        })
-
-
+      console.log({ elements, tracks });
+      this.setState({
+        elements: elements.reduce((all, one) => {
+          return {
+            ...all,
+            [one._id]: one,
+          };
+        }, {}),
+        tracks,
+      });
+    });
   }
 
-  deleteTrack = id => {
-    axios.delete(`http://localhost:5000/tracks/${id}`).then(response => {
-      console.log(response.data);
+  deleteTrack = (id) => {
+    axios.delete(`http://localhost:5000/tracks/${id}`).then(() => {
       alert("deleted");
-      this.setState(prev => {
+      this.setState(({ tracks }) => {
         return {
-          trackInfo: prev.trackInfo.filter(el => el._id !== id),
+          tracks: tracks.filter((el) => el._id !== id),
         };
       });
     });
   };
 
   render() {
-    const { trackInfo, elements } = this.state;
-    console.log({elements})
+    const { tracks, elements } = this.state;
+    console.log({ elements });
     return (
       <StyledContainer fluid title="Tracks">
         <Table hover>
-          <thead style={{borderBottom: "2px solid white"}}> 
+          <thead style={{ borderBottom: "2px solid white" }}>
             <tr>
               <CoolTableHead width="200">Track #</CoolTableHead>
               <CoolTableHead width="200">Track Name</CoolTableHead>
-              <CoolTableHead>Slide Data</CoolTableHead>
+              <CoolTableHead>Track Info</CoolTableHead>
               <CoolTableHead>Actions</CoolTableHead>
             </tr>
           </thead>
           <tbody>
-            {trackInfo.map(currentTrack => {
-              console.log({ currentTrack }, currentTrack.trackInfo.map(id => elements[id]))
+            {tracks.map((currentTrack) => {
               return (
                 <TracksTableRow
                   key={currentTrack._id}
                   deleteTrack={this.deleteTrack}
-                  info={currentTrack}
-                  elementDeets={currentTrack.trackInfo.map(id => elements[id])}
-                  {...currentTrack}
+                  {...{ ...currentTrack, elements }}
                 />
               );
             })}

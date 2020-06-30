@@ -35,18 +35,22 @@ router.route("/:id").delete((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-router.route("/update/:id").post((req, res) => {
-  Track.findById(req.params.id)
-    .then(track => {
-      track.trackNumber = req.body.trackNumber;
-      track.trackName = req.body.trackName;
-      track.trackInfo = req.body.trackInfo;
-      track
-        .save()
-        .then(() => res.json("Track updated!"))
-        .catch(err => res.status(400).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(400).json(`Error: ${err}`));
+router.route("/update/:id").put((req, res) => {
+  Track.findByIdAndUpdate(req.params.id, req.body).then(res => {
+    res.send(err)
+  }).catch(err => res.send(err));
+
+  // Track.findById(req.params.id)
+  //   .then(track => {
+  //     track.trackNumber = req.body.trackNumber;
+  //     track.trackName = req.body.trackName;
+  //     track.trackInfo = req.body.trackInfo;
+  //     track
+  //       .save()
+  //       .then(() => res.json("Track updated!"))
+  //       .catch(err => res.status(400).json(`Error: ${err}`));
+  //   })
+  //   .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 module.exports = router;

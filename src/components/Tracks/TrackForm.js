@@ -18,6 +18,7 @@ const TrackForm = ({
         <Form.Group as={Col} controlId="trackNumber">
           <Form.Label>Track Number</Form.Label>
           <Form.Control
+            name="trackNumber"
             onChange={onChange}
             placeholder="add number"
             type="text"
@@ -27,6 +28,7 @@ const TrackForm = ({
         <Form.Group as={Col} controlId="trackName">
           <Form.Label>Track Name</Form.Label>
           <Form.Control
+            name="trackName"
             onChange={onChange}
             placeholder="add name"
             type="text"

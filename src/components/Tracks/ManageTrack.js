@@ -13,7 +13,9 @@ class ManageTrack extends Component {
     this.state = {
       trackName: "",
       trackNumber: "",
+      trackInfo: [],
       elements: [],
+      elementsEnums: {},
       columns: {
         "column-1": {
           name: "Elements",
@@ -29,52 +31,51 @@ class ManageTrack extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    axios.get(`http://localhost:5000/tracks/${id}`).then(response => {
-      console.log({ response });
-      this.setState(oldState => {
-        const state = { ...oldState };
-        state.columns["column-2"].items = response.data.trackInfo;
-        return {
-          ...state,
-          ...response.data,
-        };
-      });
-    });
+    // axios.get(`http://localhost:5000/tracks/${id}`).then(response => {
+    //   console.log({ response });
+    //   this.setState(oldState => {
+    //     const state = { ...oldState };
+    //     state.columns["column-2"].items = response.data.trackInfo;
+    //     return {
+    //       ...state,
+    //       ...response.data,
+    //     };
+    //   });
+    // });
 
-    const tracksPromise = axios
-      .get(`http://localhost:5000/tracks/${id}`)
-      .then(response => {
+    Promise.all([
+      axios.get(`http://localhost:5000/tracks/${id}`).then(response => {
         return response.data;
-      });
-
-    const elementsPromise = axios.get(`${API_URL}/elements/`).then(response => {
-      return response.data;
-    });
-
-    Promise.all([tracksPromise, elementsPromise]).then(data => {
-      const tracks = data[0];
-      const elements = data[1].reduce((all, one) => {
+      }),
+      axios.get(`${API_URL}/elements/`).then(response => {
+        return response.data;
+      }),
+    ]).then(([tracks, elements]) => {
+      const elementsEnums = elements.reduce((all, one) => {
         return {
-                ...all,
-                [one._id]: one
-              }
-            }, {});
+          ...all,
+          [one._id]: one,
+        };
+      }, {});
 
-
+      console.log({ tracks, elements, elementsEnums });
 
       this.setState(oldState => {
         const state = { ...oldState };
-        state.columns["column-1"].items = elements.reduce((all, one) => {
-          const test = tracks.trackInfo.find(item => item._id === one._id);
-          if (!test) {
-            all.push(one);
-          }
-          return all;
-        }, []);
-        state.columns["column-2"].items = tracks.trackInfo;
+        // state.columns["column-1"].items = elements.reduce((all, one) => {
+        //   const test = tracks.trackInfo.find(id => id === one._id);
+        //   if (!test) {
+        //     all.push(one);
+        //   }
+        //   return all;
+        // }, []);
+
+        // state.columns["column-2"].items = tracks.trackInfo
         return {
           ...state,
           ...tracks,
+          elementsEnums,
+          elements,
           // trackInfo: response.data.trackInfo
         };
       });
@@ -84,11 +85,12 @@ class ManageTrack extends Component {
   onSubmit = e => {
     e.preventDefault();
     const { id } = this.props.match.params;
-    const { trackNumber, trackName, columns } = this.state;
+    const { trackNumber, trackName, trackInfo, columns } = this.state;
     const track = {
       trackNumber,
       trackName,
-      trackInfo: columns["column-2"].items,
+      trackInfo,
+      // trackInfo: columns["column-2"].items,
     };
 
     axios.put(`http://localhost:5000/tracks/update/${id}`, track).then(res => {
@@ -108,8 +110,10 @@ class ManageTrack extends Component {
   };
 
   render() {
-    const { columns } = this.state;
-console.log({columns})
+    const { columns, elementsEnums, elements, trackInfo, ...rest } = this.state;
+    const col1 = columns["column-1"];
+    const col2 = columns["column-2"];
+    console.log({ col2, trackInfo, rest });
     return (
       <StyledContainer fluid title="Update Track">
         <TrackForm
@@ -123,24 +127,33 @@ console.log({columns})
             if (!destination) {
               return;
             }
+            const { droppableId: sourceId, index: sourceIndex } = source;
+            const {
+              droppableId: destinationId,
+              index: destinationIndex,
+            } = destination;
 
-            if (source.droppableId !== destination.droppableId) {
+            if (sourceId !== destinationId) {
               this.setState(prev => {
-                const sourceColumn = prev.columns[source.droppableId];
-                const destColumn = prev.columns[destination.droppableId];
+                const sourceColumn = prev.columns[sourceId];
+                const destColumn = prev.columns[destinationId];
                 const sourceItems = [...sourceColumn.items];
                 const destItems = [...destColumn.items];
+
+                console.log({ source, destination, sourceItems, destItems });
+
                 const [removed] = sourceItems.splice(source.index, 1);
+
                 destItems.splice(destination.index, 0, removed);
                 return {
                   ...prev,
                   columns: {
                     ...prev.columns,
-                    [source.droppableId]: {
+                    [sourceId]: {
                       ...sourceColumn,
                       items: sourceItems,
                     },
-                    [destination.droppableId]: {
+                    [destinationId]: {
                       ...destColumn,
                       items: destItems,
                     },
@@ -149,7 +162,7 @@ console.log({columns})
               });
             } else {
               this.setState(prev => {
-                const column = prev.columns[source.droppableId];
+                const column = prev.columns[sourceId];
                 const copiedItems = [...column.items];
                 const [removed] = copiedItems.splice(source.index, 1);
                 copiedItems.splice(destination.index, 0, removed);
@@ -157,7 +170,7 @@ console.log({columns})
                   ...prev,
                   columns: {
                     ...prev.columns,
-                    [source.droppableId]: {
+                    [sourceId]: {
                       ...column,
                       items: copiedItems,
                     },
@@ -168,9 +181,31 @@ console.log({columns})
           }}
         >
           <Row>
-            {Object.entries(columns).map(([id, column]) => {
-              return <Column {...{ ...column, id, key: id }} />;
-            })}
+            {/* {Object.entries(columns).map(([id, column]) => {
+              console.log({id, column})
+              return <Column {...{ ...column, id, key: id, items: column.items.map(id => elementsEnums[id]) }} />;
+            })} */}
+
+            <Column
+              {...{
+                ...col1,
+                id: "column-1",
+                items: elements.reduce((all, one) => {
+                  const test = trackInfo.find(id => id === one._id);
+                  if (!test) {
+                    all.push(one);
+                  }
+                  return all;
+                }, []),
+              }}
+            />
+            <Column
+              {...{
+                ...col2,
+                id: "column-2",
+                items: trackInfo.map(id => elementsEnums[id]),
+              }}
+            />
           </Row>
         </DragDropContext>
       </StyledContainer>
