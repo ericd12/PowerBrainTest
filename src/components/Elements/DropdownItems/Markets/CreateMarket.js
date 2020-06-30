@@ -10,7 +10,7 @@ class CreateMarket extends Component {
     super(props);
     this.state = {
       elementMarket: "",
-      new_item: {}
+      newItem: {},
     };
   }
 
@@ -18,7 +18,7 @@ class CreateMarket extends Component {
     e.preventDefault();
     const { elementMarket } = this.state;
 
-    const newItem = {elementMarket}
+    const newItem = { elementMarket };
 
     axios
       .post(`${API_URL}/markets/add`, newItem)
@@ -27,7 +27,7 @@ class CreateMarket extends Component {
         alert("New Market Added!");
         this.setState({
           elementMarket: "",
-          new_item: newItem
+          newItem,
         });
       })
       .catch(error => console.log(error.response));
@@ -58,7 +58,7 @@ class CreateMarket extends Component {
             Create New Market
           </Button>
         </Form>
-        <MarketList newItem={this.state.new_item}/>
+        <MarketList newItem={this.state.newItem} />
       </ComponentWrapper>
     );
   }

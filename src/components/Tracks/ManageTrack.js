@@ -31,7 +31,7 @@ class ManageTrack extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    // axios.get(`http://localhost:5000/tracks/${id}`).then(response => {
+    // axios.get(`${API_URL}/tracks/${id}`).then(response => {
     //   console.log({ response });
     //   this.setState(oldState => {
     //     const state = { ...oldState };
@@ -44,7 +44,7 @@ class ManageTrack extends Component {
     // });
 
     Promise.all([
-      axios.get(`http://localhost:5000/tracks/${id}`).then(response => {
+      axios.get(`${API_URL}/tracks/${id}`).then(response => {
         return response.data;
       }),
       axios.get(`${API_URL}/elements/`).then(response => {
@@ -93,7 +93,7 @@ class ManageTrack extends Component {
       // trackInfo: columns["column-2"].items,
     };
 
-    axios.put(`http://localhost:5000/tracks/update/${id}`, track).then(res => {
+    axios.put(`${API_URL}/tracks/update/${id}`, track).then(res => {
       const { history } = this.props;
       console.log(res.data);
       console.log(track);

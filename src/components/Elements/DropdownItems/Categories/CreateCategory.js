@@ -18,7 +18,7 @@ class CreateCategory extends Component {
     e.preventDefault();
     const { elementCategory } = this.state;
 
-    const newItem = {elementCategory}
+    const newItem = { elementCategory };
 
     axios
       .post(`${API_URL}/categories/add`, newItem)
@@ -26,8 +26,8 @@ class CreateCategory extends Component {
         console.log(res.data);
         alert("New Category Added!");
         this.setState({
-          elementCategory: "",    
-          new_item: newItem      
+          elementCategory: "",
+          new_item: newItem,
         });
       })
       .catch(error => console.log(error.response));
@@ -57,7 +57,7 @@ class CreateCategory extends Component {
             Create New Category
           </Button>
         </Form>
-        <CategoryList newItem={this.state.new_item}/>
+        <CategoryList newItem={this.state.new_item} />
       </ComponentWrapper>
     );
   }

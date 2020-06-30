@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Card } from "react-bootstrap";
-import { isArrayEmpty } from "../../helpers";
 import ElementForm from "./ElementForm";
 import ComponentWrapper from "../ComponentWrapper";
 import { API_URL } from "../../constants";
@@ -23,7 +22,6 @@ const initalElementState = {
 class CreateElement extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       ...initalElementState,
       categories: [],
@@ -33,29 +31,19 @@ class CreateElement extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${API_URL}/formats/`).then(response => {
-      if (!isArrayEmpty(response.data)) {
-        this.setState({
-          formats: response.data.map(format => format.elementFormat),
-          elementFormat: response.data[0].elementFormat,
-        });
-      }
-    });
-    axios.get(`${API_URL}/categories/`).then(response => {
-      if (!isArrayEmpty(response.data)) {
-        this.setState({
-          categories: response.data.map(cat => cat.elementCategory),
-          elementCategory: response.data[0].elementCategory,
-        });
-      }
-    });
-    axios.get(`${API_URL}/markets/`).then(response => {
-      if (!isArrayEmpty(response.data)) {
-        this.setState({
-          markets: response.data.map(market => market.elementMarket),
-          elementMarket: response.data[0].elementMarket,
-        });
-      }
+    Promise.all([
+      axios.get(`${API_URL}/formats/`),
+      axios.get(`${API_URL}/categories/`),
+      axios.get(`${API_URL}/markets/`),
+    ]).then(([{ data: formats }, { data: categories }, { data: markets }]) => {
+      this.setState({
+        formats: formats.map(format => format.elementFormat),
+        elementFormat: formats[0].elementFormat,
+        categories: categories.map(cat => cat.elementCategory),
+        elementCategory: categories[0].elementCategory,
+        markets: markets.map(market => market.elementMarket),
+        elementMarket: markets[0].elementMarket,
+      });
     });
   }
 
@@ -104,7 +92,8 @@ class CreateElement extends Component {
         this.setState({
           ...initalElementState,
         });
-      }).catch(err => console.log({err}));
+      })
+      .catch(err => console.log({ err }));
   };
 
   render() {

@@ -58,7 +58,7 @@ class ManageElement extends Component {
     });
 
     axios
-      .get(`http://localhost:5000/elements/${id}`)
+      .get(`${API_URL}/elements/${id}`)
       .then(response => {
         this.setState({
           ...response.data,
@@ -94,7 +94,7 @@ class ManageElement extends Component {
     } = this.state;
 
     axios
-      .put(`http://localhost:5000/elements/update/${id}`, {
+      .put(`${API_URL}/elements/update/${id}`, {
         elementCategory,
         elementCogRating,
         elementDescription,
@@ -112,7 +112,8 @@ class ManageElement extends Component {
         alert("updated");
         const { history } = this.props;
         history.push("/elements");
-      }).catch(err => console.log({err}));
+      })
+      .catch(err => console.log({ err }));
   };
 
   render() {

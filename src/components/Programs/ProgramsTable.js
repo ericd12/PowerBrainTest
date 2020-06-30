@@ -26,7 +26,7 @@ class ProgramsTable extends Component {
   }
 
   deleteProgram = id => {
-    axios.delete(`http://localhost:5000/programs/${id}`).then(response => {
+    axios.delete(`${API_URL}/programs/${id}`).then(response => {
       console.log(response.data);
       alert("deleted");
       this.setState(prev => {

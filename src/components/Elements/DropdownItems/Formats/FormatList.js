@@ -16,36 +16,33 @@ class FormatList extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`${API_URL}/formats/`)
-      .then(response => {
-        this.setState({ formats: response.data });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    this.fetchFormats();
   }
 
-  componentDidUpdate(prevProps){
-    if(prevProps.newItem !== this.props.newItem){
-      axios
-      .get(`${API_URL}/formats/`)
-      .then(response => {
-        this.setState({ formats: response.data });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  componentDidUpdate(prevProps) {
+    const { newItem } = this.props;
+    if (prevProps.newItem !== newItem) {
+      this.fetchFormats();
     }
   }
 
+  fetchFormats = () =>
+    axios
+      .get(`${API_URL}/formats/`)
+      .then(({ data: formats }) => {
+        this.setState({ formats });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
   deleteFormat = id => {
-    axios.delete(`http://localhost:5000/formats/${id}`).then(response => {
+    axios.delete(`${API_URL}/formats/${id}`).then(response => {
       console.log(response.data);
       alert("deleted");
-      this.setState(prev => {
+      this.setState(({ formats }) => {
         return {
-          formats: prev.formats.filter(el => el._id !== id),
+          formats: formats.filter(el => el._id !== id),
         };
       });
     });

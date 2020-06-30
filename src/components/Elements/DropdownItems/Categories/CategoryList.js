@@ -16,36 +16,32 @@ class CategoryList extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`${API_URL}/categories/`)
-      .then(response => {
-        this.setState({ categories: response.data });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    this.fetchCategories();
   }
 
-  componentDidUpdate(prevProps){
-    if(prevProps.newItem !== this.props.newItem){
-      axios
-      .get(`${API_URL}/categories/`)
-      .then(response => {
-        this.setState({ categories: response.data });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  componentDidUpdate(prevProps) {
+    const { newItem } = this.props;
+    if (prevProps.newItem !== newItem) {
+      this.fetchCategories();
     }
   }
 
+  fetchCategories = () =>
+    axios
+      .get(`${API_URL}/categories/`)
+      .then(({ data: categories }) => {
+        this.setState({ categories });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
   deleteCategory = id => {
-    axios.delete(`http://localhost:5000/categories/${id}`).then(response => {
-      console.log(response.data);
+    axios.delete(`${API_URL}/categories/${id}`).then(() => {
       alert("deleted");
-      this.setState(prev => {
+      this.setState(({ categories }) => {
         return {
-          categories: prev.categories.filter(el => el._id !== id),
+          categories: categories.filter(el => el._id !== id),
         };
       });
     });

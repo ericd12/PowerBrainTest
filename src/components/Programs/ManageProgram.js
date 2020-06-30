@@ -28,7 +28,7 @@ class ManageProgram extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    axios.get(`http://localhost:5000/programs/${id}`).then(response => {
+    axios.get(`${API_URL}/programs/${id}`).then(response => {
       console.log({ response });
       this.setState(oldState => {
         console.log({ oldState });
@@ -40,31 +40,23 @@ class ManageProgram extends Component {
       });
     });
 
-    const programsPromise = axios
-      .get(`http://localhost:5000/programs/${id}`)
-      .then(response => {
-        return response.data;
-      });
+    Promise.all([
+      axios.get(`${API_URL}/programs/${id}`),
+      axios.get(`${API_URL}/tracks/`),
+    ]).then(([{ data: programs }, { data: tracks }]) => {
+      this.setState(prev => {
+        const copy = { ...prev };
+        const { programInfo } = programs;
 
-    const tracksPromise = axios.get(`${API_URL}/tracks/`).then(response => {
-      return response.data;
-    });
-
-    Promise.all([programsPromise, tracksPromise]).then(data => {
-      const programs = data[0];
-      const tracks = data[1];
-
-      this.setState(oldState => {
-        oldState.columns["column-1"].items = tracks.reduce((all, one) => {
-          const test = programs.programInfo.find(item => item._id === one._id);
-          if (!test) {
+        copy.columns["column-1"].items = tracks.reduce((all, one) => {
+          if (!programInfo.find(item => item._id === one._id)) {
             all.push(one);
           }
           return all;
         }, []);
-        oldState.columns["column-2"].items = programs.programInfo;
+        copy.columns["column-2"].items = programInfo;
         return {
-          ...oldState,
+          ...copy,
           ...programs,
         };
       });
@@ -81,15 +73,13 @@ class ManageProgram extends Component {
       programinfo: columns["column-2"].items,
     };
 
-    axios
-      .post(`http://localhost:5000/programs/update/${id}`, program)
-      .then(res => {
-        const { history } = this.props;
-        console.log(res.data);
-        console.log(program);
-        alert("updated");
-        history.push("/programs");
-      });
+    axios.post(`${API_URL}/programs/update/${id}`, program).then(res => {
+      const { history } = this.props;
+      console.log(res.data);
+      console.log(program);
+      alert("updated");
+      history.push("/programs");
+    });
   };
 
   onChange = e => {

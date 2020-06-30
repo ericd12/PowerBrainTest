@@ -33,12 +33,12 @@ class TracksTable extends Component {
     });
   }
 
-  deleteTrack = (id) => {
-    axios.delete(`http://localhost:5000/tracks/${id}`).then(() => {
+  deleteTrack = id => {
+    axios.delete(`${API_URL}/tracks/${id}`).then(() => {
       alert("deleted");
       this.setState(({ tracks }) => {
         return {
-          tracks: tracks.filter((el) => el._id !== id),
+          tracks: tracks.filter(el => el._id !== id),
         };
       });
     });
@@ -59,7 +59,7 @@ class TracksTable extends Component {
             </tr>
           </thead>
           <tbody>
-            {tracks.map((currentTrack) => {
+            {tracks.map(currentTrack => {
               return (
                 <TracksTableRow
                   key={currentTrack._id}

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import ComponentWrapper from "../../../ComponentWrapper";
+import { API_URL } from "../../../../constants";
 
 class ManageMarket extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class ManageMarket extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     axios
-      .get(`http://localhost:5000/markets/${id}`)
+      .get(`${API_URL}/markets/${id}`)
       .then(response => {
         const { elementMarket } = response.data;
         this.setState({
@@ -31,7 +32,7 @@ class ManageMarket extends Component {
     const { elementMarket } = this.state;
     const { id } = this.props.match.params;
     axios
-      .post(`http://localhost:5000/markets/update/${id}`, {
+      .post(`${API_URL}/markets/update/${id}`, {
         elementMarket,
       })
       .then(res => {
