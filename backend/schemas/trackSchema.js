@@ -1,18 +1,19 @@
 const mongoose = require("mongoose");
-const elementSchema = require("./elementSchema");
-
+const autopopulate = require("mongoose-autopopulate");
 const { Schema } = mongoose;
 
 const trackSchema = new Schema({
   trackNumber: String,
   trackName: String,
-  // trackInfo: [elementSchema],
   trackInfo: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Element"
-    }
-  ]
+      ref: "Element",
+      autopopulate: true,
+    },
+  ],
 });
+
+trackSchema.plugin(autopopulate);
 
 module.exports = trackSchema;
