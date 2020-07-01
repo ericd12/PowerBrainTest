@@ -43,7 +43,7 @@ const Task = ({
           style={{
             backgroundColor: `${isDragging ? "lightgreen" : "white"}`,
           }}
-          {...{ ...draggableProps, ...dragHandleProps, isDragging }}
+          {...{ ...draggableProps, ...dragHandleProps }}
           ref={innerRef}
         >
           <TrackTable>

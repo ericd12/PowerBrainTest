@@ -62,15 +62,14 @@ class ManageTrack extends Component {
 
       this.setState(oldState => {
         const state = { ...oldState };
-        // state.columns["column-1"].items = elements.reduce((all, one) => {
-        //   const test = tracks.trackInfo.find(id => id === one._id);
-        //   if (!test) {
-        //     all.push(one);
-        //   }
-        //   return all;
-        // }, []);
 
-        // state.columns["column-2"].items = tracks.trackInfo
+        state.columns["column-1"].items = elements.filter(element => {
+          return !tracks.trackInfo.some(
+            trackEle => trackEle._id === element._id
+          );
+        });
+
+        state.columns["column-2"].items = tracks.trackInfo;
         return {
           ...state,
           ...tracks,
@@ -86,11 +85,12 @@ class ManageTrack extends Component {
     e.preventDefault();
     const { id } = this.props.match.params;
     const { trackNumber, trackName, trackInfo, columns } = this.state;
+    console.log({ trackInfo });
     const track = {
       trackNumber,
       trackName,
-      trackInfo,
-      // trackInfo: columns["column-2"].items,
+      // trackInfo,
+      trackInfo: columns["column-2"].items,
     };
 
     axios.put(`http://localhost:5000/tracks/update/${id}`, track).then(res => {
@@ -113,7 +113,7 @@ class ManageTrack extends Component {
     const { columns, elementsEnums, elements, trackInfo, ...rest } = this.state;
     const col1 = columns["column-1"];
     const col2 = columns["column-2"];
-    console.log({ col2, trackInfo, rest });
+    console.log({ col2, trackInfo, rest, elementsEnums, elements });
     return (
       <StyledContainer fluid title="Update Track">
         <TrackForm
@@ -181,31 +181,27 @@ class ManageTrack extends Component {
           }}
         >
           <Row>
-            {/* {Object.entries(columns).map(([id, column]) => {
-              console.log({id, column})
-              return <Column {...{ ...column, id, key: id, items: column.items.map(id => elementsEnums[id]) }} />;
-            })} */}
+            {Object.entries(columns).map(([id, column]) => {
+              console.log({ id, column });
+              return <Column {...{ ...column, id, key: id }} />;
+            })}
 
-            <Column
+            {/* <Column
               {...{
                 ...col1,
                 id: "column-1",
-                items: elements.reduce((all, one) => {
-                  const test = trackInfo.find(id => id === one._id);
-                  if (!test) {
-                    all.push(one);
-                  }
-                  return all;
-                }, []),
+                // items: elements.filter(element => {
+                //   return !trackInfo.some(trackEle => trackEle['_id'] === element['_id'])
+                // }),
               }}
             />
             <Column
               {...{
                 ...col2,
                 id: "column-2",
-                items: trackInfo.map(id => elementsEnums[id]),
+                // items: trackInfo
               }}
-            />
+            /> */}
           </Row>
         </DragDropContext>
       </StyledContainer>
