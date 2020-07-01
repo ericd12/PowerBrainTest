@@ -14,8 +14,8 @@ class ElementsTable extends Component {
   componentDidMount() {
     axios
       .get(`${API_URL}/elements/`)
-      .then(response => {
-        this.setState({ elements: response.data });
+      .then(({ data: elements }) => {
+        this.setState({ elements });
       })
       .catch(error => {
         console.log(error);
@@ -23,12 +23,11 @@ class ElementsTable extends Component {
   }
 
   deleteElement = id => {
-    axios.delete(`http://localhost:5000/elements/${id}`).then(response => {
-      console.log(response.data);
+    axios.delete(`${API_URL}/elements/${id}`).then(() => {
       alert("deleted");
-      this.setState(prev => {
+      this.setState(({ elements }) => {
         return {
-          elements: prev.elements.filter(el => el._id !== id),
+          elements: elements.filter(el => el._id !== id),
         };
       });
     });
