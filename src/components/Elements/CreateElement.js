@@ -36,11 +36,16 @@ class CreateElement extends Component {
       axios.get(`${API_URL}/categories/`),
       axios.get(`${API_URL}/markets/`),
     ]).then(([{ data: formats }, { data: categories }, { data: markets }]) => {
+      console.log({categories})
       this.setState({
-        formats: formats.map(format => format.elementFormat),
-        elementFormat: formats[0].elementFormat,
-        categories: categories.map(cat => cat.elementCategory),
-        elementCategory: categories[0].elementCategory,
+        // formats: formats.map(format => format.elementFormat),
+        // elementFormat: formats[0].elementFormat,
+        formats: formats,
+        elementFormat: formats[0],
+        // categories: categories.map(cat => cat.elementCategory),
+        // elementCategory: categories[0].elementCategory,
+        categories: categories,
+        elementCategory: categories[0],
         markets: markets.map(market => market.elementMarket),
         elementMarket: markets[0].elementMarket,
       });

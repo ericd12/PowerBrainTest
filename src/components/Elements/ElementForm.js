@@ -69,12 +69,12 @@ const ElementForm = ({
             name="elementFormat"
             onChange={onChange}
             required
-            value={elementFormat}
+            value={elementFormat.elementFormat}
           >
-            {formats.map((format, idx) => {
+            {formats.map((format) => {
               return (
-                <option key={`format-${idx}`} value={format}>
-                  {format}
+                <option key={`format-${format._id}`} value={format.elementFormat}>
+                  {format.elementFormat}
                 </option>
               );
             })}
@@ -102,12 +102,12 @@ const ElementForm = ({
             name="elementCategory"
             onChange={onChange}
             required
-            value={elementCategory}
+            value={elementCategory.elementCategory}
           >
-            {categories.map(categorie => {
+            {categories.map(category => {
               return (
-                <option key={`categorie-${categorie}`} value={categorie}>
-                  {categorie}
+                <option key={`category-${category._id}`} value={category.elementCategory}>
+                  {category.elementCategory}
                 </option>
               );
             })}

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+// const autopopulate = require("mongoose-autopopulate");
 const { Schema } = mongoose;
 
 const elementSchema = new Schema(
@@ -7,12 +7,14 @@ const elementSchema = new Schema(
     elementNumber: { type: String, required: true },
     elementLabel: { type: String, required: true },
     elementDescription: { type: String, required: true },
-    elementFormat: { type: String, required: true },
+    elementFormat: {       
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Format"
+    },
     elementDuration: { type: String, required: true }, // Probably change type to Num
     elementCategory: {
-      type: String,
-      // ref: 'category',
-      // required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
     },
     elementSubCategory: { type: String, required: true },
     elementMarket: { type: String, required: true },
@@ -24,5 +26,7 @@ const elementSchema = new Schema(
     timestamps: true,
   }
 );
+
+// elementSchema.plugin(autopopulate);
 
 module.exports = elementSchema;

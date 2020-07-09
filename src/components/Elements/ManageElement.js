@@ -33,8 +33,10 @@ class ManageElement extends Component {
     axios.get(`${API_URL}/formats/`).then(response => {
       if (!isArrayEmpty(response.data)) {
         this.setState({
-          formats: response.data.map(format => format.elementFormat),
-          elementFormat: response.data.elementFormat,
+          // formats: response.data.map(format => format.elementFormat),
+          // elementFormat: response.data.elementFormat,
+          formats: response.data,
+          elementFormat: response.data[0],
         });
       }
     });
@@ -42,8 +44,10 @@ class ManageElement extends Component {
     axios.get(`${API_URL}/categories/`).then(response => {
       if (!isArrayEmpty(response.data)) {
         this.setState({
-          categories: response.data.map(cat => cat.elementCategory),
-          elementCategory: response.data.elementCategory,
+          // categories: response.data.map(cat => cat.elementCategory),
+          // elementCategory: response.data.elementCategory,
+          categories: response.data,
+          elementCategory: response.data[0],
         });
       }
     });

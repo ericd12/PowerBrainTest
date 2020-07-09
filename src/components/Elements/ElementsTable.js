@@ -12,14 +12,19 @@ class ElementsTable extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`${API_URL}/elements/`)
-      .then(({ data: elements }) => {
-        this.setState({ elements });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+   Promise.all([
+      axios.get(`${API_URL}/elements/`),
+      axios.get(`${API_URL}/categories/`),
+      axios.get(`${API_URL}/formats/`),
+   ]).then(([{ data: elements }, { data: categories }, {data: formats}]) => {
+     this.setState({
+       elements,
+       categories,
+       formats,
+     });
+   }).catch(error => {
+     console.log(error);
+   });
   }
 
   deleteElement = id => {
@@ -34,7 +39,7 @@ class ElementsTable extends Component {
   };
 
   render() {
-    const { elements } = this.state;
+    const { elements, categories, formats } = this.state;
     return (
       <StyledContainer fluid title="Manage Elements">
         <Table hover>
@@ -60,6 +65,8 @@ class ElementsTable extends Component {
                 <ElementsTableRow
                   key={currentelement._id}
                   deleteElement={this.deleteElement}
+                  categories={categories}
+                  formats={formats}
                   {...currentelement}
                 />
               );

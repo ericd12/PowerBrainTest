@@ -17,15 +17,17 @@ const ElementsTableRow = ({
   elementPhysRating,
   elementSubCategory,
   deleteElement,
-}) => {
+  categories,
+  formats
+}) => {  
   return (
     <StyledTableRow>
       <td>{elementNumber}</td>
       <td>{elementLabel}</td>
       <td>{elementDescription}</td>
-      <td>{elementFormat}</td>
+      <td>{formats.find(ele => ele._id === elementFormat).elementFormat}</td>
       <td>{elementDuration}</td>
-      <td>{elementCategory}</td>
+      <td>{categories.find(ele => ele._id === elementCategory).elementCategory}</td>
       <td>{elementSubCategory}</td>
       <td>{elementMarket}</td>
       <td>{elementCogRating}</td>

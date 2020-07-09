@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const { Schema } = mongoose;
 
 const categorySchema = new Schema({
@@ -9,6 +8,5 @@ const categorySchema = new Schema({
     trim: true,
   },
 });
-
 
 module.exports = categorySchema;
