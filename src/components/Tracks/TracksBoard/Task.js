@@ -1,13 +1,13 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import { Table, Card } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import styled from "styled-components";
 
 const TrackTable = styled(Table)`
   font-size: 95%;
   table-layout: fixed;
   white-space: nowrap;
-  background-color: white;
+  background-color: none;
   th,
   td {
     width: 30%;
@@ -16,9 +16,12 @@ const TrackTable = styled(Table)`
   }
 `;
 
-const ElementCard = styled(Card)`
+const ElementCard = styled.div`
   margin: 2px;
   padding: 10px;
+  background-color: ${props => (props.isDragging ? "lightgreen" : "white")};
+  border-radius: 5px;
+  border: 1px solid lightgrey;
 `;
 
 const Task = ({
@@ -40,10 +43,7 @@ const Task = ({
     <Draggable draggableId={_id} index={index}>
       {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
         <ElementCard
-          style={{
-            backgroundColor: `${isDragging ? "lightgreen" : "white"}`,
-          }}
-          {...{ ...draggableProps, ...dragHandleProps }}
+          {...{ ...draggableProps, ...dragHandleProps, isDragging }}
           ref={innerRef}
         >
           <TrackTable>

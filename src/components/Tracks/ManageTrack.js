@@ -85,18 +85,15 @@ class ManageTrack extends Component {
     e.preventDefault();
     const { id } = this.props.match.params;
     const { trackNumber, trackName, trackInfo, columns } = this.state;
-    console.log({ trackInfo });
     const track = {
       trackNumber,
       trackName,
-      // trackInfo,
       trackInfo: columns["column-2"].items,
     };
 
     axios.put(`${API_URL}/tracks/update/${id}`, track).then(res => {
       const { history } = this.props;
       console.log(res.data);
-      console.log(track);
       alert("updated");
       history.push("/tracks");
     });
@@ -111,9 +108,8 @@ class ManageTrack extends Component {
 
   render() {
     const { columns, elementsEnums, elements, trackInfo, ...rest } = this.state;
-    const col1 = columns["column-1"];
+    // const col1 = columns["column-1"];
     const col2 = columns["column-2"];
-    console.log({ col2, trackInfo, rest, elementsEnums, elements });
     return (
       <StyledContainer fluid title="Update Track">
         <TrackForm
@@ -140,7 +136,6 @@ class ManageTrack extends Component {
                 const sourceItems = [...sourceColumn.items];
                 const destItems = [...destColumn.items];
 
-                console.log({ source, destination, sourceItems, destItems });
 
                 const [removed] = sourceItems.splice(source.index, 1);
 
@@ -185,23 +180,6 @@ class ManageTrack extends Component {
               console.log({ id, column });
               return <Column {...{ ...column, id, key: id }} />;
             })}
-
-            {/* <Column
-              {...{
-                ...col1,
-                id: "column-1",
-                // items: elements.filter(element => {
-                //   return !trackInfo.some(trackEle => trackEle['_id'] === element['_id'])
-                // }),
-              }}
-            />
-            <Column
-              {...{
-                ...col2,
-                id: "column-2",
-                // items: trackInfo
-              }}
-            /> */}
           </Row>
         </DragDropContext>
       </StyledContainer>
