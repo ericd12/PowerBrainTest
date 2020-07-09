@@ -28,6 +28,7 @@
     "styled-components": "^5.0.1"
   },
   "scripts": {
+    "server": "nodemon --inspect backend/server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
