@@ -12,7 +12,9 @@ class ManageProgram extends Component {
     this.state = {
       programName: "",
       programNumber: "",
+      programInfo: [],
       tracks: [],
+      tracksEnums: {},
       columns: {
         "column-1": {
           name: "Tracks",
@@ -28,61 +30,62 @@ class ManageProgram extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    axios.get(`${API_URL}/programs/${id}`).then(response => {
-      console.log({ response });
-      this.setState(oldState => {
-        console.log({ oldState });
-        oldState.columns["column-2"].items = response.data.programInfo;
-        return {
-          ...oldState,
-          ...response.data,
-        };
-      });
-    });
 
     Promise.all([
-      axios.get(`${API_URL}/programs/${id}`),
-      axios.get(`${API_URL}/tracks/`),
-    ]).then(([{ data: programs }, { data: tracks }]) => {
-      this.setState(prev => {
-        const copy = { ...prev };
-        const { programInfo } = programs;
-
-        copy.columns["column-1"].items = tracks.reduce((all, one) => {
-          if (!programInfo.find(item => item._id === one._id)) {
-            all.push(one);
-          }
-          return all;
-        }, []);
-        copy.columns["column-2"].items = programInfo;
+      axios.get(`${API_URL}/programs/${id}`).then((response) => {
+        return response.data;
+      }),
+      axios.get(`${API_URL}/tracks/`).then((response) => {
+        return response.data;
+      }),
+    ]).then(([programs, tracks]) => {
+      const tracksEnums = tracks.reduce((all, one) => {
         return {
-          ...copy,
+          ...all,
+          [one._id]: one,
+        };
+      }, {});
+
+      this.setState((oldState) => {
+        const state = { ...oldState };
+
+        state.columns["column-1"].items = tracks.filter((track) => {
+          return !programs.programInfo.some(
+            (progTrac) => progTrac._id === track._id
+          );
+        });
+
+        state.columns["column-2"].items = programs.programInfo;
+        return {
+          ...state,
           ...programs,
+          tracksEnums,
+          tracks,
         };
       });
     });
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     const { id } = this.props.match.params;
-    const { programNumber, programName, columns } = this.state;
+    const { programNumber, programName, programInfo, columns } = this.state;
     const program = {
       programNumber,
       programName,
-      programinfo: columns["column-2"].items,
+
+      programInfo: columns["column-2"].items,
     };
 
-    axios.post(`${API_URL}/programs/update/${id}`, program).then(res => {
+    axios.put(`${API_URL}/programs/update/${id}`, program).then((res) => {
       const { history } = this.props;
       console.log(res.data);
-      console.log(program);
       alert("updated");
       history.push("/programs");
     });
   };
 
-  onChange = e => {
+  onChange = (e) => {
     const { name, value } = e.target;
     this.setState({
       [name]: value,
@@ -90,10 +93,11 @@ class ManageProgram extends Component {
   };
 
   render() {
-    const { columns } = this.state;
-
+    const { columns, tracksEnums, tracks, programInfo, ...rest } = this.state;
+    const col1 = columns["column-1"];
+    const col2 = columns["column-2"];
     return (
-      <StyledContainer fluid title="Create Program">
+      <StyledContainer fluid title="Update Program">
         <ProgramForm
           {...this.state}
           buttonText="Update Program"
@@ -105,11 +109,16 @@ class ManageProgram extends Component {
             if (!destination) {
               return;
             }
+            const { droppableId: sourceId, index: sourceIndex } = source;
+            const {
+              droppableId: destinationId,
+              index: destinationIndex,
+            } = destination;
 
-            if (source.droppableId !== destination.droppableId) {
-              this.setState(prev => {
-                const sourceColumn = prev.columns[source.droppableId];
-                const destColumn = prev.columns[destination.droppableId];
+            if (sourceId !== destinationId) {
+              this.setState((prev) => {
+                const sourceColumn = prev.columns[sourceId];
+                const destColumn = prev.columns[destinationId];
                 const sourceItems = [...sourceColumn.items];
                 const destItems = [...destColumn.items];
                 const [removed] = sourceItems.splice(source.index, 1);
@@ -118,11 +127,11 @@ class ManageProgram extends Component {
                   ...prev,
                   columns: {
                     ...prev.columns,
-                    [source.droppableId]: {
+                    [sourceId]: {
                       ...sourceColumn,
                       items: sourceItems,
                     },
-                    [destination.droppableId]: {
+                    [destinationId]: {
                       ...destColumn,
                       items: destItems,
                     },
@@ -130,8 +139,8 @@ class ManageProgram extends Component {
                 };
               });
             } else {
-              this.setState(prev => {
-                const column = prev.columns[source.droppableId];
+              this.setState((prev) => {
+                const column = prev.columns[sourceId];
                 const copiedItems = [...column.items];
                 const [removed] = copiedItems.splice(source.index, 1);
                 copiedItems.splice(destination.index, 0, removed);
@@ -139,7 +148,7 @@ class ManageProgram extends Component {
                   ...prev,
                   columns: {
                     ...prev.columns,
-                    [source.droppableId]: {
+                    [sourceId]: {
                       ...column,
                       items: copiedItems,
                     },

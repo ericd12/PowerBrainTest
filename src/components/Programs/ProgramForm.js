@@ -18,6 +18,7 @@ const ProgramForm = ({
         <Form.Group as={Col} controlId="programNumber">
           <Form.Label>Number</Form.Label>
           <Form.Control
+            name="programNumber"
             onChange={onChange}
             placeholder="add number"
             type="text"
@@ -27,6 +28,7 @@ const ProgramForm = ({
         <Form.Group as={Col} controlId="programName">
           <Form.Label>Name</Form.Label>
           <Form.Control
+            name="programName"
             onChange={onChange}
             placeholder="add name"
             type="text"

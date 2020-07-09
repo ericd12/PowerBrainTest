@@ -15,23 +15,20 @@ class ProgramsTable extends Component {
   componentDidMount() {
     axios
       .get(`${API_URL}/programs/`)
-      .then(response => {
-        console.log(response.data);
-
+      .then((response) => {
         this.setState({ programInfo: response.data });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
 
-  deleteProgram = id => {
-    axios.delete(`${API_URL}/programs/${id}`).then(response => {
-      console.log(response.data);
+  deleteProgram = (id) => {
+    axios.delete(`${API_URL}/programs/${id}`).then((response) => {
       alert("deleted");
-      this.setState(prev => {
+      this.setState((prev) => {
         return {
-          programInfo: prev.programInfo.filter(el => el._id !== id),
+          programInfo: prev.programInfo.filter((el) => el._id !== id),
         };
       });
     });
@@ -50,7 +47,7 @@ class ProgramsTable extends Component {
             </tr>
           </thead>
           <tbody>
-            {programInfo.map(currentProgram => {
+            {programInfo.map((currentProgram) => {
               return (
                 <ProgramsTableRow
                   key={currentProgram._id}

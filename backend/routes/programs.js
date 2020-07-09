@@ -35,19 +35,11 @@ router.route("/:id").delete((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-router.route("/update/:id").post((req, res) => {
-  Program.findById(req.params.id)
-    .then(program => {
-      program.programNumber = req.body.programNumber;
-      program.programName = req.body.programName;
-      program.programInfo = req.body.programInfo;
+router.route("/update/:id").put((req, res) => {
+  Program.findByIdAndUpdate(req.params.id, req.body).then(res => {
+    res.send(err)
+  }).catch(err => res.send(err));
 
-      program
-        .save()
-        .then(() => res.json("Program updated!"))
-        .catch(err => res.status(400).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 module.exports = router;

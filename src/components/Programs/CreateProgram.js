@@ -10,6 +10,7 @@ import { StyledContainer } from "../../styles";
 export default class CreateProgram extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       programNumber: "",
       programName: "",
@@ -34,8 +35,6 @@ export default class CreateProgram extends Component {
         const { columns } = copy;
         copy.tracks = response.data;
 
-        // const [firstColumnId] = Object.keys(columns);
-
         columns["column-1"].items = [
           ...copy.columns["column-1"].items,
           ...response.data,
@@ -53,7 +52,7 @@ export default class CreateProgram extends Component {
     });
   };
 
-  createProgram = e => {
+  onSubmit = e => {
     e.preventDefault();
     const { programNumber, programName, columns } = this.state;
     axios
@@ -92,7 +91,7 @@ export default class CreateProgram extends Component {
           {...this.state}
           buttonText="Create"
           onChange={this.onChange}
-          onSubmit={this.createProgram}
+          onSubmit={this.onSubmit}
         />
         <DragDropContext
           onDragEnd={({ source, destination }) => {
