@@ -1,11 +1,22 @@
 const router = require("express").Router();
 const Element = require("../models/elementModel");
+const Market = require("../models/element-dropdown-models/marketModel");
+const Category = require("../models/element-dropdown-models/categoryModel");
+const Format = require("../models/element-dropdown-models/formatModel");
 const mongoose = require("mongoose");
+
+var populateQuery = [
+  { path: "elementMarket", model: Market },
+  { path: "elementCategory", model: Category },
+  { path: "elementFormat", model: Format },
+];
 
 router.route("/").get((req, res) => {
   Element.find()
-    .then(elements => res.json(elements))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .populate(populateQuery)
+    .exec((err, elements) => {
+      res.send(elements);
+    });
 });
 
 router.route("/add").post((req, res) => {
@@ -37,75 +48,32 @@ router.route("/add").post((req, res) => {
     elementLink,
   });
 
-      // const run = async () => {
-    //   const newElement = await Element.create({
-    //     elementCategory: mongoose.Types.ObjectId()
-    //   })
-    //   console.log(newElement)
-    // }
-    // run()
-  
-    
-    // console.log(`newElement: ${newElement}`)
-
   newElement
     .save()
     .then(() => res.json("Element added!"))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/:id").get((req, res) => {
   Element.findById(req.params.id)
-    .then(element => res.json(element))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .populate(populateQuery)
+    .exec((err, markets) => {
+      res.send(markets);
+    });
 });
 
 router.route("/:id").delete((req, res) => {
   Element.findByIdAndDelete(req.params.id)
     .then(() => res.json("Element deleted."))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/update/:id").put((req, res) => {
-  Element.findByIdAndUpdate(req.params.id, req.body).then(res => {
-    res.send(err)
-  }).catch(err => res.send(err));
-  // .then(response => {
-  //   const {
-  //     elementNumber,
-  //     elementLabel,
-  //     elementDescription,
-  //     elementFormat,
-  //     elementDuration,
-  //     elementCategory,
-  //     elementSubCategory,
-  //     elementMarket,
-  //     elementCogRating,
-  //     elementPhysRating,
-  //     elementLink,
-  //   } = req.body;
-
-  //   const element = {
-  //     ...response,
-  //     elementNumber,
-  //     elementLabel,
-  //     elementDescription,
-  //     elementFormat,
-  //     elementDuration,
-  //     elementCategory,
-  //     elementSubCategory,
-  //     elementMarket,
-  //     elementCogRating,
-  //     elementPhysRating,
-  //     elementLink,
-  //   };
-
-  //   element
-  //     .save()
-  //     .then(() => res.json("Element updated!"))
-  //     .catch(err => res.status(400).json(`Error: ${err}`));
-  // })
-  // .catch(err => res.status(400).json(`Error: ${err}`));
+  Element.findByIdAndUpdate(req.params.id, req.body)
+    .then((res) => {
+      res.send(err);
+    })
+    .catch((err) => res.send(err));
 });
 
 module.exports = router;
