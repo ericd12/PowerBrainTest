@@ -20,7 +20,6 @@ router.route("/add").post((req, res) => {
     .save()
     .then(() => res.json("Program added!"))
     .catch(err => res.status(400).json(`Error: ${err}`));
-  console.log(newProgram);
 });
 
 router.route("/:id").get((req, res) => {

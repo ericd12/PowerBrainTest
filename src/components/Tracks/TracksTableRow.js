@@ -34,7 +34,6 @@ const TracksTableRow = ({
           </thead>
           <tbody style={{ border: "none", fontSize: "90%" }}>
             {trackInfo.map((element, idx) => {
-              console.log({ element });
               return (
                 <ElemData
                   key={element._id}

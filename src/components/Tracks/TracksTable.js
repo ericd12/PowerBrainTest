@@ -20,7 +20,6 @@ class TracksTable extends Component {
       const { data: elements } = e;
       const { data: tracks } = t;
 
-      console.log({ elements, tracks });
       this.setState({
         elements: elements.reduce((all, one) => {
           return {
@@ -46,7 +45,6 @@ class TracksTable extends Component {
 
   render() {
     const { tracks, elements } = this.state;
-    console.log({ elements });
     return (
       <StyledContainer fluid title="Tracks">
         <Table hover>

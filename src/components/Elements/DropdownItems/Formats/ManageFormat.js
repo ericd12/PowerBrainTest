@@ -36,8 +36,7 @@ class ManageFormat extends Component {
         elementFormat,
       })
       .then(res => {
-        console.log(res.data);
-        alert("updated");
+        alert("updated!");
         const { history } = this.props;
         history.push("/formats");
       });

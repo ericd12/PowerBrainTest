@@ -62,7 +62,6 @@ class CreateTrack extends Component {
         trackInfo: columns["column-2"].items,
       })
       .then(res => {
-        console.log(res.data);
         this.setState(prev => {
           return {
             ...prev,

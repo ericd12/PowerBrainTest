@@ -20,7 +20,6 @@ router.route("/add").post((req, res) => {
     .save()
     .then(() => res.json("Track added!"))
     .catch(err => res.status(400).json(`Error: ${err}`));
-  console.log(req.body.trackInfo);
 });
 
 router.route("/:id").get((req, res) => {

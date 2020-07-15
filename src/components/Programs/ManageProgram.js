@@ -69,7 +69,7 @@ class ManageProgram extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { id } = this.props.match.params;
-    const { programNumber, programName, programInfo, columns } = this.state;
+    const { programNumber, programName, columns } = this.state;
     const program = {
       programNumber,
       programName,
@@ -79,8 +79,7 @@ class ManageProgram extends Component {
 
     axios.put(`${API_URL}/programs/update/${id}`, program).then((res) => {
       const { history } = this.props;
-      console.log(res.data);
-      alert("updated");
+      alert("updated!");
       history.push("/programs");
     });
   };

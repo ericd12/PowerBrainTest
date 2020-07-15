@@ -23,7 +23,6 @@ class CreateMarket extends Component {
     axios
       .post(`${API_URL}/markets/add`, newItem)
       .then(res => {
-        console.log(res.data);
         alert("New Market Added!");
         this.setState({
           elementMarket: "",

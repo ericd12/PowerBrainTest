@@ -23,7 +23,6 @@ class CreateCategory extends Component {
     axios
       .post(`${API_URL}/categories/add`, newItem)
       .then(res => {
-        console.log(res.data);
         alert("New Category Added!");
         this.setState({
           elementCategory: "",

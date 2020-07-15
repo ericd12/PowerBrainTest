@@ -19,7 +19,7 @@ const TrackTable = styled(Table)`
 const ElementCard = styled.div`
   margin: 2px;
   padding: 10px;
-  background-color: ${props => (props.isDragging ? "lightgreen" : "white")};
+  background-color: ${(props) => (props.isDragging ? "lightgreen" : "white")};
   border-radius: 5px;
   border: 1px solid lightgrey;
 `;
@@ -58,13 +58,13 @@ const Task = ({
                 <td>Description: {elementDescription}</td>
               </tr>
               <tr>
-                <td>Format: {elementFormat}</td>
+                <td>Format: {elementFormat.elementFormat}</td>
                 <td>Time: {elementDuration}</td>
-                <td>Category: {elementCategory}</td>
+                <td>Category: {elementCategory.elementCategory}</td>
               </tr>
               <tr>
                 <td>SubCat: {elementSubCategory}</td>
-                <td>Market: {elementMarket}</td>
+                <td>Market: {elementMarket.elementMarket}</td>
                 <td>Cog Rating: {elementCogRating}</td>
                 <td>Phys Rating: {elementPhysRating}</td>
               </tr>

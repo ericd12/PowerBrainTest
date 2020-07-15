@@ -38,8 +38,7 @@ class MarketList extends Component {
 
   deleteMarket = id => {
     axios.delete(`${API_URL}/markets/${id}`).then(response => {
-      console.log(response.data);
-      alert("deleted");
+      alert("deleted!");
       this.setState(prev => {
         return {
           markets: prev.markets.filter(el => el._id !== id),

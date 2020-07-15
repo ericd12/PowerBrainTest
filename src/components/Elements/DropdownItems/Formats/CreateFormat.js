@@ -23,7 +23,6 @@ class CreateFormat extends Component {
     axios
       .post(`${API_URL}/formats/add`, newItem)
       .then(res => {
-        console.log(res.data);
         alert("New Format Added!");
         this.setState({
           elementFormat: "",
