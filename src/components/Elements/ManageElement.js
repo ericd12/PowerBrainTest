@@ -1,86 +1,46 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { isArrayEmpty } from "../../helpers";
 import ElementForm from "./ElementForm";
 import ComponentWrapper from "../ComponentWrapper";
-import { API_URL } from "../../constants";
+import { API_URL, BLANK_ELEMENT } from "../../constants";
 
 class ManageElement extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      categories: [],
-      elementCategory: "",
-      elementCogRating: "",
-      elementDescription: "",
-      elementDuration: "",
-      elementFormat: "",
-      elementLabel: "",
-      elementLink: "",
-      elementMarket: "",
-      elementNumber: "",
-      elementPhysRating: "",
-      elementSubCategory: "",
-      formats: [],
-      markets: [],
+      ...BLANK_ELEMENT,
     };
   }
 
   componentDidMount() {
     const { id } = this.props.match.params;
-
-    axios.get(`${API_URL}/formats/`).then(response => {
-      if (!isArrayEmpty(response.data)) {
-        this.setState({
-          // formats: response.data.map(format => format.elementFormat),
-          // elementFormat: response.data.elementFormat,
-          formats: response.data,
-          elementFormat: response.data[0],
-        });
-      }
-    });
-
-    axios.get(`${API_URL}/categories/`).then(response => {
-      if (!isArrayEmpty(response.data)) {
-        this.setState({
-          // categories: response.data.map(cat => cat.elementCategory),
-          // elementCategory: response.data.elementCategory,
-          categories: response.data,
-          elementCategory: response.data[0],
-        });
-      }
-    });
-
-    axios.get(`${API_URL}/markets/`).then(response => {
-      if (!isArrayEmpty(response.data)) {
-        this.setState({
-          markets: response.data.map(market => market.elementMarket),
-          elementMarket: response.data.elementMarket,
-        });
-      }
-    });
-
     axios
       .get(`${API_URL}/elements/${id}`)
-      .then(response => {
+      .then((response) => {
         this.setState({
           ...response.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
 
-  onChange = e => {
+  onChange = (e) => {
     const { name, value } = e.target;
     this.setState({
       [name]: value,
     });
   };
 
-  onSubmit = e => {
+  onChangeDropdown = (e, list) => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: list[value],
+    });
+  };
+
+  onSubmit = (e) => {
     e.preventDefault();
     const { id } = this.props.match.params;
     const {
@@ -111,24 +71,22 @@ class ManageElement extends Component {
         elementPhysRating,
         elementSubCategory,
       })
-      .then(res => {
-        console.log(res.data);
-        alert("updated");
+      .then((res) => {
+        alert("updated!");
         const { history } = this.props;
         history.push("/elements");
       })
-      .catch(err => console.log({ err }));
+      .catch((err) => console.log({ err }));
   };
 
   render() {
-    //* Note: Pretty much the same as `CreateElement.js` could probably be a single reusable component
-
     return (
       <ComponentWrapper title="Update Element">
         <ElementForm
           {...this.state}
           buttonText="Update Element"
           onChange={this.onChange}
+          onChangeDropdown={this.onChangeDropdown}
           onSubmit={this.onSubmit}
         />
       </ComponentWrapper>

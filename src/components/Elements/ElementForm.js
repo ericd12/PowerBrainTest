@@ -1,26 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Form, Col, Button } from "react-bootstrap";
+import axios from "axios";
+import { API_URL } from "../../constants";
+import { createEnum } from "../../helpers";
 
 const ElementForm = ({
-  onSubmit,
-  onChange,
-  elementNumber,
-  elementLabel,
-  elementDescription,
-  elementFormat,
-  elementDuration,
-  elementCategory,
-  elementSubCategory,
-  elementMarket,
-  elementCogRating,
-  elementPhysRating,
-  elementLink,
-  categories,
-  markets,
-  formats,
   buttonText,
+  elementCategory,
+  elementCogRating,
+  elementDescription,
+  elementDuration,
+  elementFormat,
+  elementLabel,
+  elementLink,
+  elementMarket,
+  elementNumber,
+  elementPhysRating,
+  elementSubCategory,
+  onChange,
+  onChangeDropdown,
+  onSubmit,
 }) => {
+  const [dropdowns, setDropdowns] = useState({
+    formats: {},
+    categories: {},
+    markets: {},
+  });
+
+  useEffect(() => {
+    const componentDidMount = () => {
+      Promise.all([
+        axios.get(`${API_URL}/formats/`),
+        axios.get(`${API_URL}/categories/`),
+        axios.get(`${API_URL}/markets/`),
+      ]).then(
+        ([{ data: formats }, { data: categories }, { data: markets }]) => {
+          setDropdowns({
+            formats: createEnum(formats),
+            categories: createEnum(categories),
+            markets: createEnum(markets),
+          });
+        }
+      );
+    };
+
+    componentDidMount();
+  }, []);
+
   return (
     <Form onSubmit={onSubmit}>
       <Form.Row>
@@ -67,14 +94,16 @@ const ElementForm = ({
           <Form.Control
             as="select"
             name="elementFormat"
-            onChange={onChange}
+            onChange={(e) => {
+              onChangeDropdown(e, dropdowns.formats);
+            }}
             required
-            value={elementFormat.elementFormat}
+            value={elementFormat && elementFormat._id}
           >
-            {formats.map((format) => {
+            {Object.keys(dropdowns.formats).map((format, idx) => {
               return (
-                <option key={`format-${format._id}`} value={format.elementFormat}>
-                  {format.elementFormat}
+                <option key={`format-${format}`} value={format}>
+                  {dropdowns.formats[format].elementFormat}
                 </option>
               );
             })}
@@ -100,14 +129,16 @@ const ElementForm = ({
           <Form.Control
             as="select"
             name="elementCategory"
-            onChange={onChange}
+            onChange={(e) => {
+              onChangeDropdown(e, dropdowns.categories);
+            }}
             required
-            value={elementCategory.elementCategory}
+            value={elementCategory._id}
           >
-            {categories.map(category => {
+            {Object.keys(dropdowns.categories).map((item, idx) => {
               return (
-                <option key={`category-${category._id}`} value={category.elementCategory}>
-                  {category.elementCategory}
+                <option key={`category-${item}`} value={item}>
+                  {dropdowns.categories[item].elementCategory}
                 </option>
               );
             })}
@@ -133,14 +164,16 @@ const ElementForm = ({
           <Form.Control
             as="select"
             name="elementMarket"
-            onChange={onChange}
+            onChange={(e) => {
+              onChangeDropdown(e, dropdowns.markets);
+            }}
             required
-            value={elementMarket}
+            value={elementMarket._id}
           >
-            {markets.map(market => {
+            {Object.keys(dropdowns.markets).map((id, idx) => {
               return (
-                <option key={`market-${market}`} value={market}>
-                  {market}
+                <option key={`market-${id}`} value={id}>
+                  {dropdowns.markets[id].elementMarket}
                 </option>
               );
             })}

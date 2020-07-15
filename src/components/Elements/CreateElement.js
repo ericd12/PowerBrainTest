@@ -3,77 +3,45 @@ import axios from "axios";
 import { Card } from "react-bootstrap";
 import ElementForm from "./ElementForm";
 import ComponentWrapper from "../ComponentWrapper";
-import { API_URL } from "../../constants";
-
-const initalElementState = {
-  elementCategory: "",
-  elementCogRating: "",
-  elementDescription: "",
-  elementDuration: "",
-  elementFormat: "",
-  elementLabel: "",
-  elementLink: "",
-  elementMarket: "",
-  elementNumber: "",
-  elementPhysRating: "",
-  elementSubCategory: "",
-};
+import { API_URL, BLANK_ELEMENT } from "../../constants";
 
 class CreateElement extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...initalElementState,
-      categories: [],
-      formats: [],
-      markets: [],
+      ...BLANK_ELEMENT,
     };
   }
 
-  componentDidMount() {
-    Promise.all([
-      axios.get(`${API_URL}/formats/`),
-      axios.get(`${API_URL}/categories/`),
-      axios.get(`${API_URL}/markets/`),
-    ]).then(([{ data: formats }, { data: categories }, { data: markets }]) => {
-      console.log({categories})
-      this.setState({
-        // formats: formats.map(format => format.elementFormat),
-        // elementFormat: formats[0].elementFormat,
-        formats: formats,
-        elementFormat: formats[0],
-        // categories: categories.map(cat => cat.elementCategory),
-        // elementCategory: categories[0].elementCategory,
-        categories: categories,
-        elementCategory: categories[0],
-        markets: markets.map(market => market.elementMarket),
-        elementMarket: markets[0].elementMarket,
-      });
-    });
-  }
-
-  onChange = e => {
+  onChange = (e) => {
     const { name, value } = e.target;
     this.setState({
       [name]: value,
     });
   };
 
-  onSubmit = e => {
+  onChangeDropdown = (e, list) => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: list[value],
+    });
+  };
+
+  onSubmit = (e) => {
     e.preventDefault();
 
     const {
-      elementNumber,
-      elementLabel,
-      elementDescription,
-      elementFormat,
-      elementDuration,
       elementCategory,
-      elementSubCategory,
-      elementMarket,
       elementCogRating,
-      elementPhysRating,
+      elementDescription,
+      elementDuration,
+      elementFormat,
+      elementLabel,
       elementLink,
+      elementMarket,
+      elementNumber,
+      elementPhysRating,
+      elementSubCategory,
     } = this.state;
 
     axios
@@ -90,19 +58,17 @@ class CreateElement extends Component {
         elementPhysRating,
         elementSubCategory,
       })
-      .then(res => {
-        console.log(res.data);
+      .then((res) => {
         alert("Element Created!");
         // window.location = '/';
         this.setState({
-          ...initalElementState,
+          ...BLANK_ELEMENT,
         });
       })
-      .catch(err => console.log({ err }));
+      .catch((err) => console.log({ err }));
   };
 
   render() {
-    //* Note: Pretty much the same as `ManageElement.js` could probably be a single reusable component
     return (
       <ComponentWrapper title="Create a New Element">
         <Card bg="light">
@@ -111,6 +77,7 @@ class CreateElement extends Component {
               {...this.state}
               buttonText="Create Element"
               onChange={this.onChange}
+              onChangeDropdown={this.onChangeDropdown}
               onSubmit={this.onSubmit}
             />
           </Card.Body>

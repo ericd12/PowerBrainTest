@@ -31,23 +31,12 @@ class ManageTrack extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    // axios.get(`${API_URL}/tracks/${id}`).then(response => {
-    //   console.log({ response });
-    //   this.setState(oldState => {
-    //     const state = { ...oldState };
-    //     state.columns["column-2"].items = response.data.trackInfo;
-    //     return {
-    //       ...state,
-    //       ...response.data,
-    //     };
-    //   });
-    // });
 
     Promise.all([
-      axios.get(`${API_URL}/tracks/${id}`).then(response => {
+      axios.get(`${API_URL}/tracks/${id}`).then((response) => {
         return response.data;
       }),
-      axios.get(`${API_URL}/elements/`).then(response => {
+      axios.get(`${API_URL}/elements/`).then((response) => {
         return response.data;
       }),
     ]).then(([tracks, elements]) => {
@@ -58,14 +47,12 @@ class ManageTrack extends Component {
         };
       }, {});
 
-      console.log({ tracks, elements, elementsEnums });
-
-      this.setState(oldState => {
+      this.setState((oldState) => {
         const state = { ...oldState };
 
-        state.columns["column-1"].items = elements.filter(element => {
+        state.columns["column-1"].items = elements.filter((element) => {
           return !tracks.trackInfo.some(
-            trackEle => trackEle._id === element._id
+            (trackEle) => trackEle._id === element._id
           );
         });
 
@@ -75,31 +62,29 @@ class ManageTrack extends Component {
           ...tracks,
           elementsEnums,
           elements,
-          // trackInfo: response.data.trackInfo
         };
       });
     });
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     const { id } = this.props.match.params;
-    const { trackNumber, trackName, trackInfo, columns } = this.state;
+    const { trackNumber, trackName, columns } = this.state;
     const track = {
       trackNumber,
       trackName,
       trackInfo: columns["column-2"].items,
     };
 
-    axios.put(`${API_URL}/tracks/update/${id}`, track).then(res => {
+    axios.put(`${API_URL}/tracks/update/${id}`, track).then((res) => {
       const { history } = this.props;
-      console.log(res.data);
-      alert("updated");
+      alert("updated!");
       history.push("/tracks");
     });
   };
 
-  onChange = e => {
+  onChange = (e) => {
     const { name, value } = e.target;
     this.setState({
       [name]: value,
@@ -109,7 +94,7 @@ class ManageTrack extends Component {
   render() {
     const { columns, elementsEnums, elements, trackInfo, ...rest } = this.state;
     // const col1 = columns["column-1"];
-    const col2 = columns["column-2"];
+    // const col2 = columns["column-2"];
     return (
       <StyledContainer fluid title="Update Track">
         <TrackForm
@@ -130,12 +115,11 @@ class ManageTrack extends Component {
             } = destination;
 
             if (sourceId !== destinationId) {
-              this.setState(prev => {
+              this.setState((prev) => {
                 const sourceColumn = prev.columns[sourceId];
                 const destColumn = prev.columns[destinationId];
                 const sourceItems = [...sourceColumn.items];
                 const destItems = [...destColumn.items];
-
 
                 const [removed] = sourceItems.splice(source.index, 1);
 
@@ -156,7 +140,7 @@ class ManageTrack extends Component {
                 };
               });
             } else {
-              this.setState(prev => {
+              this.setState((prev) => {
                 const column = prev.columns[sourceId];
                 const copiedItems = [...column.items];
                 const [removed] = copiedItems.splice(source.index, 1);
@@ -177,7 +161,6 @@ class ManageTrack extends Component {
         >
           <Row>
             {Object.entries(columns).map(([id, column]) => {
-              console.log({ id, column });
               return <Column {...{ ...column, id, key: id }} />;
             })}
           </Row>
