@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const Element = require("../models/elementModel");
-const Market = require("../models/element-dropdown-models/marketModel");
-const Category = require("../models/element-dropdown-models/categoryModel");
-const Format = require("../models/element-dropdown-models/formatModel");
+const Element = require("../../models/elementModel");
+const Market = require("../../models/element-dropdown-models/marketModel");
+const Category = require("../../models/element-dropdown-models/categoryModel");
+const Format = require("../../models/element-dropdown-models/formatModel");
 const mongoose = require("mongoose");
 
 var populateQuery = [

@@ -1,42 +1,42 @@
 const router = require("express").Router();
-const Market = require("../models/element-dropdown-models/marketModel");
+const Format = require("../../models/element-dropdown-models/formatModel");
 
 router.route("/").get((req, res) => {
-  Market.find()
-    .then(markets => res.json(markets))
+  Format.find()
+    .then(formats => res.json(formats))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/add").post((req, res) => {
-  const { elementMarket } = req.body;
-  const newMarket = new Market({ elementMarket });
+  const { elementFormat } = req.body;
+  const newFormat = new Format({ elementFormat });
 
-  newMarket
+  newFormat
     .save()
-    .then(() => res.json(`New 'Market' added!`))
+    .then(() => res.json(`New 'Format' added!`))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/:id").get((req, res) => {
-  Market.findById(req.params.id)
+  Format.findById(req.params.id)
     .then(markets => res.json(markets))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/:id").delete((req, res) => {
-  Market.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Market deleted."))
+  Format.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Format deleted."))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/update/:id").post((req, res) => {
-  Market.findById(req.params.id)
+  Format.findById(req.params.id)
     .then(market => {
-      market.elementMarket = req.body.elementMarket;
+      market.elementFormat = req.body.elementFormat;
 
       market
         .save()
-        .then(() => res.json("Market updated!"))
+        .then(() => res.json("Format updated!"))
         .catch(err => res.status(400).json(`Error: ${err}`));
     })
     .catch(err => res.status(400).json(`Error: ${err}`));

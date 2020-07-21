@@ -1,42 +1,42 @@
 const router = require("express").Router();
-const Format = require("../models/element-dropdown-models/formatModel");
+const Category = require("../../models/element-dropdown-models/categoryModel");
 
 router.route("/").get((req, res) => {
-  Format.find()
-    .then(formats => res.json(formats))
+  Category.find()
+    .then(cats => res.json(cats))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/add").post((req, res) => {
-  const { elementFormat } = req.body;
-  const newFormat = new Format({ elementFormat });
+  const { elementCategory } = req.body;
+  const newCategory = new Category({ elementCategory });
 
-  newFormat
+  newCategory
     .save()
-    .then(() => res.json(`New 'Format' added!`))
+    .then(() => res.json(`New 'Category' added!`))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/:id").get((req, res) => {
-  Format.findById(req.params.id)
-    .then(markets => res.json(markets))
+  Category.findById(req.params.id)
+    .then(cats => res.json(cats))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/:id").delete((req, res) => {
-  Format.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Format deleted."))
+  Category.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Category deleted."))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/update/:id").post((req, res) => {
-  Format.findById(req.params.id)
-    .then(market => {
-      market.elementFormat = req.body.elementFormat;
+  Category.findById(req.params.id)
+    .then(category => {
+      category.elementCategory = req.body.elementCategory;
 
-      market
+      category
         .save()
-        .then(() => res.json("Format updated!"))
+        .then(() => res.json("Element updated!"))
         .catch(err => res.status(400).json(`Error: ${err}`));
     })
     .catch(err => res.status(400).json(`Error: ${err}`));

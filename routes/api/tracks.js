@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Track = require("../models/trackModel");
+const Track = require("../../models/trackModel");
 
 router.route("/").get((req, res) => {
   Track.find({})
