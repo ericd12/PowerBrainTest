@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Program = require("../../models/programModel");
+const Program = require("../models/programModel");
 
 router.route("/").get((req, res) => {
   Program.find()
