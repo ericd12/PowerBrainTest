@@ -33,12 +33,12 @@ const formatsRouter = require("./routes/formats");
 const catsRouter = require("./routes/category");
 const marketsRouter = require("./routes/markets");
 
-app.use("/api/elements", elementsRouter);
-app.use("/api/tracks", tracksRouter);
-app.use("/api/programs", programsRouter);
-app.use("/api/formats", formatsRouter);
-app.use("/api/categories", catsRouter);
-app.use("/api/markets", marketsRouter);
+app.use("/elements", elementsRouter);
+app.use("/tracks", tracksRouter);
+app.use("/programs", programsRouter);
+app.use("/formats", formatsRouter);
+app.use("/categories", catsRouter);
+app.use("/markets", marketsRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
