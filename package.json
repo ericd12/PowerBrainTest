@@ -4,7 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -18,6 +21,8 @@
   },
   "homepage": "https://github.com/ericd12/PowerBrain#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.2.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

@@ -1,42 +1,42 @@
 const router = require("express").Router();
-const Category = require("../models/element-dropdown-models/categoryModel");
+const Market = require("../../models/element-dropdown-models/marketModel");
 
 router.route("/").get((req, res) => {
-  Category.find()
-    .then(cats => res.json(cats))
+  Market.find()
+    .then(markets => res.json(markets))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/add").post((req, res) => {
-  const { elementCategory } = req.body;
-  const newCategory = new Category({ elementCategory });
+  const { elementMarket } = req.body;
+  const newMarket = new Market({ elementMarket });
 
-  newCategory
+  newMarket
     .save()
-    .then(() => res.json(`New 'Category' added!`))
+    .then(() => res.json(`New 'Market' added!`))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/:id").get((req, res) => {
-  Category.findById(req.params.id)
-    .then(cats => res.json(cats))
+  Market.findById(req.params.id)
+    .then(markets => res.json(markets))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/:id").delete((req, res) => {
-  Category.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Category deleted."))
+  Market.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Market deleted."))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route("/update/:id").post((req, res) => {
-  Category.findById(req.params.id)
-    .then(category => {
-      category.elementCategory = req.body.elementCategory;
+  Market.findById(req.params.id)
+    .then(market => {
+      market.elementMarket = req.body.elementMarket;
 
-      category
+      market
         .save()
-        .then(() => res.json("Element updated!"))
+        .then(() => res.json("Market updated!"))
         .catch(err => res.status(400).json(`Error: ${err}`));
     })
     .catch(err => res.status(400).json(`Error: ${err}`));
