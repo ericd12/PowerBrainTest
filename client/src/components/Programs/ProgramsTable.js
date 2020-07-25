@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import ProgramsTableRow from "./ProgramsTableRow";
 import { CoolTableHead } from "../../styles";
 import ComponentWrapper from "../ComponentWrapper";
-import { API_URL } from "../../constants";
+// import { API_URL } from "../../constants";
 
 class ProgramsTable extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class ProgramsTable extends Component {
 
   componentDidMount() {
     axios
-      .get(`${API_URL}/programs/`)
+      .get(`/programs/`)
       .then((response) => {
         this.setState({ programInfo: response.data });
       })
@@ -24,7 +24,7 @@ class ProgramsTable extends Component {
   }
 
   deleteProgram = (id) => {
-    axios.delete(`${API_URL}/programs/${id}`).then((response) => {
+    axios.delete(`/programs/${id}`).then((response) => {
       alert("deleted");
       this.setState((prev) => {
         return {

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import CategoryList from "./CategoryList";
 import ComponentWrapper from "../../../ComponentWrapper";
-import { API_URL } from "../../../../constants";
+// import { API_URL } from "../../../../constants";
 
 class CreateCategory extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class CreateCategory extends Component {
     const newItem = { elementCategory };
 
     axios
-      .post(`${API_URL}/categories/add`, newItem)
+      .post('/categories/add', newItem)
       .then(res => {
         alert("New Category Added!");
         this.setState({

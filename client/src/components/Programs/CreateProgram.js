@@ -3,7 +3,7 @@ import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
 // import { Button, Col } from "react-bootstrap";
 import Column from "./ProgramBoard/Column";
-import { API_URL } from "../../constants";
+// import { API_URL } from "../../constants";
 import ProgramForm from "./ProgramForm";
 import { StyledContainer } from "../../styles";
 
@@ -29,7 +29,7 @@ export default class CreateProgram extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${API_URL}/tracks/`).then(response => {
+    axios.get(`/tracks/`).then(response => {
       this.setState(prev => {
         const copy = { ...prev };
         const { columns } = copy;
@@ -56,7 +56,7 @@ export default class CreateProgram extends Component {
     e.preventDefault();
     const { programNumber, programName, columns } = this.state;
     axios
-      .post(`${API_URL}/programs/add`, {
+      .post(`/programs/add`, {
         programNumber,
         programName,
         programInfo: columns["column-2"].items,

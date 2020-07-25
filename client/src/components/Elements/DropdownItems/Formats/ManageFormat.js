@@ -15,7 +15,7 @@ class ManageFormat extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     axios
-      .get(`${API_URL}/formats/${id}`)
+      .get(`/formats/${id}`)
       .then(response => {
         const { elementFormat } = response.data;
         this.setState({
@@ -32,7 +32,7 @@ class ManageFormat extends Component {
     const { elementFormat } = this.state;
     const { id } = this.props.match.params;
     axios
-      .post(`${API_URL}/formats/update/${id}`, {
+      .post(`/formats/update/${id}`, {
         elementFormat,
       })
       .then(res => {

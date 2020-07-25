@@ -7,7 +7,7 @@ import {
   StyledTbody,
   StyledThead,
 } from "../../../../styles";
-import { API_URL } from "../../../../constants";
+// import { API_URL } from "../../../../constants";
 
 class MarketList extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class MarketList extends Component {
 
   fetchMarkets = () =>
     axios
-      .get(`${API_URL}/markets/`)
+      .get(`/markets/`)
       .then(({ data: markets }) => {
         this.setState({ markets });
       })
@@ -37,7 +37,7 @@ class MarketList extends Component {
       });
 
   deleteMarket = id => {
-    axios.delete(`${API_URL}/markets/${id}`).then(response => {
+    axios.delete(`/markets/${id}`).then(response => {
       alert("deleted!");
       this.setState(prev => {
         return {

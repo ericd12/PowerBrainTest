@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import ComponentWrapper from "../../../ComponentWrapper";
-import { API_URL } from "../../../../constants";
+// import { API_URL } from "../../../../constants";
 
 class ManageCategory extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class ManageCategory extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     axios
-      .get(`${API_URL}/categories/${id}`)
+      .get(`/categories/${id}`)
       .then(response => {
         const { elementCategory } = response.data;
         this.setState({
@@ -32,7 +32,7 @@ class ManageCategory extends Component {
     const { elementCategory } = this.state;
     const { id } = this.props.match.params;
     axios
-      .post(`${API_URL}/categories/update/${id}`, {
+      .post(`/categories/update/${id}`, {
         elementCategory,
       })
       .then(res => {

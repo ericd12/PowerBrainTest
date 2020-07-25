@@ -3,7 +3,7 @@ import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import FormatList from "./FormatList";
 import ComponentWrapper from "../../../ComponentWrapper";
-import { API_URL } from "../../../../constants";
+// import { API_URL } from "../../../../constants";
 
 class CreateFormat extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class CreateFormat extends Component {
     const newItem = { elementFormat };
 
     axios
-      .post(`${API_URL}/formats/add`, newItem)
+      .post(`/formats/add`, newItem)
       .then(res => {
         alert("New Format Added!");
         this.setState({

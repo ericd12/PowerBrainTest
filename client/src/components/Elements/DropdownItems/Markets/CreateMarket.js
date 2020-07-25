@@ -3,7 +3,7 @@ import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import MarketList from "./MarketList";
 import ComponentWrapper from "../../../ComponentWrapper";
-import { API_URL } from "../../../../constants";
+// import { API_URL } from "../../../../constants";
 
 class CreateMarket extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class CreateMarket extends Component {
     const newItem = { elementMarket };
 
     axios
-      .post(`${API_URL}/markets/add`, newItem)
+      .post(`/markets/add`, newItem)
       .then(res => {
         alert("New Market Added!");
         this.setState({

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import ElementForm from "./ElementForm";
 import ComponentWrapper from "../ComponentWrapper";
-import { API_URL, BLANK_ELEMENT } from "../../constants";
+import {BLANK_ELEMENT } from "../../constants";
 
 class ManageElement extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class ManageElement extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     axios
-      .get(`${API_URL}/elements/${id}`)
+      .get(`/elements/${id}`)
       .then((response) => {
         this.setState({
           ...response.data,
@@ -58,7 +58,7 @@ class ManageElement extends Component {
     } = this.state;
 
     axios
-      .put(`${API_URL}/elements/update/${id}`, {
+      .put(`/elements/update/${id}`, {
         elementCategory,
         elementCogRating,
         elementDescription,

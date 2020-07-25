@@ -5,7 +5,7 @@ import { Row } from "react-bootstrap";
 import Column from "./TracksBoard/Column";
 import TrackForm from "./TrackForm";
 import { StyledContainer } from "../../styles";
-import { API_URL } from "../../constants";
+// import { API_URL } from "../../constants";
 
 class ManageTrack extends Component {
   constructor(props) {
@@ -33,10 +33,10 @@ class ManageTrack extends Component {
     const { id } = this.props.match.params;
 
     Promise.all([
-      axios.get(`${API_URL}/tracks/${id}`).then((response) => {
+      axios.get(`/tracks/${id}`).then((response) => {
         return response.data;
       }),
-      axios.get(`${API_URL}/elements/`).then((response) => {
+      axios.get(`/elements/`).then((response) => {
         return response.data;
       }),
     ]).then(([tracks, elements]) => {
@@ -77,7 +77,7 @@ class ManageTrack extends Component {
       trackInfo: columns["column-2"].items,
     };
 
-    axios.put(`${API_URL}/tracks/update/${id}`, track).then((res) => {
+    axios.put(`/tracks/update/${id}`, track).then((res) => {
       const { history } = this.props;
       alert("updated!");
       history.push("/tracks");
