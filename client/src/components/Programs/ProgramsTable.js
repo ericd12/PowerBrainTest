@@ -25,7 +25,7 @@ class ProgramsTable extends Component {
 
   deleteProgram = (id) => {
     axios.delete(`/programs/${id}`).then((response) => {
-      alert("deleted");
+      alert("Program Deleted!");
       this.setState((prev) => {
         return {
           programInfo: prev.programInfo.filter((el) => el._id !== id),

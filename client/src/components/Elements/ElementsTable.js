@@ -29,7 +29,7 @@ class ElementsTable extends Component {
 
   deleteElement = id => {
     axios.delete(`/elements/${id}`).then(() => {
-      alert("deleted");
+      alert("Element Deleted!");
       this.setState(({ elements }) => {
         return {
           elements: elements.filter(el => el._id !== id),

@@ -38,7 +38,7 @@ class FormatList extends Component {
 
   deleteFormat = id => {
     axios.delete(`/formats/${id}`).then(response => {
-      alert("deleted!");
+      alert("Deleted!");
       this.setState(({ formats }) => {
         return {
           formats: formats.filter(el => el._id !== id),

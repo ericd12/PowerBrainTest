@@ -79,7 +79,7 @@ class ManageProgram extends Component {
 
     axios.put(`/programs/update/${id}`, program).then((res) => {
       const { history } = this.props;
-      alert("updated!");
+      alert("Program Updated!");
       history.push("/programs");
     });
   };
@@ -92,9 +92,9 @@ class ManageProgram extends Component {
   };
 
   render() {
-    const { columns, tracksEnums, tracks, programInfo, ...rest } = this.state;
-    const col1 = columns["column-1"];
-    const col2 = columns["column-2"];
+    const { columns} = this.state;
+    // const col1 = columns["column-1"];
+    // const col2 = columns["column-2"];
     return (
       <StyledContainer fluid title="Update Program">
         <ProgramForm
@@ -108,10 +108,9 @@ class ManageProgram extends Component {
             if (!destination) {
               return;
             }
-            const { droppableId: sourceId, index: sourceIndex } = source;
+            const { droppableId: sourceId} = source;
             const {
-              droppableId: destinationId,
-              index: destinationIndex,
+              droppableId: destinationId
             } = destination;
 
             if (sourceId !== destinationId) {

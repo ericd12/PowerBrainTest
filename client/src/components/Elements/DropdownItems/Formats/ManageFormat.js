@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import ComponentWrapper from "../../../ComponentWrapper";
-import { API_URL } from "../../../../constants";
+// import { API_URL } from "../../../../constants";
 
 class ManageFormat extends Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class ManageFormat extends Component {
         elementFormat,
       })
       .then(res => {
-        alert("updated!");
+        alert("Updated!");
         const { history } = this.props;
         history.push("/formats");
       });

@@ -36,7 +36,7 @@ class ManageMarket extends Component {
         elementMarket,
       })
       .then(res => {
-        alert("updated");
+        alert("Market Updated!");
         const { history } = this.props;
         history.push("/markets");
       });

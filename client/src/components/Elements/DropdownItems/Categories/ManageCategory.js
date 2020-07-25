@@ -36,7 +36,7 @@ class ManageCategory extends Component {
         elementCategory,
       })
       .then(res => {
-        alert("updated!");
+        alert("Category Updated!");
         const { history } = this.props;
         history.push("/categories");
       });

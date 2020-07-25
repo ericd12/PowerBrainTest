@@ -72,7 +72,7 @@ class ManageElement extends Component {
         elementSubCategory,
       })
       .then((res) => {
-        alert("updated!");
+        alert("Element Updated!");
         const { history } = this.props;
         history.push("/elements");
       })

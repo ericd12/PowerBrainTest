@@ -79,7 +79,7 @@ class ManageTrack extends Component {
 
     axios.put(`/tracks/update/${id}`, track).then((res) => {
       const { history } = this.props;
-      alert("updated!");
+      alert("Track Updated!");
       history.push("/tracks");
     });
   };
@@ -92,7 +92,7 @@ class ManageTrack extends Component {
   };
 
   render() {
-    const { columns, elementsEnums, elements, trackInfo, ...rest } = this.state;
+    const { columns } = this.state;
     // const col1 = columns["column-1"];
     // const col2 = columns["column-2"];
     return (
@@ -108,10 +108,9 @@ class ManageTrack extends Component {
             if (!destination) {
               return;
             }
-            const { droppableId: sourceId, index: sourceIndex } = source;
+            const { droppableId: sourceId } = source;
             const {
               droppableId: destinationId,
-              index: destinationIndex,
             } = destination;
 
             if (sourceId !== destinationId) {

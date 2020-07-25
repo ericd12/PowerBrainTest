@@ -34,7 +34,7 @@ class TracksTable extends Component {
 
   deleteTrack = id => {
     axios.delete(`/tracks/${id}`).then(() => {
-      alert("deleted");
+      alert("Track Deleted!");
       this.setState(({ tracks }) => {
         return {
           tracks: tracks.filter(el => el._id !== id),

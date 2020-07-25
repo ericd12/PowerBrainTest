@@ -38,7 +38,7 @@ class CategoryList extends Component {
 
   deleteCategory = id => {
     axios.delete(`/categories/${id}`).then(() => {
-      alert("deleted");
+      alert("Category Deleted!");
       this.setState(({ categories }) => {
         return {
           categories: categories.filter(el => el._id !== id),
