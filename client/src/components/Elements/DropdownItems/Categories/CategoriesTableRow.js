@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { StyledTableRow } from "../../../../styles";
+import {API_URL} from "../../../../constants";
 
 const CategoriesTableRow = ({ elementCategory, _id, deleteCategory }) => (
   <StyledTableRow>
     <td>{elementCategory}</td>
     <td>
-      <Link to={`/categories/edit/${_id}`}>
+      <Link to={`${API_URL}/api/categories/edit/${_id}`}>
         <Button size="sm" variant="outline-warning">
           edit
         </Button>

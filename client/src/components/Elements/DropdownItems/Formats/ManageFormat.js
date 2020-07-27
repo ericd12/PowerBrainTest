@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import ComponentWrapper from "../../../ComponentWrapper";
-// import { API_URL } from "../../../../constants";
+import { API_URL } from "../../../../constants";
 
 class ManageFormat extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class ManageFormat extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     axios
-      .get(`/formats/${id}`)
+      .get(`${API_URL}/formats/${id}`)
       .then(response => {
         const { elementFormat } = response.data;
         this.setState({
@@ -32,7 +32,7 @@ class ManageFormat extends Component {
     const { elementFormat } = this.state;
     const { id } = this.props.match.params;
     axios
-      .post(`/formats/update/${id}`, {
+      .post(`${API_URL}/api/formats/update/${id}`, {
         elementFormat,
       })
       .then(res => {

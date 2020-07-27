@@ -3,7 +3,7 @@ import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./ProgramBoard/Column";
 import ProgramForm from "./ProgramForm";
-// import { API_URL } from "../../constants";
+import { API_URL } from "../../constants";
 import { StyledContainer } from "../../styles";
 
 class ManageProgram extends Component {
@@ -32,10 +32,10 @@ class ManageProgram extends Component {
     const { id } = this.props.match.params;
 
     Promise.all([
-      axios.get(`/programs/${id}`).then((response) => {
+      axios.get(`${API_URL}/programs/${id}`).then((response) => {
         return response.data;
       }),
-      axios.get(`/tracks/`).then((response) => {
+      axios.get(`${API_URL}/tracks/`).then((response) => {
         return response.data;
       }),
     ]).then(([programs, tracks]) => {
@@ -77,7 +77,7 @@ class ManageProgram extends Component {
       programInfo: columns["column-2"].items,
     };
 
-    axios.put(`/programs/update/${id}`, program).then((res) => {
+    axios.put(`${API_URL}/programs/update/${id}`, program).then((res) => {
       const { history } = this.props;
       alert("Program Updated!");
       history.push("/programs");

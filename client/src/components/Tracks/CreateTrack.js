@@ -5,7 +5,7 @@ import { Row } from "react-bootstrap";
 import Column from "./TracksBoard/Column";
 import TrackForm from "./TrackForm";
 import { StyledContainer } from "../../styles";
-// import { API_URL } from "../../constants";
+import { API_URL } from "../../constants";
 
 class CreateTrack extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class CreateTrack extends Component {
   }
 
   componentDidMount() {
-    axios.get(`/elements/`).then(response => {
+    axios.get(`${API_URL}/elements/`).then(response => {
       this.setState(prev => {
         const copy = { ...prev };
         const { columns } = copy;
@@ -56,7 +56,7 @@ class CreateTrack extends Component {
     e.preventDefault();
     const { trackNumber, trackName, columns } = this.state;
     axios
-      .post(`/tracks/add`, {
+      .post(`${API_URL}/tracks/add`, {
         trackNumber,
         trackName,
         trackInfo: columns["column-2"].items,

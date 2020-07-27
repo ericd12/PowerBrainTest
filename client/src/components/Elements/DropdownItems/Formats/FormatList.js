@@ -7,7 +7,7 @@ import {
   StyledTbody,
   StyledThead,
 } from "../../../../styles";
-// import { API_URL } from "../../../../constants";
+import { API_URL } from "../../../../constants";
 
 class FormatList extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class FormatList extends Component {
 
   fetchFormats = () =>
     axios
-      .get(`/formats/`)
+      .get(`${API_URL}/formats/`)
       .then(({ data: formats }) => {
         this.setState({ formats });
       })
@@ -37,7 +37,7 @@ class FormatList extends Component {
       });
 
   deleteFormat = id => {
-    axios.delete(`/formats/${id}`).then(response => {
+    axios.delete(`${API_URL}/formats/${id}`).then(response => {
       alert("Deleted!");
       this.setState(({ formats }) => {
         return {

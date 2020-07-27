@@ -3,7 +3,7 @@ import axios from "axios";
 import { Card } from "react-bootstrap";
 import ElementForm from "./ElementForm";
 import ComponentWrapper from "../ComponentWrapper";
-import {BLANK_ELEMENT } from "../../constants";
+import {API_URL, BLANK_ELEMENT } from "../../constants";
 
 class CreateElement extends Component {
   constructor(props) {
@@ -45,7 +45,7 @@ class CreateElement extends Component {
     } = this.state;
 
     axios
-      .post(`/elements/add`, {
+      .post(`${API_URL}/elements/add`, {
         elementCategory,
         elementCogRating,
         elementDescription,

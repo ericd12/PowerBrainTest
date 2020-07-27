@@ -7,7 +7,7 @@ import {
   StyledTbody,
   StyledThead,
 } from "../../../../styles";
-// import { API_URL } from "../../../../constants";
+import { API_URL } from "../../../../constants";
 
 class CategoryList extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class CategoryList extends Component {
 
   fetchCategories = () =>
     axios
-      .get('/categories')
+      .get(`${API_URL}/api/categories`)
       .then(({ data: categories }) => {
         this.setState({ categories });
       })
@@ -37,7 +37,7 @@ class CategoryList extends Component {
       });
 
   deleteCategory = id => {
-    axios.delete(`/categories/${id}`).then(() => {
+    axios.delete(`${API_URL}/api/categories/${id}`).then(() => {
       alert("Category Deleted!");
       this.setState(({ categories }) => {
         return {

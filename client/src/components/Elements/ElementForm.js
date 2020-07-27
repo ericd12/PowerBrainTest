@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Form, Col, Button } from "react-bootstrap";
 import axios from "axios";
-// import { API_URL } from "../../constants";
+import { API_URL } from "../../constants";
 import { createEnum } from "../../helpers";
 
 const ElementForm = ({
@@ -31,9 +31,9 @@ const ElementForm = ({
   useEffect(() => {
     const componentDidMount = () => {
       Promise.all([
-        axios.get(`/formats/`),
-        axios.get(`/categories/`),
-        axios.get(`/markets/`),
+        axios.get(`${API_URL}/formats/`),
+        axios.get(`${API_URL}/categories/`),
+        axios.get(`${API_URL}/markets/`),
       ]).then(
         ([{ data: formats }, { data: categories }, { data: markets }]) => {
           setDropdowns({

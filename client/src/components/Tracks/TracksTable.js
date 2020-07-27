@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import TracksTableRow from "./TracksTableRow";
 import { CoolTableHead, StyledContainer } from "../../styles";
 // import ComponentWrapper from "../ComponentWrapper";
-// import { API_URL } from "../../constants";
+import { API_URL } from "../../constants";
 
 class TracksTable extends Component {
   constructor(props) {
@@ -14,8 +14,8 @@ class TracksTable extends Component {
 
   componentDidMount() {
     Promise.all([
-      axios.get(`/elements/`),
-      axios.get(`/tracks/`),
+      axios.get(`${API_URL}/elements/`),
+      axios.get(`${API_URL}/tracks/`),
     ]).then(([e, t]) => {
       const { data: elements } = e;
       const { data: tracks } = t;
@@ -33,7 +33,7 @@ class TracksTable extends Component {
   }
 
   deleteTrack = id => {
-    axios.delete(`/tracks/${id}`).then(() => {
+    axios.delete(`${API_URL}/tracks/${id}`).then(() => {
       alert("Track Deleted!");
       this.setState(({ tracks }) => {
         return {

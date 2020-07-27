@@ -3,7 +3,7 @@ import axios from "axios";
 import { Table } from "react-bootstrap";
 import ElementsTableRow from "./ElementsTableRow";
 import { CoolTableHead, StyledContainer } from "../../styles";
-// import { API_URL } from "../../constants";
+import { API_URL } from "../../constants";
 
 class ElementsTable extends Component {
   constructor(props) {
@@ -12,11 +12,14 @@ class ElementsTable extends Component {
   }
 
   componentDidMount() {
+
    Promise.all([
-      axios.get(`/elements/`),
-      axios.get(`/categories/`),
-      axios.get(`/formats/`),
+      axios.get(`${API_URL}/elements/`),
+      axios.get(`${API_URL}/categories/`),
+      axios.get(`${API_URL}/formats/`),
    ]).then(([{ data: elements }, { data: categories }, {data: formats}]) => {
+    console.log(API_URL)
+
      this.setState({
        elements,
        categories,
@@ -28,7 +31,7 @@ class ElementsTable extends Component {
   }
 
   deleteElement = id => {
-    axios.delete(`/elements/${id}`).then(() => {
+    axios.delete(`${API_URL}/elements/${id}`).then(() => {
       alert("Element Deleted!");
       this.setState(({ elements }) => {
         return {
